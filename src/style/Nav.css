@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap');
+
+Link img, Link h1 {
+    border: none;
+}
+
+Link, a {
+    text-decoration: none;
+}
+
+div#side ul NavLink.sideLink {
+    text-decoration: none;
+    color: white;
+}
+
+div#side ul NavLink.sideLink.active {
+    text-decoration: underline;
+}
+
+input#search {
+    font-size: 20px;
+    border-radius: 15px;
+    display: inline;
+    position: absolute;
+    right: 130px;
+    text-indent: 5px;
+}
+
+img {
+    width: 38px;
+    height: 40px;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+#title {
+    display: inline;
+    margin-left: 10px;
+    font-size: 50px;
+    color: white;
+}
+
+div#side {
+    margin-top: 60px;
+    width: 13%;
+    border-right: 1px solid black;
+    height: 100%;
+    position: fixed;
+    left: 0px;
+    top: 0;
+    bottom: 0px;
+    color: white;
+    background-color: #555555;
+}
+
+div#side ul {
+    list-style-type: none;
+    padding-left: 0;
+    font-family: 'Merriweather';
+    text-indent: none;
+    text-align: center;
+}
+
+button#searchButton {
+    height: 35px;
+    width: 70px;
+    border-radius: 15px;
+    position: absolute;
+    right: 55px;
+    border-left: none;
+    border-right: none;
+}
+
+div#top {
+    border-bottom: 1px solid black;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    background-color: #555555;
+    font-family: 'Merriweather';
+}
+
+button#searchButton, input#search, button#toggle {
+    top: 20px;
+    bottom: 10px;
+}
+
+button#searchButton:hover {
+    background-color: #666666;
+}
+
+button#toggle {
+    position: absolute;
+    right: 15px;
+    height: 30px;
+}
