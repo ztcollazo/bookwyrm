@@ -7,3 +7,20 @@ mongoose.connect(
         useUnifiedTopology: true,
     }
 );
+console.log("Hello World")
+var book = new mongoose.Schema(
+    {
+        bookTitle: {
+            type: String,
+            required: true
+        },
+        bookAuthor: {
+            type: String,
+            required: true
+        },
+        bookSummary: {
+            type: String,
+            required: true
+        },
+    }
+);

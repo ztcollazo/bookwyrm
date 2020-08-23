@@ -11,23 +11,6 @@ class AddBook extends React.Component {
 
         this.summary = document.getElementById("summary");
 
-        this.book = new mongoose.Schema(
-            {
-                bookTitle: {
-                    type: String,
-                    required: true
-                },
-                bookAuthor: {
-                    type: String,
-                    required: true
-                },
-                bookSummary: {
-                    type: String,
-                    required: true
-                },
-            }
-        );
-
         this.NewBook = mongoose.Model(this.title.value, this.book);
     }
 
