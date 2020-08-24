@@ -1,14 +1,17 @@
 import mongoose from "mongoose";
 
-mongoose.connect(
-    process.env.BOOKS_URI,
-    { 
-        useNewUrlParser: true, 
-        useUnifiedTopology: true,
-    }
+export default (
+
+    mongoose.connect(
+        process.env.BOOKS_URI,
+        { 
+            useNewUrlParser: true, 
+            useUnifiedTopology: true,
+        }
+    )
 );
-console.log("Hello World")
-var book = new mongoose.Schema(
+
+export var book = new mongoose.Schema(
     {
         bookTitle: {
             type: String,
@@ -21,6 +24,8 @@ var book = new mongoose.Schema(
         bookSummary: {
             type: String,
             required: true
-        },
+        }
     }
 );
+
+export var NewBook = mongoose.Model();

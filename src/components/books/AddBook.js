@@ -1,5 +1,5 @@
 import React from "react";
-import mongoose from "mongoose";
+import * as server from "../../server";
 
 class AddBook extends React.Component {
     constructor(props) {
@@ -10,20 +10,20 @@ class AddBook extends React.Component {
         this.author = document.getElementById("author");
 
         this.summary = document.getElementById("summary");
-
-        this.NewBook = mongoose.Model(this.title.value, this.book);
     }
 
     setInDB() {
-        var Book = new this.NewBook(
+        var Book = new server.NewBook(
+            this.title.value,
+            server.book,
             {
-                bookTitle: AddBook.title.value,
-                bookAuthor: AddBook.author.value,
-                bookSummary: AddBook.summary.value
+                bookTitle: this.title.value,
+                bookAuthor: this.author.value,
+                bookSummary: this.summary.value
             }
         );
         
-        this.NewBook.create(Book);
+        server.NewBook.create(Book);
     }
 
     render() {
