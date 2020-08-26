@@ -1,5 +1,4 @@
 import React from "react";
-import * as server from "../../server";
 
 class AddBook extends React.Component {
     constructor(props) {
@@ -13,17 +12,7 @@ class AddBook extends React.Component {
     }
 
     setInDB() {
-        var Book = new server.NewBook(
-            this.title.value,
-            server.book,
-            {
-                bookTitle: this.title.value,
-                bookAuthor: this.author.value,
-                bookSummary: this.summary.value
-            }
-        );
         
-        server.NewBook.create(Book);
     }
 
     render() {
