@@ -1,105 +1,75 @@
 import React from "react";
-import AddBook from "./books/AddBook";
 import "../style/Nav.css";
-//import App from "../App";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Link, NavLink } from "react-router-dom";
 
-class Nav extends React.Component {
+const Nav = () =>  {
+    //this.searchInput = document.querySelector("form#search");
 
-    constructor(props) {
-        super(props);
+    //this.searchResults = [];
 
-        this.searchInput = document.querySelector("form#search");
+    const pages = [
+        {
+            link: "/",
+            title: "Home"
+        },
+        {
+            link: "/browse",
+            title: "Browse",
+        },
+        {
+            link: "/top-books",
+            title: "Top Books"
+        },
+        {
+            link: "/forum",
+            title: "Forum"
+        },
+        {
+            link: "/review",
+            title: "Review"
+        }
+    ];
 
-        this.searchResults = [];
+    const navLinks = pages.map((page) => {
+            return (
+                <li>
+                    <NavLink activeClassName="active" className="sideLink" to={page.link}>{ page.title }</NavLink>
+                </li>
+            );
+        }
+    );
 
-        this.pages = [
-            {
-                link: "/",
-                title: "Home"
-            },
-            {
-                link: "/browse",
-                title: "Browse",
-            },
-            {
-                link: "/top-books",
-                title: "Top Books"
-            },
-            {
-                link: "/forum",
-                title: "Forum"
-            },
-            {
-                link: "/review",
-                title: "Review"
-            }
-        ];
+    function handleSearch() {
 
-        this.navLinks = this.pages.map((page) => {
-                return (
-                    <li>
-                        <NavLink activeClassName="active" className="sideLink" to={page.link}>{ page.title }</NavLink>
-                    </li>
-                );
-            }
-        );
     }
 
-    handleSearch() {
-
-        AddBook.NewBook.find(
-            {
-                title: {
-                    $regex: this.searchInput,
-                    $options: 'i'
-                }
-            } || {
-                author: {
-                    $regex: '.*' + this.searchInput + '.*',
-                    $options: 'i'
-                }
-            }, 
-            (err, docs) => {
-                docs.map( function (x) {
-                    this.searchResults.push(docs[x]);
-                    return 0;
-                });
-            }
-        );
-    }
-
-    /*handleToggle() {
-        var theme = App.public.theme.opposite;
-        this.props.onClick(theme);
-    }*/
-
-    render() {
-        return (
-            <header>         
-                <nav>
-                    <div id="top" >
-                        <Link to="/">
-                            <img src="/logo.png" alt="The BookWyrm Logo" />
-                            <h1 id="title" >BookWyrm</h1>
-                        </Link>
-                        <div id="holder">
+    const { loginWithRedirect } = useAuth0;
+        
+    return (
+        <header>         
+            <nav>
+                <div id="top" >
+                    <Link to="/">
+                        <img src="/logo.png" alt="The BookWyrm Logo" />
+                        <h1 id="title" >BookWyrm</h1>
+                    </Link>
+                    <div id="holder">
                         <form action="/results" method="get">
                             <input placeholder="Search" type="search" id="search" />
-                            <button className="fas fa-search fa-1x" type="submit" id="searchButton" onSubmit="this.handleSearch" />
+                            <button className="fas fa-search fa-1x" type="submit" id="searchButton" onSubmit={handleSearch} />
                         </form>
-                            <button onClick={this.handleToggle} id="toggle" className="fas fa-adjust fa-1x" />
-                        </div>
+                        <button id="login" onclick={ () => loginWithRedirect } >Login</button>
                     </div>
-                </nav>
-                <div id="side" >
-                    <ul>
-                        {this.navLinks}
-                    </ul>
                 </div>
-            </header>   
-        );
-    } 
+            </nav>
+            <div id="side" >
+                <ul>
+                    {navLinks}
+                </ul>
+            </div>
+        </header>   
+    );
 }
 
 export default Nav;
