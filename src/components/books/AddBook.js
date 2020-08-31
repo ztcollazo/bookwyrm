@@ -1,4 +1,5 @@
 import React from "react";
+import { query as q, Client } from "faunadb";
 
 class AddBook extends React.Component {
     constructor(props) {
@@ -12,7 +13,23 @@ class AddBook extends React.Component {
     }
 
     setInDB() {
-        
+        const books = new Client({ secret: process.env.FAUNA_KEY_BOOKS });
+
+        books.query(
+            q.Create(
+                q.Ref(
+                    q.Collection('main'),
+                    this.title + "-by-" + this.author
+                ),
+                { 
+                    data: { 
+                        title: this.title, 
+                        author: this.author, 
+                        summary: this.summary 
+                    } 
+                }
+            )
+        );
     }
 
     render() {
