@@ -1,5 +1,6 @@
 import React from "react";
 import { query as q, Client } from "faunadb";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 class AddBook extends React.Component {
     constructor(props) {
@@ -47,4 +48,4 @@ class AddBook extends React.Component {
     }
 };
 
-export default AddBook;
+export default withAuthenticationRequired(AddBook);
