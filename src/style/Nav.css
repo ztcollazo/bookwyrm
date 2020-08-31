@@ -17,6 +17,16 @@ div#side ul NavLink.sideLink.active {
     text-decoration: underline;
 }
 
+button#login {
+    height: 35px;
+    position: absolute;
+    right: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+    background-color: black;
+    color: white;
+}
+
 input#search {
     font-size: 20px;
     border-radius: 15px;
@@ -24,6 +34,7 @@ input#search {
     position: absolute;
     right: 130px;
     text-indent: 5px;
+    height: 35px;
 }
 
 img {
