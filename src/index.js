@@ -8,44 +8,47 @@ import AddBook from "./components/books/AddBook"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NoResults from "./components/NoResults";
 import Results from "./components/Results";
+import Auth0ProviderWithHistory from './components/Auth0ProviderWithHistory';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <App>
-        <Switch>
-          <Route exact strict path="/">
-            <HomeContent />
-          </Route>
-          <Route path="/add-book">
-            <AddBook />
-          </Route>
-          <Route path="/top-books">
+      <Router>
+        <Auth0ProviderWithHistory>
+          <App>
+            <Switch>
+              <Route exact strict path="/">
+                <HomeContent />
+              </Route>
+              <Route path="/add-book">
+                <AddBook />
+              </Route>
+              <Route path="/top-books">
 
-          </Route>
-          <Route path="/forum">
+              </Route>
+              <Route path="/forum">
 
-          </Route>
-          <Route path="/review">
+              </Route>
+              <Route path="/review">
 
-          </Route>
-          <Route path="/browse">
+              </Route>
+              <Route path="/browse">
 
-          </Route>
-          <Route path="/results">
-            <Results />
-          </Route>
-          <Route>
-            <NoResults />
-          </Route>
-        </Switch>
-      </App>
-    </Router>
+              </Route>
+              <Route path="/results">
+                <Results />
+              </Route>
+              <Route>
+                <NoResults />
+              </Route>
+            </Switch>
+          </App>
+        </Auth0ProviderWithHistory>
+      </Router>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();
