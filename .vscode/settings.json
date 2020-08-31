@@ -1,4 +1,5 @@
 {
     "editor.cursorSmoothCaretAnimation": true,
-    "editor.cursorStyle": "line"
+    "editor.cursorStyle": "line",
+    "faunadb.adminSecretKey": "fnAD0X-8miACE12ljeSqi6EMDu5Be_CEbWrtpHjm",
 }
