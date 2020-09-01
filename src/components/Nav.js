@@ -44,7 +44,7 @@ class Nav extends React.Component {
     }
 
     handleSearch() {
-
+        
     }
 
     render() {
