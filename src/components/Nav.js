@@ -1,7 +1,8 @@
 import React from "react";
 import "../style/Nav.css";
-import { isAuthenticated, withAuth0 } from "@auth0/auth0-react";
+import { withAuth0 } from "@auth0/auth0-react";
 import { Link, NavLink } from "react-router-dom";
+import LoginButton from "./LoginButton";
 
 class Nav extends React.Component {
     constructor(props, pages) {
@@ -46,17 +47,7 @@ class Nav extends React.Component {
 
     }
 
-    LoginButton() {
-        const { loginWithPopup } = this.props.auth0;
-
-        return !isAuthenticated && (
-            <button id="login" onclick={ loginWithPopup }>Log In</button>
-        )
-    }
-
     render() {
-        const Self = this;
-
         return (
             <header>         
                 <nav>
@@ -70,7 +61,7 @@ class Nav extends React.Component {
                                 <input placeholder="Search" type="search" id="search" />
                                 <button className="fas fa-search fa-1x" type="submit" id="searchButton" onSubmit={ this.handleSearch } />
                             </form>
-                            <Self.LoginButton />
+                            <LoginButton />
                         </div>
                     </div>
                 </nav>
