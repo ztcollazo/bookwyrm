@@ -48,4 +48,4 @@ class AddBook extends React.Component {
     }
 };
 
-export default withAuthenticationRequired(AddBook);
+export default AddBook;
