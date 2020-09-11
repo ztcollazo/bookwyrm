@@ -1,6 +1,5 @@
 import React from "react";
 import "../style/Nav.css";
-import { withAuth0 } from "@auth0/auth0-react";
 import { Link, NavLink } from "react-router-dom";
 
 class Nav extends React.Component {
@@ -73,4 +72,4 @@ class Nav extends React.Component {
     }
 }
 
-export default withAuth0(Nav);
+export default Nav;
