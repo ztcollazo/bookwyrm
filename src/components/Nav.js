@@ -2,7 +2,6 @@ import React from "react";
 import "../style/Nav.css";
 import { withAuth0 } from "@auth0/auth0-react";
 import { Link, NavLink } from "react-router-dom";
-import LoginButton from "./LoginButton";
 
 class Nav extends React.Component {
     constructor(props, pages) {
@@ -61,7 +60,6 @@ class Nav extends React.Component {
                                 <input placeholder="Search" type="search" id="search" />
                                 <button className="fas fa-search fa-1x" type="submit" id="searchButton" onSubmit={ this.handleSearch } />
                             </form>
-                            <LoginButton />
                         </div>
                     </div>
                 </nav>

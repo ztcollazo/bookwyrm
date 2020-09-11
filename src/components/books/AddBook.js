@@ -1,6 +1,6 @@
 import React from "react";
 import { query as q, Client } from "faunadb";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
+import "dotenv";
 
 class AddBook extends React.Component {
     constructor(props) {

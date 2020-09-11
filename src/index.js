@@ -8,41 +8,42 @@ import AddBook from "./components/books/AddBook"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NoResults from "./components/NoResults";
 import Results from "./components/Results";
-import Auth0ProviderWithHistory from './components/Auth0ProviderWithHistory';
+import Auth from "./components/Auth";
 
 ReactDOM.render(
   <React.StrictMode>
       <Router>
-        <Auth0ProviderWithHistory>
-          <App>
-            <Switch>
-              <Route exact strict path="/">
-                <HomeContent />
-              </Route>
-              <Route path="/add-book">
-                <AddBook />
-              </Route>
-              <Route path="/top-books">
+        <App>
+          <Switch>
+            <Route exact strict path="/">
+              <HomeContent />
+            </Route>
+            <Route path="/add-book">
+              <AddBook />
+            </Route>
+            <Route path="/top-books">
 
-              </Route>
-              <Route path="/forum">
+            </Route>
+            <Route path="/forum">
 
-              </Route>
-              <Route path="/review">
+            </Route>
+            <Route path="/review">
 
-              </Route>
-              <Route path="/browse">
+            </Route>
+            <Route path="/browse">
 
-              </Route>
-              <Route path="/results">
-                <Results />
-              </Route>
-              <Route>
-                <NoResults />
-              </Route>
-            </Switch>
-          </App>
-        </Auth0ProviderWithHistory>
+            </Route>
+            <Route path="/results">
+              <Results />
+            </Route>
+            <Route path="/dashboard">
+
+            </Route>
+            <Route>
+              <NoResults />
+            </Route>
+          </Switch>
+        </App>
       </Router>
   </React.StrictMode>,
   document.getElementById("root")
