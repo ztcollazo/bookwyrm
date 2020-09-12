@@ -1,3 +1,15 @@
 [build]
 
-    functions = "functions/"
+    functions = ".netlify/functions/"
+
+    publish = "build/"
+
+    command = "npm run build"
+
+    base = "/"
+
+[[redirects]]
+
+    from = "/home"
+
+    to = "/"
