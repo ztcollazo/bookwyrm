@@ -19,7 +19,6 @@ node_modules
 .env.production.local
 .env
 .faunarc
-.babelrc
 test.js
 state.json
 
