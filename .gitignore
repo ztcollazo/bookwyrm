@@ -21,6 +21,7 @@ node_modules
 .faunarc
 .babelrc
 test.js
+state.json
 
 npm-debug.log*
 yarn-debug.log*
