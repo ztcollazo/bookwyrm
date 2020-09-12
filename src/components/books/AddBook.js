@@ -1,4 +1,3 @@
-import { get } from "core-js/fn/dict";
 import React from "react";
 
 class AddBook extends React.Component {
@@ -13,7 +12,7 @@ class AddBook extends React.Component {
     }
 
     setInDB(title, author, summary) {
-        get()
+
     }
 
     render() {

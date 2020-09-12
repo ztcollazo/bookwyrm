@@ -19,9 +19,12 @@ node_modules
 .env.production.local
 .env
 .faunarc
+
 test.js
-state.json
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Local Netlify folder
+.netlify
