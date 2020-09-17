@@ -18,7 +18,7 @@ exports.handler = (event, context, callback) => {
         q.Create(
             q.Ref(
                 q.Collection('books'),
-                item.ref
+                data.isbn
             )
         ),
         item

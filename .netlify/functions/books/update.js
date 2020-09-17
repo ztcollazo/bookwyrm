@@ -3,28 +3,28 @@ import dotenv from "dotenv";
 import path from "path";
 
 dotenv.config({ path: path.resolve("./.env") });
-
-const q = faunadb.query,
-books = new faunadb.Client({ secret: process.env.FAUNA_BOOKS_SERVER_KEY });
+const q = faunadb.query;
+const books = new faunadb.Client({ secret: process.env.FAUNA_BOOKS_SERVER_KEY });
 
 exports.handler = (event, context, callback) => {
     const data = event.body;
-    const item = data.title || data.author || data.summary;
-    const ref = data.isbn || data.ref;
+    const old = event.previous;
+    const ref = old.isbn || old.ref
+    console.log("Updating...");
 
-    console.log("Getting book...");
-
-    if (!ref && item) {
+    if (!ref && old) {
         return books.query(
-            q.Match(
-                q.Index('all_books'),
-                item
+            q.Update(
+                q.Match(
+                    q.Index('all-books'), 
+                    old.title || old.author || old.summary
+                )
             )
         )
         .then(
             (res) => {
-                console.log("Book found!");
-    
+                console.log("Success! ", res)
+
                 return callback(
                     null,
                     {
@@ -35,31 +35,31 @@ exports.handler = (event, context, callback) => {
             }
         )
         .catch(
-            (error) => {
-                console.log("Error: ", error);
-    
-                callback(
+            (err) => {
+                console.log("Error: ", err);
+
+                return callback(
                     null,
                     {
                         statusCode: 400,
-                        body: JSON.stringify(error)
+                        body: JSON.stringify(err)
                     }
                 );
             }
         );
     } else if (ref) {
         return books.query(
-            q.Get(
+            q.Update(
                 q.Ref(
                     q.Collection('books'),
-                    data.ref
+                    ref
                 )
             )
         )
         .then(
             (res) => {
-                console.log("Book found!");
-    
+                console.log("Success! ", res)
+
                 return callback(
                     null,
                     {
@@ -70,21 +70,19 @@ exports.handler = (event, context, callback) => {
             }
         )
         .catch(
-            (error) => {
-                console.log("Error: ", error);
-    
-                callback(
+            (err) => {
+                console.log("Error: ", err);
+
+                return callback(
                     null,
                     {
                         statusCode: 400,
-                        body: JSON.stringify(error)
+                        body: JSON.stringify(err)
                     }
                 );
             }
         );
-    } else if (!ref && !item) {
-        console.log("Error: reference or data not provided in proper place. please provide a reference under 'ref' or information on book");
+    } else if (!ref && !old) {
+        console.log("Error: reference or keywords not provided in proper place. Please add keywords in 'previous' object, or a 'ref' value.")
     }
 }
-
-
