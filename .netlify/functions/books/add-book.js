@@ -2,7 +2,7 @@ import faunadb from "faunadb";
 import dotenv from "dotenv";
 import path from "path";
 
-dotenv.config({ path: path.resolve("./.env") });
+dotenv.config({ path: path.resolve("../../../.env") });
 
 const q = faunadb.query;
 const books = new faunadb.Client({ secret: process.env.FAUNA_BOOKS_SERVER_KEY });
