@@ -8,12 +8,11 @@
     "@testing-library/user-event": "^7.2.1",
     "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
-    "netlify-cli": "^2.62.0",
-    "netlify-lambda": "^2.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3"
+    "react-scripts": "^3.4.3",
+    "faunadb": "^2.14.2"
   },
   "scripts": {
     "start": "react-scripts start",
