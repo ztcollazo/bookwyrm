@@ -2,6 +2,7 @@
     "name": "fauna-crud",
     "version": "1.0.0",
     "description": "netlify functions:create - CRUD functionality with Fauna DB",
+    "main": "",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "netlify-lambda build"
