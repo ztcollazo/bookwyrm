@@ -7,7 +7,7 @@ dotenv.config({ path: path.resolve("../../../.env") });
 const q = faunadb.query;
 const books = new faunadb.Client({ secret: process.env.FAUNA_BOOKS_SERVER_KEY });
 
-exports.handler = async (event, context, callback) => {
+exports.handler = async (event, _context, callback) => {
     const data = JSON.parse(event.body);
     console.log("Creating book...");
     const item = {

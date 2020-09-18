@@ -6,7 +6,7 @@ dotenv.config({ path: path.resolve("../../../.env") });
 const q = faunadb.query;
 const books = new faunadb.Client({ secret: process.env.FAUNA_BOOKS_SERVER_KEY });
 
-exports.handler = async (event, context, callback) => {
+exports.handler = async (_event, _context, callback) => {
     console.log("Reading database...");
     try {
         const res = await books.query(
