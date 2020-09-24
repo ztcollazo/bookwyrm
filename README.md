@@ -3,3 +3,5 @@
 # Bookwyrm
 
 ## The Place for all Books
+
+- View our site at [https://bookwyrm.netlify.app](https://bookwyrm.netlify.app)
