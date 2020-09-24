@@ -1,6 +1,6 @@
-import faunadb from "faunadb";
-import dotenv from "dotenv";
-import path from "path";
+const faunadb = require("faunadb");
+const dotenv = require("dotenv");
+const path = require("path");
 
 dotenv.config({ path: path.resolve("../../../.env") });
 
@@ -20,9 +20,9 @@ exports.handler = async (event, _context, callback) => {
                 q.Ref(
                     q.Collection('books'),
                     data.isbn
-                )
-            ),
-            item
+                ),
+                item
+            )
         );
         console.log("Sucess! ", res);
         return callback(

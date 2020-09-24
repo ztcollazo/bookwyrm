@@ -7,7 +7,7 @@ dotenv.config({ path: path.resolve("../../../.env") });
 const q = faunadb.query;
 const books = new faunadb.Client({ secret: process.env.FAUNA_BOOKS_SERVER_KEY });
 
-exports.handler = async (event, _context, callback) => {
+exports.handler = (event, _context, callback) => {
     const data = event.body;
     const item = data.title || data.author || data.summary;
     const ref = data.isbn || data.ref;
@@ -15,15 +15,15 @@ exports.handler = async (event, _context, callback) => {
     console.log("Deleting book...");
 
     if (!ref && item) {
-        try {
-            const res = await books.query(
-                q.Delete(
-                    q.Match(
-                        q.Index("all_books"),
-                        item
-                    )
+        
+        return books.query(
+            q.Delete(
+                q.Match(
+                    q.Index("all_books"),
+                    item
                 )
-            );
+            )
+        ).then((res) => {
             console.log("Success! ", res);
             return callback(
                 null,
@@ -32,8 +32,8 @@ exports.handler = async (event, _context, callback) => {
                     body: JSON.stringify(res)
                 }
             );
-        }
-        catch (err) {
+        })
+        .catch((err) => {
             console.log("Error: ", err);
             return callback(
                 null,
@@ -42,27 +42,27 @@ exports.handler = async (event, _context, callback) => {
                     body: JSON.stringify(err)
                 }
             );
-        }
+        });
     } else if (ref) {
-        try {
-            const res_1 = await books.query(
-                q.Delete(
-                    q.Ref(
-                        q.Collection("books"),
-                        ref
-                    )
+        
+        return books.query(
+            q.Delete(
+                q.Ref(
+                    q.Collection("books"),
+                    ref
                 )
-            );
-            console.log("Success! ", res_1);
+            )
+        ).then((res) => {
+            console.log("Success! ", res);
             return callback(
                 null,
                 {
                     statusCode: 200,
-                    body: JSON.stringify(res_1)
+                    body: JSON.stringify(res)
                 }
             );
-        }
-        catch (err_1) {
+        })
+        .catch((err_1) => {
             console.log("Error: ", err_1);
             return callback(
                 null,
@@ -71,7 +71,7 @@ exports.handler = async (event, _context, callback) => {
                     body: JSON.stringify(err_1)
                 }
             );
-        }
+        });
     } else if (!ref && !item) {
         console.log("Error: reference or data not provided in proper places. Please provide references or data");
     }
