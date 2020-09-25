@@ -1,1 +1,18 @@
 /* No CSS *//*# sourceMappingURL=addbook.css.map */
+input {
+    font-size: 20px;
+    margin: 5px;
+    padding: 1px; 
+    width: 285px;
+}
+
+textarea {
+    width: 30%;
+    height: 50%;
+    margin-left: 10px;
+}
+
+button {
+    display: block;
+    margin: 10px;
+}

@@ -12,6 +12,8 @@ class AddBook extends React.Component {
         this.isbn = React.createRef();
         
         this.summary = React.createRef();
+
+        this.genre = React.createRef();
     }
 
     handleSubmit = (event) => {
@@ -20,7 +22,8 @@ class AddBook extends React.Component {
             isbn: this.isbn.current.value,
             title: this.title.current.value,
             author: this.author.current.value,
-            summary: this.summary.current.value
+            summary: this.summary.current.value,
+            genre: this.genre.current.value
         }));
     }
 
@@ -32,9 +35,11 @@ class AddBook extends React.Component {
                     <input ref={this.isbn} id="isbn" type="text" placeholder="Book ISBN" />
                     <input ref={this.title} id="title-input" type="text" placeholder="Book Title" />
                     <input ref={this.author} id="author" type="text" placeholder="Book Author" />
+                    <input ref={this.genre} id="genre" placeholder="Book Genre" />
                     <textarea ref={this.summary} id="summary" placeholder="Book Summary (no spoiling!)" />
                     <button type="submit">Add Book</button>
                 </form>
+                <div id="message"><strong style={{ color: "red" }}>{this.text}</strong></div>
             </>
         );
     }
