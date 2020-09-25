@@ -37,7 +37,7 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <Nav onClick={this} />
+        <Nav />
         <main id="main" style={ this.style } >
           <div id="content">
             {this.props.children}
