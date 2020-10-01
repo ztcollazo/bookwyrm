@@ -22,11 +22,10 @@ export const getAllBooks = async () => {
                 method: 'GET'
             }
         );
-        if (!response.bodyUsed) {
-            return response.json();
-        }else response.clone();
+        return !response.bodyUsed ? response.json() : response.clone();
     }
     catch (error) {
         console.error(error);
     }
 }
+
