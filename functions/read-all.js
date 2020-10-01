@@ -1,6 +1,6 @@
-import faunadb from "faunadb";
-import dotenv from "dotenv";
-import path from "path";
+const faunadb = require("faunadb");
+const dotenv = require("dotenv");
+const path = require("path");
 
 dotenv.config({ path: path.resolve("../../../.env") });
 const q = faunadb.query;
@@ -11,7 +11,9 @@ exports.handler = async (_event, _context, callback) => {
     try {
         const res = await books.query(
             q.Paginate(
-                q.Collection('books')
+                q.Match(
+                    q.Index("all_books")
+                )
             )
         );
         const all = res.data;
@@ -22,12 +24,12 @@ exports.handler = async (_event, _context, callback) => {
                 return q.Get(ref);
             }
         );
-        const ret = await books.query(getAll);
+        const ret = await books.query(q.Map([getAll]));
         return callback(
             null,
             {
                 statusCode: 200,
-                body: JSON.stringify(ret)
+                body: JSON.stringify(ret.map((bookRefs) => bookRefs.data))
             }
         );
     }
