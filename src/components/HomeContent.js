@@ -1,8 +1,9 @@
 import React from "react";
 import "../style/HomeContent.css";
+import AllBooks from './books/AllBooks';
 
 class HomeContent extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.buttons = [
@@ -26,7 +27,7 @@ class HomeContent extends React.Component {
 
         this.buttonList = this.buttons.map((link, i) => {
             return (
-                <a id={ "button-" + i } href={ link.link }>{ link.name }</a>
+                <a key={link.name} id={ "button-" + i } href={ link.link }>{ link.name }</a>
             );
         });
     }
@@ -39,6 +40,7 @@ class HomeContent extends React.Component {
                 <div id="buttons">
                     { this.buttonList }
                 </div>
+                <AllBooks />
             </>
         );
     }

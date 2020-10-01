@@ -31,7 +31,7 @@ class Nav extends React.Component {
 
     this.navLinks = this.pages.map((page) => { 
             return (
-                <li>
+                <li key={page.title}>
                     <NavLink activeClassName="active" className="sidelink" to={ page.link }>
                         { page.title }
                     </NavLink>
