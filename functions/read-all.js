@@ -1,3 +1,9 @@
+const faunadb = require("faunadb");
+const dotenv = require("dotenv");
+const path = require("path");
+
+dotenv.config({ path: path.resolve("../../../.env") });
+
 const q = faunadb.query;
 const books = new faunadb.Client({ secret: process.env.FAUNA_BOOKS_SERVER_KEY });
 

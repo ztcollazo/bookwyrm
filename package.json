@@ -20,7 +20,7 @@
     "netlify-cli": "2.63.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "netlify dev",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
