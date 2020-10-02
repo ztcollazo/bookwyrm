@@ -6,5 +6,5 @@
 
  View our site at [https://bookwyrm.netlify.app](https://bookwyrm.netlify.app)
 
-[![Neltify Status](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy]
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy)
 
