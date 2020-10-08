@@ -25,11 +25,16 @@ exports.handler = async (_event, _context, callback) => {
             }
         );
         const ret = await books.query(q.Map([getAll]));
+        const data = ret.map(
+            (bookRefs) => {
+                return bookRefs.data;
+            }
+        )
         return callback(
             null,
             {
                 statusCode: 200,
-                body: JSON.stringify(ret.map((bookRefs) => bookRefs.data))
+                body: JSON.stringify(data)
             }
         );
     }

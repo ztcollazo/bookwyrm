@@ -1,0 +1,13 @@
+[ignore]
+.*/build/.*
+.*/node-modules/.*
+
+[include]
+src/
+
+[libs]
+functions/
+
+[options]
+react.runtime=automatic
+
