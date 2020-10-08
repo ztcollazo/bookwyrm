@@ -1,4 +1,6 @@
-export const addBook = async (data) => {
+// @flow
+
+export const addBook = async (data: Object): Object => {
     try {
         const response = await fetch(
             '/.netlify/functions/add-book',
@@ -14,7 +16,7 @@ export const addBook = async (data) => {
     }
 }
 
-export const getAllBooks = async () => {
+export const getAllBooks = async (): Object => {
     try {
         const response = await fetch(
             "/.netlify/functions/read-all",
@@ -29,3 +31,17 @@ export const getAllBooks = async () => {
     }
 }
 
+export const getChunkOfBooks = async (data: any): Object => {
+    try {
+        const response = await fetch(
+            "/.netlify/functions/get-chunk",
+            {
+                method: 'POST',
+                body: data
+            }
+        );
+        return !response.bodyUsed ? response.json() : response.clone();
+    } catch (error) {
+        console.error(error);
+    }
+}

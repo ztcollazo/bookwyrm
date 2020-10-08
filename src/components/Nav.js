@@ -1,6 +1,7 @@
 import React from "react";
 import "../style/Nav.css";
 import { Link, NavLink } from "react-router-dom";
+import { getChunkOfBooks } from "../fauna";
 
 class Nav extends React.Component {
     constructor(props, pages) {
@@ -29,20 +30,26 @@ class Nav extends React.Component {
             }
         ];
 
-    this.navLinks = this.pages.map((page) => { 
-            return (
-                <li key={page.title}>
-                    <NavLink activeClassName="active" className="sidelink" to={ page.link }>
-                        { page.title }
-                    </NavLink>
-                </li> 
-            )
-        }
-    );
+        this.navLinks = this.pages.map((page) => { 
+                return (
+                    <li key={page.title}>
+                        <NavLink activeClassName="active" className="sidelink" to={ page.link }>
+                            { page.title }
+                        </NavLink>
+                    </li> 
+                )
+            }
+        );
+
+        this.searchBar = React.createRef();
+        this.searchInput = React.createRef()
+        this.searchResults;
     }
 
     handleSearch() {
-        
+        this.searchBar.current.onSubmit = () => {
+            this.searchResults = getChunkOfBooks(this.searchInput);
+        }
     }
 
     render() {
@@ -55,8 +62,8 @@ class Nav extends React.Component {
                             <h1 id="title" >BookWyrm</h1>
                         </Link>
                         <div id="holder">
-                            <form action="/results" method="get">
-                                <input placeholder="Search" type="search" id="search" />
+                            <form ref={this.searchBar} action="/results" method="get">
+                                <input placeholder="Search" type="search" id="search" ref={this.searchInput} />
                                 <button className="fas fa-search fa-1x" type="submit" id="searchButton" onSubmit={ this.handleSearch } />
                             </form>
                         </div>
