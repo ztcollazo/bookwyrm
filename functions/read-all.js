@@ -25,7 +25,6 @@ exports.handler = async (_event, _context, callback) => {
                 return q.Get(ref);
             }
         );
-        const ret = await books.query(q.Map([getAll]));
         const ret = await books.query(getAll);
         const data = ret.map(
             (bookRefs) => {
