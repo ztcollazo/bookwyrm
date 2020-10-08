@@ -1,4 +1,5 @@
 {
     "editor.cursorSmoothCaretAnimation": true,
-    "editor.cursorStyle": "line"
+    "editor.cursorStyle": "line",
+    "javascript.validate.enable": false
 }
