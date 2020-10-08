@@ -1,18 +1,17 @@
 import React from "react";
 import Nav from "./Nav";
+import { Link } from "react-router-dom"
 
 class Results extends React.Component {
     constructor(props) {
         super(props);
-        
-        this.e = new Nav();
 
-        this.list = this.e.searchResults.map((ln) => {
+        this.list = Nav.searchResults.map((ln) => {
             return (
                 <li name={ ln.title } >
-                    <a href={ document.getElementById("form").submit() } >
+                    <Link to={ "/book/" + ln.isbn } >
                         {ln.title + " by " + ln.author}
-                    </a>
+                    </Link>
                 </li>
             )
         });
@@ -21,12 +20,10 @@ class Results extends React.Component {
     render() {
         return (
             <>
-                <h2>Search Results: { this.e.searchInput }</h2>
-                <form name="book" method="get" id="form" action="#">
-                    <ul>
-                        { this.list }
-                    </ul>
-                </form>
+                <h2>Search Results: { Nav.searchInput }</h2>
+                <div id="results">
+                    {this.list}
+                </div>
             </>
         );
     }
