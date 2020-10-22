@@ -25,7 +25,7 @@ const AllBooks = () => {
     console.log(books);
 
     const allBooks = books.map((book) => {
-        return <Book key={ book.isbn } { ...book }></Book>
+        return <p key={ book.isbn } >{ book.title + ", " + book.author }</p>
     });
     /*const allBooks = () => {
         for (var i in books) {

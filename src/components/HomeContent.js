@@ -1,6 +1,6 @@
 import React from "react";
 import "../style/HomeContent.css";
-import AllBooks from './books/AllBooks';
+import AllBooks from "./books/AllBooks";
 
 class HomeContent extends React.Component {
     constructor(props) {
@@ -40,7 +40,6 @@ class HomeContent extends React.Component {
                 <div id="buttons">
                     { this.buttonList }
                 </div>
-                <AllBooks />
             </>
         );
     }
