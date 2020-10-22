@@ -14,7 +14,37 @@ exports.handler = async (event, _context, callback) => {
 
     console.log("Getting book...");
 
-    if (!ref && item) {
+    if (ref) {
+        try {
+            const res_1 = await books.query(
+                q.Get(
+                    q.Ref(
+                        q.Collection('books'),
+                        ref
+                    )
+                )
+            );
+            console.log("Book found!");
+            return callback(
+                null,
+                {
+                    statusCode: 200,
+                    body: JSON.stringify(res_1)
+                }
+            );
+        }
+        catch (error_1) {
+            console.log("Error: ", error_1);
+
+            callback(
+                null,
+                {
+                    statusCode: 400,
+                    body: JSON.stringify(error_1)
+                }
+            );
+        }
+    } else if (!ref && item) {
         try {
             const res = await books.query(
                 q.Match(
@@ -39,36 +69,6 @@ exports.handler = async (event, _context, callback) => {
                 {
                     statusCode: 400,
                     body: JSON.stringify(error)
-                }
-            );
-        }
-    } else if (ref) {
-        try {
-            const res_1 = await books.query(
-                q.Get(
-                    q.Ref(
-                        q.Collection('books'),
-                        data.ref
-                    )
-                )
-            );
-            console.log("Book found!");
-            return callback(
-                null,
-                {
-                    statusCode: 200,
-                    body: JSON.stringify(res_1)
-                }
-            );
-        }
-        catch (error_1) {
-            console.log("Error: ", error_1);
-
-            callback(
-                null,
-                {
-                    statusCode: 400,
-                    body: JSON.stringify(error_1)
                 }
             );
         }
