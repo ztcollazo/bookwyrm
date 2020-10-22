@@ -1,6 +1,5 @@
 import React from "react";
 import "../style/HomeContent.css";
-import AllBooks from "./books/AllBooks";
 
 class HomeContent extends React.Component {
     constructor(props) {

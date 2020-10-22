@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import Book from './Book';
 import { getAllBooks } from "../../fauna";
 
 const AllBooks = () => {
