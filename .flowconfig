@@ -1,12 +1,9 @@
 [ignore]
 .*/build/.*
-.*/node-modules/.*
+<PROJECT_ROOT>/(node-modules|functions/node_modules)/.*
 
 [include]
 src/
-
-[libs]
-functions/
 
 [options]
 react.runtime=automatic
