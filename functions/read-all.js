@@ -18,7 +18,7 @@ exports.handler = async (_event, _context, callback) => {
             )
         );
         const all = res.data;
-        console.log("Success! ${all.length} items found");
+        console.log("Success! ", all.length, " items found");
 
         const getAll = all.map(
             (ref) => {
