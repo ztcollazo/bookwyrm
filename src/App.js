@@ -1,6 +1,7 @@
 import React from 'react';
 import './style/App.css';
 import Nav from "./components/Nav";
+import { AppContext } from './setup';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,31 +20,31 @@ class App extends React.Component {
     };
 
     this.state = {
-      theme: this.dark
+      searchInput: ""
     };
 
-    //this.changeTheme = this.changeTheme.bind(this);
-
     this.style = {
-      backgroundColor: this.state.theme.primary,
-      color: this.state.theme.text
+      backgroundColor: this.dark.primary,
+      color: this.dark.text
     }
   }
 
-  /*changeTheme(newTheme) {
-    this.setState({ theme: newTheme })
-  }*/
+  setSearchInput = (input) => {
+    this.setState({
+      searchInput: input
+    });
+  }
 
   render() {
     return (
-      <>
+      <AppContext.Provider value={{ searchInput: this.state.searchInput, setSearchInput: this.setSearchInput }}>
         <Nav />
         <main id="main" style={ this.style } >
           <div id="content">
             {this.props.children}
           </div>
         </main>
-      </>
+      </AppContext.Provider>
     );
   }
 }
