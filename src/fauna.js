@@ -5,11 +5,16 @@ export const addBook = async (data: Object): Object => {
         const response = await fetch(
             '/.netlify/functions/add-book',
             {
-                method: 'POST',
-                body: data
+                method: 'PUT',
+                body: data,
+                headers: {
+                    contentType: 'application/json'
+                }
             }
         );
-        return response.json();
+        const json = await response.json();
+        console.log(json);
+        return json;
     }
     catch (error) {
         console.error(error);
@@ -24,7 +29,9 @@ export const getAllBooks = async (): Object => {
                 method: 'GET'
             }
         );
-        return !response.bodyUsed ? response.json() : response.clone();
+        const json = await response.json();
+        console.log(json);
+        return json;
     }
     catch (error) {
         console.error(error);
@@ -40,7 +47,26 @@ export const getChunkOfBooks = async (data: any): Object => {
                 body: data
             }
         );
-        return !response.bodyUsed ? response.json() : response.clone();
+        var json = await response.json();
+        console.log(json);
+        return json;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const getBook = async (data: Object): Object => {
+    try {
+        const response = await fetch(
+            "/.netlify/functions/get-book",
+            {
+                method: 'POST',
+                body: JSON.stringify(data)
+            }
+        );
+        var json = await response.json();
+        console.log(json);
+        return json;
     } catch (error) {
         console.error(error);
     }

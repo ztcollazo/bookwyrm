@@ -1,7 +1,8 @@
 import React from "react";
 import "../style/Nav.css";
 import { Link, NavLink } from "react-router-dom";
-import { getChunkOfBooks } from "../fauna";
+import { AppContext } from "../setup";
+import { withRouter } from "react-router-dom";
 
 class Nav extends React.Component {
     constructor(props, pages) {
@@ -37,21 +38,23 @@ class Nav extends React.Component {
                             { page.title }
                         </NavLink>
                     </li> 
-                )
+                );
             }
         );
-
-        this.searchBar = React.createRef();
-        this.searchInput = React.createRef()
-        this.searchResults;
     }
 
-    handleSearch() {
-        this.searchBar.current.onSubmit = () => {
-            this.searchResults = getChunkOfBooks(this.searchInput);
-        }
+    handleChange = (event) => {
+        event.preventDefault();
+        this.context.setSearchInput(event.currentTarget.value);
     }
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.history.push('/results');
+    }
+
+    static contextType = AppContext;
+    
     render() {
         return (
             <header>         
@@ -62,9 +65,9 @@ class Nav extends React.Component {
                             <h1 id="title" >BookWyrm</h1>
                         </Link>
                         <div id="holder">
-                            <form ref={this.searchBar} action="/results" method="get">
-                                <input placeholder="Search" type="search" id="search" ref={this.searchInput} />
-                                <button className="fas fa-search fa-1x" type="submit" id="searchButton" onSubmit={ this.handleSearch } />
+                            <form name="search" onSubmit={this.handleSubmit}>
+                                <input name="search-input" placeholder="Search" type="search" id="search" onChange={this.handleChange} value={this.context.searchInput} />
+                                <button className="fas fa-search fa-1x" type="submit" id="searchButton" />
                             </form>
                         </div>
                     </div>
@@ -79,4 +82,4 @@ class Nav extends React.Component {
     }
 }
 
-export default Nav;
+export default withRouter(Nav);

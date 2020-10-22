@@ -10,36 +10,48 @@ const books = new faunadb.Client({ secret: process.env.FAUNA_BOOKS_SERVER_KEY })
 exports.handler = async (event, _context, callback) => {
     console.log("Reading database...");
     const givenData = event.body;
+    /**
+     * {
+     *  title: 'The Lord of the Rings'
+     * }
+     * 
+     * or 
+     * 
+     * {
+     *  isbn: 123456
+     * }
+     */
+    console.log(givenData);
+
+    if (givenData.includes(/ by /i)) {
+        givenData.split(/ by /i);
+    }
+
     try {
         const res = await books.query(
-            q.Paginate(
-                q.Match(
-                    q.Index(
-                        'all_books'
-                    ),
-                    givenData
+            q.Map(
+                q.Paginate(
+                    q.Match(
+                        q.Index(
+                            'search_by_keywords'
+                        ),
+                        givenData
+                    )
+                ),
+                q.Lambda(
+                    'X',
+                    q.Get(q.Var('X'))
                 )
             )
         );
         const all = res.data;
-        console.log("Success! ${all.length} items found");
+        console.log("Success! ", all.length, " items found");
 
-        const getAll = all.map(
-            (ref) => {
-                return q.Get(ref);
-            }
-        );
-        const ret = await books.query(getAll);
-        const data = ret.map(
-            (bookRefs) => {
-                return bookRefs.data;
-            }
-        )
         return callback(
             null,
             {
                 statusCode: 200,
-                body: JSON.stringify(data)
+                body: JSON.stringify(all)
             }
         );
     }
