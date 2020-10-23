@@ -5,11 +5,8 @@ export const addBook = async (data: Object): Object => {
         const response = await fetch(
             '/.netlify/functions/add-book',
             {
-                method: 'PUT',
-                body: data,
-                headers: {
-                    contentType: 'application/json'
-                }
+                method: 'POST',
+                body: data
             }
         );
         const json = await response.json();
