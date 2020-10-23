@@ -23,10 +23,6 @@ exports.handler = async (event, _context, callback) => {
      */
     console.log(givenData);
 
-    if (givenData.includes(/ by /i)) {
-        givenData.split(/ by /i);
-    }
-
     try {
         const res = await books.query(
             q.Map(
