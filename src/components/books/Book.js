@@ -2,10 +2,15 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { getBook } from "../../fauna";
 
-export const Book = () => {
+export const Book = ({props}) => {
     let { isbn } = useParams();
-    const book = getBook({ ref: isbn });
-    let data = book;
+    let data;
+    if (isbn) {
+        const book = getBook({ ref: isbn });
+        data = book;
+    } else {
+        data = props.book;
+    }
     console.log(data);
     return (
         <div>
