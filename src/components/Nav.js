@@ -1,5 +1,4 @@
 import React from "react";
-//import "../style/Nav.css";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { AppContext } from "../setup";
 import { 
@@ -16,7 +15,6 @@ import {
     ListItemIcon,
     ListItemText,
     CssBaseline,
-    useTheme,
     Divider
 } from "@material-ui/core";
 import {
@@ -28,7 +26,6 @@ import {
     SubjectRounded,
     FormatListNumberedRounded,
     RateReviewRounded,
-    MenuRounded
 } from "@material-ui/icons";
 import clsx from "clsx";
 
@@ -159,7 +156,6 @@ const Nav = (props) => {
     const history = useHistory();
     const classes = useStyles();
     const context = React.useContext(AppContext);
-    const theme = useTheme();
     const {open, toggleDrawer} = props;
 
     const pages = [

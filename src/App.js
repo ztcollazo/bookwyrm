@@ -1,8 +1,7 @@
 import React from 'react';
-//import './style/App.css';
 import Nav, { drawerWidth } from "./components/Nav";
 import { AppContext } from './setup';
-import { makeStyles, useTheme } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 
 const colors = {
@@ -42,7 +41,6 @@ const App = (props) => {
   const [searchInput, setSearchInput] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
-  const theme = useTheme();
 
   const toggleDrawer = () => {
     open ? setOpen(false) : setOpen(true);
