@@ -268,7 +268,7 @@ const Nav = (props) => {
                     }}
                 >
                     <div className={classes.toolbar}>
-                        <DrawerIcon onClick={props.toggleDrawer} />
+                        <DrawerIcon onClick={toggleDrawer} />
                     </div>
                     <Divider />
                     <List>
