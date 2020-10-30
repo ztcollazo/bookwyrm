@@ -1,47 +1,75 @@
 import React from "react";
-//import "../style/HomeContent.css";
+import {
+    ButtonGroup,
+    Button,
+    makeStyles,
+    Typography
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
 
-class HomeContent extends React.Component {
-    constructor(props) {
-        super(props);
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        '& > *': {
+            margin: theme.spacing(1)
+        }
+    },
+    title: {
+        textAlign: 'center',
+        fontSize: '60px'
+    },
+    subtitle: {
+        textAlign: 'center',
+        fontSize: '40px'
+    },
+    buttons: {
+        textAlign: 'center'
+    }
+}));
 
-        this.buttons = [
-            {
-                name: "Top Books",
-                link: "/top-books"
-            },
-            {
-                name: "Browse",
-                link: "/browse"
-            },
-            {
-                name: "Give Suggestions",
-                link: "/forum"
-            },
-            {
-                name: "Review a Book",
-                link: "/review"
-            }
-        ];
+export const HomeContent = () => {
+    const classes = useStyles();
 
-        this.buttonList = this.buttons.map((link, i) => {
+    const buttons = [
+        {
+            name: "Top Books",
+            link: "/top-books"
+        },
+        {
+            name: "Browse",
+            link: "/browse"
+        },
+        {
+            name: "Give Suggestions",
+            link: "/forum"
+        },
+        {
+            name: "Review a Book",
+            link: "/review"
+        }
+    ];
+
+    const ButtonList = () => {
+        return buttons.map((link, i) => {
             return (
-                <a key={link.name} id={ "button-" + i } href={ link.link }>{ link.name }</a>
+                <Button component={ Link } key={link.name} id={ "button-" + i } to={ link.link }>{ link.name }</Button>
             );
         });
     }
 
-    render() {
-        return (
-            <>
-                <h1>BookWyrm</h1>
-                <h2>The Place for all books</h2>
-                <div id="buttons">
-                    { this.buttonList }
-                </div>
-            </>
-        );
-    }
+    return (
+        <React.Fragment className={classes.root}>
+            <Typography variant="h1" className={classes.title}>BookWyrm</Typography>
+            <Typography variant="h2" className={classes.subtitle}>The Place for all books</Typography>
+            <div id="buttons" className={classes.buttons}>
+                <ButtonGroup color="#333333" aria-label="contained primary button group">
+                    <ButtonList />
+                </ButtonGroup>
+            </div>
+        </React.Fragment>
+    );
 }
 
 export default HomeContent;

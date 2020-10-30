@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 
 const colors = {
-  primary: "initial",
+  primary: "#EEEEEE",
   text: "black",
   other: "darkgrey",
 };
@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     padding: '20px',
-    paddingTop: '0px'
   }
 }));
 

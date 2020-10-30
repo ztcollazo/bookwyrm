@@ -19,6 +19,7 @@ import {
 } from "@material-ui/core";
 import {
     ChevronRightRounded,
+    ArrowForwardRounded,
     SearchRounded,
     ChevronLeftRounded,
     HomeRounded,
@@ -149,6 +150,9 @@ const useStyles = makeStyles((theme) => ({
     },
     linkItemText: {
         color: '#000000',
+    },
+    searchButton: {
+        color: 'white'
     }
   }));
 
@@ -244,9 +248,9 @@ const Nav = (props) => {
                                 value={context.searchInput}
                                 inputProps={{ 'aria-label': 'search' }}
                             />
-                            <button type="button" id="searchButton" onClick={handleSubmit} height='100%'>
-                                <SearchRounded />
-                            </button>
+                            <IconButton id="searchButton" onClick={handleSubmit} height='100%' className={classes.searchButton}>
+                                <ArrowForwardRounded />
+                            </IconButton>
                         </div>
                         </Toolbar>
                 </AppBar>
