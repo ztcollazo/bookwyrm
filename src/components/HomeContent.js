@@ -1,5 +1,5 @@
 import React from "react";
-import "../style/HomeContent.css";
+//import "../style/HomeContent.css";
 
 class HomeContent extends React.Component {
     constructor(props) {

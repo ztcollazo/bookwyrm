@@ -1,52 +1,66 @@
 import React from 'react';
-import './style/App.css';
-import Nav from "./components/Nav";
+//import './style/App.css';
+import Nav, { drawerWidth } from "./components/Nav";
 import { AppContext } from './setup';
+import { makeStyles, useTheme } from "@material-ui/core";
+import clsx from "clsx";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+const colors = {
+  primary: "initial",
+  text: "black",
+  other: "darkgrey",
+};
 
-    this.dark = {
-      primary: "#333333",
-      text: "white",
-      other: "black"
-    };
+const useStyles = makeStyles((theme) => ({
+  main: {
+    backgroundColor: colors.primary,
+    color: colors.text,
+    height: '100%',
+    marginLeft: theme.spacing(7) + 1,
+    width: `calc(100% - 80px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  contentShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    }),
+  },
+  content: {
+    padding: '20px',
+    paddingTop: '0px'
+  }
+}));
 
-    this.light = {
-      primary: "white",
-      text: "black",
-      other: "darkgrey"
-    };
+const App = (props) => {
+  const {children} = props;
+  const [searchInput, setSearchInput] = React.useState("");
+  const [open, setOpen] = React.useState(false);
+  const classes = useStyles();
+  const theme = useTheme();
 
-    this.state = {
-      searchInput: ""
-    };
-
-    this.style = {
-      backgroundColor: this.dark.primary,
-      color: this.dark.text
-    }
+  const toggleDrawer = () => {
+    open ? setOpen(false) : setOpen(true);
   }
 
-  setSearchInput = (input) => {
-    this.setState({
-      searchInput: input
-    });
-  }
+  return (
+    <AppContext.Provider value={{ searchInput, setSearchInput }}>
+      <Nav toggleDrawer={toggleDrawer} open={open} />
+      <main id="main" className={ clsx(classes.main, {
+        [classes.contentShift]: open
+      })}>
+        <div id="content" className={classes.content}>
+          {children}
+        </div>
+      </main>
+    </AppContext.Provider>
+  );
 
-  render() {
-    return (
-      <AppContext.Provider value={{ searchInput: this.state.searchInput, setSearchInput: this.setSearchInput }}>
-        <Nav />
-        <main id="main" style={ this.style } >
-          <div id="content">
-            {this.props.children}
-          </div>
-        </main>
-      </AppContext.Provider>
-    );
-  }
 }
 
 export default App;
