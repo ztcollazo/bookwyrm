@@ -10,7 +10,7 @@ books = new faunadb.Client({ secret: process.env.FAUNA_BOOKS_SERVER_KEY });
 exports.handler = async (event, _context, callback) => {
     const data = event.body;
     const item = data.title || data.author || data.summary;
-    const ref = data.isbn || data.ref;
+    const ref =  data.ref || data.isbn;
 
     console.log("Getting book...");
 
