@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '40px'
     },
     buttons: {
-        textAlign: 'center'
+        textAlign: 'center',
+        color: '#333333'
     }
 }));
 
@@ -60,15 +61,15 @@ export const HomeContent = () => {
     }
 
     return (
-        <React.Fragment className={classes.root}>
+        <div className={classes.root}>
             <Typography variant="h1" className={classes.title}>BookWyrm</Typography>
             <Typography variant="h2" className={classes.subtitle}>The Place for all books</Typography>
             <div id="buttons" className={classes.buttons}>
-                <ButtonGroup color="#333333" aria-label="contained primary button group">
+                <ButtonGroup className={classes.buttons} aria-label="contained primary button group">
                     <ButtonList />
                 </ButtonGroup>
             </div>
-        </React.Fragment>
+        </div>
     );
 }
 
