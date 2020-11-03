@@ -2,52 +2,51 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../setup";
 import { getChunkOfBooks } from "../fauna";
+import {
+    Typography, 
+    ListItem,
+    List,
+    makeStyles,
+    ListItemText
+} from "@material-ui/core";
 
-class Results extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            searchResults: []
+const useStyles = makeStyles((theme) => ({
+    header: {
+        fontSize: '37px'
+    },
+    links: {
+        color: '#111111',
+        '&:hover': {
+            textDecoration: 'underline'
         }
-    }
+    },
+}));
 
-    componentDidMount() { 
-        this.getBooks().then(books => {
-            if (books) {
-                this.setState({
-                    searchResults: books
-                });
-            }
-        });
-    }
+const Results = (props) => {
+    const [searchResults, setSearchResults] = React.useState([]);
+    const context = React.useContext(AppContext);
+    const classes = useStyles();
 
-    getBooks = () => {
-        return getChunkOfBooks(this.context.searchInput);
-    }
-
-    static contextType = AppContext;
-
-    render() {
-        return (
-            <>
-                <h2>Search Results: { this.context.searchInput }</h2>
-                <div id="results">
-                    {this.state.searchResults !== undefined || this.state.searchResults !== null ? this.state.searchResults.map((book) => {
-                        var ln = book.data;
-                        
-                        return (
-                            <li name={ ln.title } >
-                                <Link to={ "/book/" + ln.isbn } >
-                                    {ln.title + " by " + ln.author}
-                                </Link>
-                            </li>
-                        )
-                    }) : <p>Sorry, we couldn't find that book. <Link to="/add-book">Try Adding it to BookWyrm</Link></p> }
-                </div>
-            </>
-        );
-    }
-};
+    React.useEffect(() => {
+        setSearchResults(context.searchResults);
+    }, [setSearchResults, context.searchResults]);
+    
+    return (
+        <>
+            <Typography variant="h2" className={classes.header}>Search Results: { context.realSearchInput }</Typography>
+            <List id="results">
+                {searchResults ? searchResults.map((book) => {
+                    var ln = book.data;
+                    
+                    return (
+                        <ListItem key={ln.isbn} className={classes.links} name={ ln.title } component={Link} to={ "/book/" + ln.isbn }>
+                            <ListItemText>{ln.title + " by " + ln.author}</ListItemText>
+                        </ListItem>
+                    )
+                }) : <p>Sorry, we couldn't find that book. <Link to="/add-book">Try Adding it to BookWyrm</Link></p> }
+            </List>
+        </>
+    );
+}
 
 export default Results;

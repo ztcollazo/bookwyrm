@@ -2,7 +2,9 @@ import { createContext } from "react";
 
 export const AppContext = createContext({
     searchInput: "",
-    setSearchInput: () => {}
+    setSearchInput() {},
+    searchResults: "",
+    setSearchResults() {}
 });
 
 export const pages = [

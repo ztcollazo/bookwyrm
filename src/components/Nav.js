@@ -15,7 +15,7 @@ import {
     ListItemIcon,
     ListItemText,
     CssBaseline,
-    Divider
+    Divider,
 } from "@material-ui/core";
 import {
     ChevronRightRounded,
@@ -29,6 +29,7 @@ import {
     RateReviewRounded,
 } from "@material-ui/icons";
 import clsx from "clsx";
+import { getChunkOfBooks } from "../fauna";
 
 export const drawerWidth = 240;
 
@@ -153,6 +154,9 @@ const useStyles = makeStyles((theme) => ({
     },
     searchButton: {
         color: 'white'
+    },
+    linkActive: {
+        borderRight: '2px solid #333333' 
     }
   }));
 
@@ -160,6 +164,7 @@ const Nav = (props) => {
     const history = useHistory();
     const classes = useStyles();
     const context = React.useContext(AppContext);
+    const [input, setInput] = React.useState();
     const {open, toggleDrawer} = props;
 
     const pages = [
@@ -193,7 +198,7 @@ const Nav = (props) => {
     const NavLinks = () => {
         return pages.map((page) => { 
             return (
-                <ListItem button key={page.title} component={NavLink} to={page.link}>
+                <ListItem button key={page.title} component={NavLink} to={page.link} exact activeClassName={ classes.linkActive }>
                     <ListItemIcon>
                         {page.icon}
                     </ListItemIcon>
@@ -211,6 +216,8 @@ const Nav = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         history.push('/results');
+        getChunkOfBooks(context.searchInput).then(books => books ? context.setSearchResults(books) : null);
+        context.setSearchInput("");
     }
 
     const DrawerIcon = ({onClick}) => {
@@ -232,7 +239,7 @@ const Nav = (props) => {
                             <img className={classes.img} src="/logo.png" alt="The BookWyrm Logo" />
                             <Typography className={classes.title} variant="h1"> BookWyrm</Typography>
                         </Link>
-                        <div id="holder" className={classes.search} float="right" >
+                        <form onSubmit={handleSubmit} id="holder" className={classes.search} float="right" >
                             <div className={classes.searchIcon}>
                                 <SearchRounded />
                             </div>
@@ -241,6 +248,7 @@ const Nav = (props) => {
                                     root: classes.inputRoot,
                                     input: classes.inputInput
                                 }} 
+                                ref={input}
                                 name="search-input" 
                                 placeholder="Search" type="search" 
                                 id="search" 
@@ -248,11 +256,11 @@ const Nav = (props) => {
                                 value={context.searchInput}
                                 inputProps={{ 'aria-label': 'search' }}
                             />
-                            <IconButton id="searchButton" onClick={handleSubmit} height='100%' className={classes.searchButton}>
+                            <IconButton id="searchButton" type="submit" className={classes.searchButton}>
                                 <ArrowForwardRounded />
                             </IconButton>
-                        </div>
-                        </Toolbar>
+                        </form>
+                    </Toolbar>
                 </AppBar>
                 <Drawer
                     variant="permanent"

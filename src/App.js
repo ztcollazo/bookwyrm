@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const App = (props) => {
   const {children} = props;
   const [searchInput, setSearchInput] = React.useState("");
+  const [searchResults, setSearchResults] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
 
@@ -46,7 +47,7 @@ const App = (props) => {
   }
 
   return (
-    <AppContext.Provider value={{ searchInput, setSearchInput }}>
+    <AppContext.Provider value={{ searchInput, setSearchInput, searchResults, setSearchResults }}>
       <Nav toggleDrawer={toggleDrawer} open={open} />
       <main id="main" className={ clsx(classes.main, {
         [classes.contentShift]: open
