@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { getAllBooks } from "../../fauna";
+import {
+    ListItem,
+    List,
+    ListItemText
+} from "@material-ui/core";
 
 const AllBooks = () => {
     const [books, setBooks] = useState([]);
@@ -20,19 +26,20 @@ const AllBooks = () => {
         }   
         getAll()
     }, [isRendered, setBooks]);
-
-    console.log(books);
-
-    const allBooks = books.map((book) => {
-        return <p key={ book.isbn } >{ book.title + ", " + book.author }</p>
-    });
-    /*const allBooks = () => {
-        for (var i in books) {
-            return <Book key={ i.isbn } { ...i }></Book>
-        } 
-    }*/
     
-    return allBooks;
+    return (
+        <List id="results">
+            {books ? books.map((book) => {
+                var ln = book;
+                
+                return (
+                    <ListItem key={ln.isbn} name={ ln.title } component={Link} to={ "/book/" + ln.isbn }>
+                        <ListItemText>{ln.title + " by " + ln.author}</ListItemText>
+                    </ListItem>
+                )
+            }) : <p>No books found.</p> }
+        </List>
+    );
 }
 
 export default AllBooks;
