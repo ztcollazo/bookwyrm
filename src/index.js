@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NoResults from "./components/NoResults";
 import Results from "./components/Results";
 import Book from './components/books/Book';
+import Browse from "./components/Browse";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -30,7 +31,7 @@ ReactDOM.render(
 
           </Route>
           <Route path="/browse">
-
+            <Browse />
           </Route>
           <Route path="/results">
             <Results />
