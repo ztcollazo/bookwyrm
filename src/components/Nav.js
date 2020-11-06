@@ -164,7 +164,6 @@ const Nav = (props) => {
     const history = useHistory();
     const classes = useStyles();
     const context = React.useContext(AppContext);
-    const [input, setInput] = React.useState();
     const {open, toggleDrawer} = props;
 
     const pages = [
@@ -248,7 +247,6 @@ const Nav = (props) => {
                                     root: classes.inputRoot,
                                     input: classes.inputInput
                                 }} 
-                                ref={input}
                                 name="search-input" 
                                 placeholder="Search" type="search" 
                                 id="search" 

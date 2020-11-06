@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../setup";
-import { getChunkOfBooks } from "../fauna";
 import {
     Typography, 
     ListItem,
