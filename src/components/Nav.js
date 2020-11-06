@@ -32,8 +32,6 @@ import clsx from "clsx";
 import { getChunkOfBooks } from "../fauna";
 
 export const drawerWidth = 240;
-const random = 13;
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
