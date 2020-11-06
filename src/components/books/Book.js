@@ -8,7 +8,7 @@ const queryBook = async (key, params) => await getBook(params);
 
 export const Book = (props) => {
     const { isbn } = useParams();
-    const { data, isLoading, error } = useQuery(['book', { ref: isbn || props.book.isbn }], queryBook);
+    const { data } = useQuery(['book', { ref: isbn || props.book.isbn }], queryBook);
     console.log(isbn);
     console.log(data);
     return data ? (
