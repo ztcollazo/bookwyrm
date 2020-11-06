@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { getAllBooks } from "../../fauna";
 import {
@@ -7,25 +8,11 @@ import {
     ListItemText
 } from "@material-ui/core";
 
-const AllBooks = () => {
-    const [books, setBooks] = useState([]);
-    console.log(books);
-    const isRendered = useRef(false);
+const queryAllBooks = async (key) => await getAllBooks();
 
-    useEffect(() => {
-        const getAll = async () => {
-            try {
-                if (isRendered.current === false) {
-                    const result = await getAllBooks();
-                    setBooks(result);
-                    isRendered.current = true;
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        }   
-        getAll()
-    }, [isRendered, setBooks]);
+const AllBooks = () => {
+    const { data } = useQuery(['all-books'], queryAllBooks);
+    const books = data;
     
     return (
         <List id="results">
