@@ -4,3 +4,5 @@ import AllBooks from "./books/AllBooks";
 const Browse = () => {
     return <AllBooks />
 }
+
+export default Browse;
