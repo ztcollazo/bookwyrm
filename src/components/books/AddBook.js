@@ -1,94 +1,101 @@
+import { 
+    Button, 
+    InputBase, 
+    makeStyles, 
+    Typography 
+} from "@material-ui/core";
 import React from "react";
 import { addBook } from "../../fauna";
-import Book from "./Book";
+import { BookCard } from "./Book";
 const isbn = require("node-isbn");
 
-class AddBook extends React.Component {
-    constructor(props) {
-        super(props);
-        this.results = React.createRef();
-
-        this.state = {
-            isbn: "",
-            book: null,
-        }
+const useStyles = makeStyles(theme => ({
+    input: {
+        backgroundColor: '#bbbbbb',
+        padding: '5px',
+        borderRadius: theme.shape.borderRadius,
+        margin: '2px',
+        fontSize: '20px'
+    },
+    button: {
+        margin: '2px'
     }
+}));
 
-    get = (isbnNum) => {
+const AddBook = () => {
+    const [isbnInput, setIsbnInput] = React.useState("");
+    const [book, setBook] = React.useState(null);
+    const classes = useStyles();
+
+    const get = async (isbnNum) => {
         const getIsbn = isbn.provider([isbn.PROVIDER_NAMES.GOOGLE]);
 
-        return getIsbn.resolve(isbnNum)
-            .then(
-                (book) => {
-                    console.log(book);
-                    let data = book;
+        return getIsbn.resolve(isbnNum).then(book => {
+            console.log(book);
+            let data = book;
 
-                    return {
-                        title: data.title,
-                        subtitle: data.subtitle,
-                        authors: data.authors,
-                        isbn10: data.industryIdentifiers[0].identifier,
-                        isbn13: data.industryIdentifiers[1].identifier,
-                        publisher: data.publisher,
-                        publishedDate: data.publishedDate,
-                        description: data.description,
-                        pageCount: data.pageCount,
-                        image: data.imageLinks.thumbnail,
-                        language: data.language,
-                        preview: data.previewLink,
-                        rating: data.averageRating,
-                        raters: data.ratingsCount,
-                        keywords: [
-                            data.title,
-                            data.authors,
-                            data.description,
-                            data.industryIdentifiers[0].isbn10,
-                            data.industryIdentifiers[1].isbn13,
-                            data.publisher,
-                            data.title + " by " + data.authors
-                        ]
-                    };
-                }
-            )
-            .catch(
-                (err) => {
-                    console.error(err);
-                }
-            );
+            return {
+                title: data.title,
+                subtitle: data.subtitle,
+                authors: data.authors,
+                isbn10: data.industryIdentifiers[0].identifier,
+                isbn13: data.industryIdentifiers[1].identifier,
+                publisher: data.publisher,
+                publishedDate: data.publishedDate,
+                description: data.description,
+                pageCount: data.pageCount,
+                image: data.imageLinks.thumbnail,
+                language: data.language,
+                preview: data.previewLink,
+                rating: data.averageRating,
+                raters: data.ratingsCount,
+                keywords: [
+                    data.title,
+                    data.authors,
+                    data.description,
+                    data.industryIdentifiers[0].isbn10,
+                    data.industryIdentifiers[1].isbn13,
+                    data.publisher,
+                    data.title + " by " + data.authors
+                ]
+            };
+        }).catch(
+            (err) => {
+                console.error(err);
+            }
+        );
     }
 
-    handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        this.book = this.get(this.state.isbn);
         addBook(
-            JSON.stringify(this.book)
+            JSON.stringify(book)
         );
     }
 
-    handleClick = async () => { 
-        this.setState({ book: await this.get(this.state.isbn) });
+    const handleClick = async () => {
+        const book = await get(isbnInput);
+        setBook(book);
     }
 
-    handleChange = (event) => {
+    const handleChange = (event) => {
         event.preventDefault();
-        this.setState({ isbn: event.target.value });
+        if (typeof event.target.value === 'number') setIsbnInput(event.target.value);
     }
 
-    render() {
-        return (
-            <>
-                <h2>Add a Book to BookWyrm</h2>
-                <form action="#" method="post" onSubmit={this.handleSubmit}>
-                    <input onChange={this.handleChange} id="isbn" type="text" placeholder="Book ISBN" />
-                    <button type="submit" onClick={this.handleClick} >Get Book</button>
+    return (
+        <>
+            <Typography variant='h6'>Add a Book to BookWyrm</Typography>
+            <form onSubmit={handleSubmit}>
+                <InputBase classes={{ input: classes.input, root: classes.root }} onChange={handleChange} id="isbn" type="text" placeholder="Book ISBN" />
+                <Button className={ classes.button } variant='outlined' type="button" onClick={handleClick} >Get Book</Button>
 
-                    {this.state.book ? <Book book={this.state.book} /> : null}
-                    {this.state.book ? <button type="button">Add Book</button> : null}
-                </form>
-                <div id="message"><strong style={{ color: "red" }}></strong></div>
-            </>
-        );
-    }
-};
+                {book ? <BookCard {...book} /> : null}
+                <Button className={ classes.button } variant='outlined' disabled={!book} type="submit">Add Book</Button>
+            </form>
+            <div id="message"><strong style={{ color: "red" }}></strong></div>
+        </>
+    );
+}
 
 export default AddBook;

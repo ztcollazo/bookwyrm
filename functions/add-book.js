@@ -19,7 +19,7 @@ exports.handler = async (event, _context, callback) => {
             q.Create(
                 q.Ref(
                     q.Collection('books'),
-                    data.isbn
+                    data.isbn13 ? data.isbn13 : data.isbn10 ? data.isbn10 : data.isbn
                 ),
                 item
             )
