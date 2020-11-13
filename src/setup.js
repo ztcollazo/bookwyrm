@@ -4,7 +4,7 @@ export const AppContext = createContext({
     searchInput: "",
     setSearchInput() {},
     searchResults: "",
-    setSearchResults() {}
+    setSearchResults() {},
 });
 
 export const pages = [
