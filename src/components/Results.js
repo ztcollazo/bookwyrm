@@ -5,45 +5,39 @@ import {
     Typography, 
     ListItem,
     List,
-    makeStyles,
-    ListItemText
+    makeStyles
 } from "@material-ui/core";
+import { useQuery } from "react-query";
+import { getChunkOfBooks } from "../fauna";
+import BookCard from "./books/Book";
 
 const useStyles = makeStyles((theme) => ({
     header: {
         fontSize: '37px'
     },
-    links: {
-        color: '#111111',
-        '&:hover': {
-            textDecoration: 'underline'
-        }
-    },
 }));
 
 const Results = (props) => {
-    const [searchResults, setSearchResults] = React.useState([]);
     const context = React.useContext(AppContext);
     const classes = useStyles();
-
-    React.useEffect(() => {
-        setSearchResults(context.searchResults);
-    }, [setSearchResults, context.searchResults]);
+    const { data } = useQuery(context.searchInput, getChunkOfBooks);
+    const searchResults = data;
     
     return (
         <>
-            <Typography variant="h2" className={classes.header}>Search Results: { context.realSearchInput }</Typography>
+            <Typography variant="h2" className={classes.header}>Search Results: { context.searchInput }</Typography>
             <List id="results">
-                {searchResults ? searchResults.map((book) => {
+                {searchResults && searchResults.map((book) => {
                     var ln = book.data;
                     
                     return (
-                        <ListItem key={ln.isbn} className={classes.links} name={ ln.title } component={Link} to={ "/book/" + ln.isbn }>
-                            <ListItemText>{ln.title + " by " + ln.author}</ListItemText>
+                        <ListItem key={ln.isbn}>
+                            <BookCard {...ln} href={`/book/${ln.isbn13 || ln.isbn10 || ln.isbn}`} />
                         </ListItem>
                     )
-                }) : <p>Sorry, we couldn't find that book. <Link to="/add-book">Try Adding it to BookWyrm</Link></p> }
+                })}
             </List>
+            <Typography>Can't find what you're looking for? <Link to="/add-book">Try Adding it to BookWyrm.</Link></Typography>
         </>
     );
 }
