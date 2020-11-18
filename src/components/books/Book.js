@@ -23,13 +23,13 @@ const useStyles = makeStyles({
 
 export function Book(props) {
   const { isbn } = useParams() || props;
-  const { data } = useQuery(['book', { ref: isbn }], queryBook);
+  const { data = null } = useQuery(['book', { ref: isbn }], queryBook);
 
   return <BookCard {...data} />;
 }
 
 export function BookCard(props) {
-  const {title, authors, author, description, summary, isbn13, isbn10, isbn, image} = props;
+  const { title, authors, description, isbn13, isbn10, image, subtitle } = props;
   const { href } = props;
   const classes = useStyles();
 
@@ -47,15 +47,19 @@ export function BookCard(props) {
             {title}
           </Typography>
 
+          {
+            subtitle && <Typography gutterBottom variant="h6" component="h3">{subtitle}</Typography>
+          }
+
           <Typography gutterBottom variant="body2">
-            by {authors ? authors.join(", ") : author || null}
+            by {authors && authors.length > 1 ? authors.join(", ") : authors  ? authors[0] : null}
           </Typography>
 
           <Typography variant="body2" color="textSecondary" component="p">
-            {description || summary || null}
+            {description || null}
           </Typography>
 
-          <Typography variant="body2">ISBN: {isbn13 || isbn10 || isbn || null}</Typography>
+          <Typography variant="body2">ISBN: {isbn13 || isbn10 || null}</Typography>
         </CardContent>
       </CardActionArea>
 
