@@ -31,7 +31,7 @@ const Results = (props) => {
                     var ln = book.data;
                     
                     return (
-                        <ListItem key={ln.isbn}>
+                        <ListItem key={ln.isbn13}>
                             <BookCard {...ln} href={`/book/${ln.isbn13 || ln.isbn10 || ln.isbn}`} />
                         </ListItem>
                     )

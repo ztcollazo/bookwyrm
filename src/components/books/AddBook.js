@@ -29,6 +29,7 @@ const AddBook = () => {
 
     const get = async (isbnNum) => {
         const getIsbn = isbn.provider([isbn.PROVIDER_NAMES.GOOGLE]);
+        console.log(isbnNum);
 
         return getIsbn.resolve(isbnNum).then(book => {
             console.log(book);
@@ -39,7 +40,7 @@ const AddBook = () => {
                 subtitle: data.subtitle,
                 authors: data.authors,
                 isbn10: data.industryIdentifiers[0].identifier,
-                isbn13: data.industryIdentifiers[1].identifier,
+                isbn13: data.industryIdentifiers[1].identifier ? data.industryIdentifiers[1].identifier : null,
                 publisher: data.publisher,
                 publishedDate: data.publishedDate,
                 description: data.description,
@@ -56,7 +57,13 @@ const AddBook = () => {
                     data.industryIdentifiers[0].isbn10,
                     data.industryIdentifiers[1].isbn13,
                     data.publisher,
-                    data.title + " by " + data.authors
+                    data.title + " by " + data.authors,
+                    data.title.toLocaleLowerCase(),
+                    data.authors.join(' and ' || ', ').toLocaleLowerCase(),
+                    data.authors[0].toLocaleLowerCase(),
+                    data.authors.join(' and ' || ', '),
+                    data.authors[0],
+                    data.title.toLocaleLowerCase() + ' by ' + data.authors.join(' and ', ', ').toLocaleLowerCase()
                 ]
             };
         }).catch(
@@ -80,7 +87,7 @@ const AddBook = () => {
 
     const handleChange = (event) => {
         event.preventDefault();
-        if (typeof event.target.value === 'number') setIsbnInput(event.target.value);
+        setIsbnInput(event.target.value);
     }
 
     return (
