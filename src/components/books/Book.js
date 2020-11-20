@@ -1,15 +1,32 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { getBook } from "../../fauna";
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from "@material-ui/core";
+import humanizeString from "humanize-string";
+import { 
+  Button, 
+  Card, 
+  CardActionArea, 
+  // CardActions, 
+  CardContent, 
+  CardMedia, 
+  Paper, 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableContainer, 
+  TableHead, 
+  TableRow, 
+  Typography 
+} from "@material-ui/core";
 import { useQuery } from "react-query";
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from "react-router-dom";
 
 const queryBook = async (key, params) => await getBook(params);
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 500,
+    maxWidth: 650,
   },
   media: {
     width: 128,
@@ -17,7 +34,10 @@ const useStyles = makeStyles({
   },
   flex: {
       display: 'flex',
-      alignItems: 'stretch',
+      alignItems: 'flex-start',
+  },
+  columns: {
+    width: '150px'
   }
 });
 
@@ -35,8 +55,9 @@ export function BookCard(props) {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea className={classes.flex} href={ href ? href : null }>
+      <CardActionArea className={classes.flex} component={Link} to={ href ? href : null }>
         {image ? <CardMedia
+          component="img"
           className={classes.media}
           image={image}
           title={title}
@@ -60,17 +81,52 @@ export function BookCard(props) {
           </Typography>
 
           <Typography variant="body2">ISBN: {isbn13 || isbn10 || null}</Typography>
-        </CardContent>
-      </CardActionArea>
 
-      {href && (
-        <CardActions>
-            <Button size="small" color="primary" href={href}>
+          {href && (
+            <Button style={{marginTop: 10}} size="small" color="primary" variant="outlined" component={Link} to={href}>
                 View Book
             </Button>
-        </CardActions>
-      )}
+          )}
+        </CardContent>
+      </CardActionArea>
     </Card>
+  );
+}
+
+export const BookPage = () => {
+  const { isbn } = useParams();
+  const { data = {} } = useQuery(['book', { ref: isbn }], queryBook);
+  const excluded = ['keywords', 'preview', 'image'];
+  const classes = useStyles();
+
+  var tableData = Object.keys(data).filter(key => {
+    return !excluded.includes(key);
+  });
+
+  return (
+    <>
+      <BookCard {...data} />
+      <TableContainer component={Paper} style={{marginTop: 20}}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.columns}>Key</TableCell>
+              <TableCell>Value</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {
+              tableData.map(key => (
+                <TableRow>
+                    <TableCell className={classes.columns} >{humanizeString(key)}</TableCell>
+                    <TableCell>{data[key]}</TableCell>
+                </TableRow>
+              ))
+            }
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }
 

@@ -7,7 +7,7 @@ import AddBook from "./components/books/AddBook"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NoResults from "./components/NoResults";
 import Results from "./components/Results";
-import { Book } from './components/books/Book';
+import { BookPage } from './components/books/Book';
 import Browse from "./components/Browse";
 
 ReactDOM.render(
@@ -40,7 +40,7 @@ ReactDOM.render(
 
           </Route>
           <Route path="/book/:isbn">
-            <Book />
+            <BookPage />
           </Route>
           <Route>
             <NoResults />
