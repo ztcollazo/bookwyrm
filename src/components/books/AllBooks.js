@@ -46,7 +46,7 @@ const AllBooks = () => {
                         
                         return (
                             <ListItem key={ln.isbn13 || ln.isbn || ln.isbn10} name={ ln.title }>
-                                <BookCard {...ln} href={ln.isbn13 || ln.isbn10 || ln.isbn} />
+                                <BookCard {...ln} href={`/book/${ln.isbn13 || ln.isbn10 || ln.isbn}`} />
                             </ListItem>
                         )
                     }) : <p>Sorry, No books found.</p> }
