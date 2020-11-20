@@ -8,11 +8,12 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "clsx": "^1.1.1",
     "core-js": "^3.6.5",
+    "humanize-string": "^2.1.0",
     "node-isbn": "^1.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0",
-    "react-query": "2.23.0"
+    "react-query": "2.23.0",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "netlify-lambda": "2.0.1",
