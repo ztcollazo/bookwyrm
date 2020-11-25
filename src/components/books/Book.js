@@ -103,6 +103,14 @@ export const BookPage = () => {
     return !excluded.includes(key);
   });
 
+  const formatStrings = (text) => {
+    if (!text.includes("isbn")) {
+      return humanizeString(text);
+    } else {
+      return text.replace("isbn", "ISBN-");
+    }
+  }
+
   return (
     <>
       <BookCard {...data} />
@@ -118,7 +126,7 @@ export const BookPage = () => {
             {
               tableData.map(key => (
                 <TableRow>
-                    <TableCell className={classes.columns} >{humanizeString(key)}</TableCell>
+                    <TableCell className={classes.columns} >{formatStrings(key)}</TableCell>
                     <TableCell>{data[key]}</TableCell>
                 </TableRow>
               ))
