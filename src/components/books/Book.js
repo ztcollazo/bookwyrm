@@ -21,6 +21,7 @@ import {
 import { useQuery } from "react-query";
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from "react-router-dom";
+import { ReviewCard } from "./Review";
 
 const queryBook = async (key, params) => await getBook(params);
 
@@ -38,6 +39,9 @@ const useStyles = makeStyles({
   },
   columns: {
     width: '150px'
+  },
+  cards: {
+    display: 'flex',
   }
 });
 
@@ -55,7 +59,7 @@ export function BookCard(props) {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea className={classes.flex} component={Link} to={ href ? href : null }>
+      <CardActionArea className={classes.flex} component={Link} to={ href ? href : window.location.pathname }>
         {image ? <CardMedia
           component="img"
           className={classes.media}
@@ -113,7 +117,10 @@ export const BookPage = () => {
 
   return (
     <>
-      <BookCard {...data} />
+      <div className={classes.cards}>
+        <BookCard {...data} />
+        <ReviewCard {...data} />
+      </div>
       <TableContainer component={Paper} style={{marginTop: 20}}>
         <Table>
           <TableHead>
@@ -125,7 +132,7 @@ export const BookPage = () => {
           <TableBody>
             {
               tableData.map(key => (
-                <TableRow>
+                <TableRow key={key}>
                     <TableCell className={classes.columns} >{formatStrings(key)}</TableCell>
                     <TableCell>{data[key]}</TableCell>
                 </TableRow>
