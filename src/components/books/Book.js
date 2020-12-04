@@ -42,7 +42,7 @@ const useStyles = makeStyles({
   },
   cards: {
     display: 'flex',
-  }
+  },
 });
 
 export function Book(props) {
