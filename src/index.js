@@ -27,7 +27,7 @@ ReactDOM.render(
           <Route path="/forum">
 
           </Route>
-          <Route path="/review">
+          <Route path="/review/:isbn">
 
           </Route>
           <Route path="/browse">
