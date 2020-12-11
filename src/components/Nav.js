@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { AppContext } from "../setup";
+import { useAuth0 } from "@auth0/auth0-react";
 import { 
     AppBar, 
     Toolbar, 
@@ -16,6 +17,8 @@ import {
     ListItemText,
     CssBaseline,
     Divider,
+    ButtonGroup,
+    Button,
 } from "@material-ui/core";
 import {
     ChevronRightRounded,
@@ -105,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
           marginLeft: theme.spacing(1),
           width: 'auto',
         },
-        right: '0px',
+        right: '80px',
         float: 'right'
     },
     searchIcon: {
@@ -156,10 +159,20 @@ const useStyles = makeStyles((theme) => ({
     },
     linkActive: {
         borderRight: '2px solid #333333' 
+    },
+    login: {
+        position: "absolute",
+        right: "10px",
+        color: "white"
+    },
+    loginButton: {
+        color: "whitesmoke",
+        borderColor: "whitesmoke"
     }
   }));
 
 const Nav = (props) => {
+    const { loginWithRedirect, /* user, */ isAuthenticated, logout } = useAuth0();
     const history = useHistory();
     const classes = useStyles();
     const context = React.useContext(AppContext);
@@ -259,6 +272,10 @@ const Nav = (props) => {
                                 <ArrowForwardRounded />
                             </IconButton>
                         </form>
+                        <ButtonGroup className={classes.login} variant="outlined">
+                            {isAuthenticated ? <Button className={classes.loginButton} onClick={() => loginWithRedirect()}>Login</Button>  : <Button className={classes.loginButton} onClick={() => logout({redirectTo: window.location.hostname})}>Logout</Button>}
+                            {/*<Button>Signup</Button>*/}
+                        </ButtonGroup>
                     </Toolbar>
                 </AppBar>
                 <Drawer
