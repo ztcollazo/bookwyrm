@@ -9,45 +9,52 @@ import NoResults from "./components/NoResults";
 import Results from "./components/Results";
 import { BookPage } from './components/books/Book';
 import Browse from "./components/Browse";
+import { Auth0Provider } from '@auth0/auth0-react';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <App>
-        <Switch>
-          <Route exact strict path="/">
-            <HomeContent />
-          </Route>
-          <Route path="/add-book">
-            <AddBook />
-          </Route>
-          <Route path="/top-books">
+    <Auth0Provider
+      domain="bookwyrm-app.us.auth0.com"
+      clientId="H02lkN9su5XJeBgzQrprwt9AcJLFeDLk"
+      redirectUri={window.location.origin}
+    >
+      <Router>
+        <App>
+          <Switch>
+            <Route exact strict path="/">
+              <HomeContent />
+            </Route>
+            <Route path="/add-book">
+              <AddBook />
+            </Route>
+            <Route path="/top-books">
 
-          </Route>
-          <Route path="/forum">
+            </Route>
+            <Route path="/forum">
 
-          </Route>
-          <Route path="/review/:isbn">
+            </Route>
+            <Route path="/review/:isbn">
 
-          </Route>
-          <Route path="/browse">
-            <Browse />
-          </Route>
-          <Route path="/results">
-            <Results />
-          </Route>
-          <Route path="/dashboard">
+            </Route>
+            <Route path="/browse">
+              <Browse />
+            </Route>
+            <Route path="/results">
+              <Results />
+            </Route>
+            <Route path="/dashboard">
 
-          </Route>
-          <Route path="/book/:isbn">
-            <BookPage />
-          </Route>
-          <Route>
-            <NoResults />
-          </Route>
-        </Switch>
-      </App>
-    </Router>
+            </Route>
+            <Route path="/book/:isbn">
+              <BookPage />
+            </Route>
+            <Route>
+              <NoResults />
+            </Route>
+          </Switch>
+        </App>
+      </Router>
+      </Auth0Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
