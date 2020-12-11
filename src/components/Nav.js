@@ -273,7 +273,7 @@ const Nav = (props) => {
                             </IconButton>
                         </form>
                         <ButtonGroup className={classes.login} variant="outlined">
-                            {isAuthenticated ? <Button className={classes.loginButton} onClick={() => loginWithRedirect()}>Login</Button>  : <Button className={classes.loginButton} onClick={() => logout({redirectTo: window.location.hostname})}>Logout</Button>}
+                            {(!isAuthenticated) ? <Button className={classes.loginButton} onClick={() => loginWithRedirect()}>Login</Button>  : <Button className={classes.loginButton} onClick={() => logout({redirectTo: window.location.hostname})}>Logout</Button>}
                             {/*<Button>Signup</Button>*/}
                         </ButtonGroup>
                     </Toolbar>
