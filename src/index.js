@@ -9,16 +9,17 @@ import NoResults from "./components/NoResults";
 import Results from "./components/Results";
 import { BookPage } from './components/books/Book';
 import Browse from "./components/Browse";
-import { Auth0Provider } from '@auth0/auth0-react';
+import Auth0ProviderWithHistory from './components/Auth0ProviderWithHistory.js';
+import AuthCallback from './components/AuthCallback';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Auth0Provider
-      domain="bookwyrm-app.us.auth0.com"
-      clientId="H02lkN9su5XJeBgzQrprwt9AcJLFeDLk"
-      redirectUri={window.location.origin}
-    >
-      <Router>
+    <Router>
+      <Auth0ProviderWithHistory
+        domain="bookwyrm-app.us.auth0.com"
+        clientId="H02lkN9su5XJeBgzQrprwt9AcJLFeDLk"
+        redirectUri={window.location.origin}
+      >
         <App>
           <Switch>
             <Route exact strict path="/">
@@ -48,13 +49,16 @@ ReactDOM.render(
             <Route path="/book/:isbn">
               <BookPage />
             </Route>
+            <Route path="/auth-callback">
+              <AuthCallback />
+            </Route>
             <Route>
               <NoResults />
             </Route>
           </Switch>
         </App>
-      </Router>
-      </Auth0Provider>
+        </Auth0ProviderWithHistory>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );

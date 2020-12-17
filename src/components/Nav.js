@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { AppContext } from "../setup";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react"
 import { 
     AppBar, 
     Toolbar, 
@@ -18,7 +18,6 @@ import {
     CssBaseline,
     Divider,
     ButtonGroup,
-    Button,
 } from "@material-ui/core";
 import {
     ChevronRightRounded,
@@ -32,6 +31,7 @@ import {
     RateReviewRounded,
 } from "@material-ui/icons";
 import clsx from "clsx";
+import AuthButton from "./AuthButton";
 
 export const drawerWidth = 240;
 
@@ -171,54 +171,65 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
+  const pages = [
+    {
+        link: "/",
+        title: "Home",
+        icon: <HomeRounded />
+    },
+    {
+        link: "/browse",
+        title: "Browse",
+        icon: <SubjectRounded />
+    },
+    {
+        link: "/top-books",
+        title: "Top Books",
+        icon: <FormatListNumberedRounded />
+    },
+    {
+        link: "/forum",
+        title: "Forum",
+        icon: <ForumRounded />
+    },
+    {
+        link: "/review",
+        title: "Review",
+        icon: <RateReviewRounded />
+    }
+];
+
+const NavLinks = (props) => {
+    return pages.map((page) => { 
+        return (
+            <ListItem button key={page.title} component={NavLink} to={page.link} exact activeClassName={ props.classes.linkActive }>
+                <ListItemIcon>
+                    {page.icon}
+                </ListItemIcon>
+                <ListItemText className={props.classes.linkItemText} primary={page.title} />
+            </ListItem> 
+        );
+    });
+}
+
+const DrawerIcon = ({onClick, classes, open}) => {
+    return <IconButton className={classes.drawerIcon} onClick={ onClick }>
+        {open ? <ChevronLeftRounded /> : <ChevronRightRounded />}
+    </IconButton>;
+}
+
 const Nav = (props) => {
-    const { loginWithRedirect, /* user, */ isAuthenticated, logout } = useAuth0();
     const history = useHistory();
     const classes = useStyles();
     const context = React.useContext(AppContext);
     const {open, toggleDrawer} = props;
     const [searchInput, setSearchInput] = React.useState("");
+    // const [authenticated, setAuthenticated] = React.useState(isAuthenticated);
+    const { isAuthenticated, isLoading } = useAuth0();
 
-    const pages = [
-        {
-            link: "/",
-            title: "Home",
-            icon: <HomeRounded />
-        },
-        {
-            link: "/browse",
-            title: "Browse",
-            icon: <SubjectRounded />
-        },
-        {
-            link: "/top-books",
-            title: "Top Books",
-            icon: <FormatListNumberedRounded />
-        },
-        {
-            link: "/forum",
-            title: "Forum",
-            icon: <ForumRounded />
-        },
-        {
-            link: "/review",
-            title: "Review",
-            icon: <RateReviewRounded />
-        }
-    ];
-
-    const NavLinks = () => {
-        return pages.map((page) => { 
-            return (
-                <ListItem button key={page.title} component={NavLink} to={page.link} exact activeClassName={ classes.linkActive }>
-                    <ListItemIcon>
-                        {page.icon}
-                    </ListItemIcon>
-                    <ListItemText className={classes.linkItemText} primary={page.title} />
-                </ListItem> 
-            );
-        });
-    }
+    React.useEffect(() => {
+        console.log(`${isAuthenticated}, ${isLoading}`);
+    })
 
     const handleChange = (event) => {
         event.preventDefault();
@@ -231,12 +242,6 @@ const Nav = (props) => {
         history.push('/results');
         context.setSearchInput(searchInput);
         setSearchInput("");
-    }
-
-    const DrawerIcon = ({onClick}) => {
-        return <IconButton className={classes.drawerIcon} onClick={ onClick }>
-            {open ? <ChevronLeftRounded /> : <ChevronRightRounded />}
-        </IconButton>;
     }
 
     return (
@@ -273,8 +278,7 @@ const Nav = (props) => {
                             </IconButton>
                         </form>
                         <ButtonGroup className={classes.login} variant="outlined">
-                            {(!isAuthenticated) ? <Button className={classes.loginButton} onClick={() => loginWithRedirect()}>Login</Button>  : <Button className={classes.loginButton} onClick={() => logout({redirectTo: window.location.hostname})}>Logout</Button>}
-                            {/*<Button>Signup</Button>*/}
+                            <AuthButton className={classes.loginButton} />
                         </ButtonGroup>
                     </Toolbar>
                 </AppBar>
@@ -296,11 +300,11 @@ const Nav = (props) => {
                     }}
                 >
                     <div className={classes.toolbar}>
-                        <DrawerIcon onClick={toggleDrawer} />
+                        <DrawerIcon open={open} classes={classes} onClick={toggleDrawer} />
                     </div>
                     <Divider />
                     <List>
-                        <NavLinks />
+                        <NavLinks classes={classes} />
                     </List>
                 </Drawer>
             </header>
