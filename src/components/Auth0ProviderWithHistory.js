@@ -9,14 +9,14 @@ export const Auth0ProviderWithHistory = ({children}) => {
     const history = useHistory();
 
     const onRedirectCallback = (appState) => {
-        history.push(appState?.returnTo || window.location.pathname);
+        history.replace(appState?.returnTo || window.location.pathname);
     }
 
     return (
         <Auth0Provider
             domain={domain}
             clientId={clientID}
-            redirectUri={!process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? "http://localhost:8888/auth-callback" : "https://bookwyrm.netlify.app/auth-callback"}
+            redirectUri={window.location.origin}
             onRedirectCallback={onRedirectCallback}
         >
             {children}
