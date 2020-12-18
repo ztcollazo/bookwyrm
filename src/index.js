@@ -4,10 +4,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import HomeContent from "./components/HomeContent";
 import AddBook from "./components/books/AddBook"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import NoResults from "./components/NoResults";
 import Results from "./components/Results";
 import { BookPage } from './components/books/Book';
+import { ReviewPage } from './components/books/Review';
 import Browse from "./components/Browse";
 import Auth0ProviderWithHistory from './components/Auth0ProviderWithHistory.js';
 import AuthCallback from './components/AuthCallback';
@@ -15,11 +16,7 @@ import AuthCallback from './components/AuthCallback';
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <Auth0ProviderWithHistory
-        domain="bookwyrm-app.us.auth0.com"
-        clientId="H02lkN9su5XJeBgzQrprwt9AcJLFeDLk"
-        redirectUri={window.location.origin}
-      >
+      <Auth0ProviderWithHistory>
         <App>
           <Switch>
             <Route exact strict path="/">
@@ -35,7 +32,7 @@ ReactDOM.render(
 
             </Route>
             <Route path="/review/:isbn">
-
+                <ReviewPage />
             </Route>
             <Route path="/browse">
               <Browse />
@@ -51,6 +48,12 @@ ReactDOM.render(
             </Route>
             <Route path="/auth-callback">
               <AuthCallback />
+            </Route>
+            <Route path="/review">
+              <Redirect to="/browse" />
+            </Route>
+            <Route path="write-review/:isbn">
+              
             </Route>
             <Route>
               <NoResults />
