@@ -23,13 +23,9 @@ import {
     ChevronRightRounded,
     ArrowForwardRounded,
     SearchRounded,
-    ChevronLeftRounded,
-    HomeRounded,
-    ForumRounded,
-    SubjectRounded,
-    FormatListNumberedRounded,
-    RateReviewRounded,
+    ChevronLeftRounded
 } from "@material-ui/icons";
+import { pages } from "../setup";
 import clsx from "clsx";
 import AuthButton from "./AuthButton";
 
@@ -169,35 +165,7 @@ const useStyles = makeStyles((theme) => ({
         color: "whitesmoke",
         borderColor: "whitesmoke"
     }
-  }));
-
-  const pages = [
-    {
-        link: "/",
-        title: "Home",
-        icon: <HomeRounded />
-    },
-    {
-        link: "/browse",
-        title: "Browse",
-        icon: <SubjectRounded />
-    },
-    {
-        link: "/top-books",
-        title: "Top Books",
-        icon: <FormatListNumberedRounded />
-    },
-    {
-        link: "/forum",
-        title: "Forum",
-        icon: <ForumRounded />
-    },
-    {
-        link: "/review",
-        title: "Review",
-        icon: <RateReviewRounded />
-    }
-];
+}));
 
 const NavLinks = (props) => {
     return pages.map((page) => { 

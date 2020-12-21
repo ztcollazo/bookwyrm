@@ -1,4 +1,10 @@
-import { createContext } from "react";
+import React, { createContext } from "react";
+import  {
+    HomeRounded,
+    SubjectRounded,
+    FormatListNumberedRounded,
+    RateReviewRounded
+} from "@material-ui/icons"
 
 export const AppContext = createContext({
     searchInput: "",
@@ -10,22 +16,22 @@ export const AppContext = createContext({
 export const pages = [
     {
         link: "/",
-        title: "Home"
+        title: "Home",
+        icon: <HomeRounded />
     },
     {
         link: "/browse",
         title: "Browse",
+        icon: <SubjectRounded />
     },
     {
         link: "/top-books",
-        title: "Top Books"
-    },
-    {
-        link: "/forum",
-        title: "Forum"
+        title: "Top Books",
+        icon: <FormatListNumberedRounded />
     },
     {
         link: "/review",
-        title: "Review"
+        title: "Review",
+        icon: <RateReviewRounded />
     }
 ];
