@@ -54,12 +54,12 @@ export function Book(props) {
 
 export function BookCard(props) {
   const { title, authors, description, isbn13, isbn10, image, subtitle } = props;
-  const { href } = props;
+  const { pageHref, reviewHref } = props;
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      <CardActionArea className={classes.flex} component={Link} to={ href ? href : window.location.pathname }>
+      <CardActionArea className={classes.flex} component={Link} to={ pageHref ? pageHref : window.location.pathname }>
         {image ? <CardMedia
           component="img"
           className={classes.media}
@@ -86,10 +86,15 @@ export function BookCard(props) {
 
           <Typography variant="body2">ISBN: {isbn13 || isbn10 || null}</Typography>
 
-          {href && (
-            <Button style={{marginTop: 10}} size="small" color="primary" variant="outlined" component={Link} to={href}>
-                View Book
-            </Button>
+          {pageHref && reviewHref && (
+            <>
+              <Button style={{marginTop: 10}} size="small" color="primary" variant="outlined" component={Link} to={pageHref}>
+                  View Book
+              </Button>
+              <Button style={{marginTop: 10, marginLeft: 10}} size="small" color="primary" variant="outlined" component={Link} to={reviewHref}>
+                  Review Book
+              </Button>
+            </>
           )}
         </CardContent>
       </CardActionArea>
