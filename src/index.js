@@ -12,6 +12,7 @@ import { ReviewPage } from './components/books/Review';
 import Browse from "./components/Browse";
 import Auth0ProviderWithHistory from './components/Auth0ProviderWithHistory.js';
 import AuthCallback from './components/AuthCallback';
+import AddReview from './components/books/AddReview';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -26,9 +27,6 @@ ReactDOM.render(
               <AddBook />
             </Route>
             <Route path="/top-books">
-
-            </Route>
-            <Route path="/forum">
 
             </Route>
             <Route path="/review/:isbn">
@@ -52,15 +50,15 @@ ReactDOM.render(
             <Route path="/review">
               <Redirect to="/browse" />
             </Route>
-            <Route path="write-review/:isbn">
-              
+            <Route path="/write-review/:isbn">
+              <AddReview />
             </Route>
             <Route>
               <NoResults />
             </Route>
           </Switch>
         </App>
-        </Auth0ProviderWithHistory>
+      </Auth0ProviderWithHistory>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
