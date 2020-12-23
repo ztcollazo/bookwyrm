@@ -17,7 +17,7 @@ exports.handler = async (event, _context, callback) => {
     try {
         const res = await books.query(
             q.Create(
-                q.Collection('books'),
+                q.Collection('reviews'),
                 item
             )
         );

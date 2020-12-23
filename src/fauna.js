@@ -129,7 +129,7 @@ export const getReviews = async (data: ReviewQuery): Object => {
         const response = await fetch(
             "/.netlify/functions/get-reviews",
             {
-                method: "GET",
+                method: "POST",
                 body: JSON.stringify(data)
             }
         )

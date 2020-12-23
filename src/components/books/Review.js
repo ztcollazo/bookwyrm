@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { getBook } from "../../fauna";
+import { getBook, getReviews } from "../../fauna";
 import { Rating } from "@material-ui/lab";
 import { 
     Card,
@@ -11,7 +11,7 @@ import {
     CardActionArea,
     CardActions,
     IconButton,
-    Avatar,
+    // Avatar,
     Button,
     FormControl,
     Select,
@@ -72,7 +72,11 @@ const useStyles = makeStyles(() => ({
     sort: {
         marginTop: 10,
         padding: 10
-    }
+	},
+	select: {
+		margin: 16,
+		display: 'block'
+	}
 }));
 
 const WriteReviewCard = ({isbn}) => {
@@ -100,10 +104,10 @@ const SortBy = () => {
 
     return (
         <Card className={classes.sort}>
-            <FormControl variant="outlined">
+            <FormControl className={classes.select} variant="outlined">
                 <Select
                     labelId="simple-select-outlined-label" 
-                    id="demo-simple-select-outlined"
+                    id="simple-select-outlined"
                     value={sort}
                     onChange={handleSort}
                     displayEmpty
@@ -117,10 +121,10 @@ const SortBy = () => {
                     <MenuItem value={2}>Least Votes</MenuItem>
                 </Select>
             </FormControl>
-            <FormControl variant="outlined">
+            <FormControl className={classes.select} variant="outlined">
                 <Select
                     labelId="simple-select-outlined-label" 
-                    id="demo-simple-select-outlined"
+                    id="simple-select-outlined"
                     value={filter}
                     onChange={handleChange}
                     displayEmpty
@@ -162,9 +166,9 @@ const SingleReview = (props) => {
 
     return (
         <Card className={classes.review} {...props}>
-            <CardHeader avatar={<Avatar>{"John Doe".split(" ")[0][0] + "John Doe".split(" ")[1][0]}</Avatar>} title="An OK book" subheader="John Doe" action={<Rating value={3} readOnly />} />
+            <CardHeader title={props.title} subheader={props.reviewer} action={<Rating value={props.rating} readOnly />} />
             <CardContent>
-                <Typography>Review Body</Typography>
+                <Typography>{props.body}</Typography>
             </CardContent>
             <CardActions>
                 <IconButton><ThumbUpRounded /></IconButton>
@@ -175,11 +179,13 @@ const SingleReview = (props) => {
 }
 
 const queryBook = async (key, params) => await getBook(params);
+const queryReviews = async (key, params) => await getReviews(params);
 
 export const ReviewPage = () => {
     const classes = useStyles();
     const { isbn } = useParams();
-    const { data = {} } = useQuery(['book', { ref: isbn }], queryBook);
+	const { data = {} } = useQuery(['book', { ref: isbn }], queryBook);
+	const review = useQuery(['get-reviews', { book: isbn }], queryReviews);
 
     /* 
         {
@@ -202,7 +208,7 @@ export const ReviewPage = () => {
                 </div>
             </div>
             <div>
-                {[1,2,3,4,5].map((i) => (<SingleReview key={i} />))}
+                {review.data && review.data.length > 0 ? review.data.map((i) => (<SingleReview key={i} />)) : <Typography>Sorry, nothing to see here.</Typography>}
             </div>
         </>
     );
