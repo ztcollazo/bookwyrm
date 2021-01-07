@@ -89,7 +89,7 @@ const WriteReviewCard = ({isbn}) => {
     )
 }
 
-const SortBy = () => {
+const SortBy = (props) => {
     const classes = useStyles();
     const [filter, setFilter] = React.useState('');
     const [sort, setSort] = React.useState('');
@@ -165,8 +165,8 @@ const SingleReview = (props) => {
     const classes = useStyles();
 
     return (
-        <Card className={classes.review} {...props}>
-            <CardHeader title={props.title} subheader={props.reviewer} action={<Rating value={props.rating} readOnly />} />
+        <Card className={classes.review} >
+            <CardHeader title={props.title} subheader={props.reviewer} action={<Rating value={Number(props.rating)} readOnly />} />
             <CardContent>
                 <Typography>{props.body}</Typography>
             </CardContent>
@@ -185,7 +185,7 @@ export const ReviewPage = () => {
     const classes = useStyles();
     const { isbn } = useParams();
 	const { data = {} } = useQuery(['book', { ref: isbn }], queryBook);
-	const review = useQuery(['get-reviews', { book: isbn }], queryReviews);
+    const reviews = useQuery(['get-reviews', { book: isbn }], queryReviews);
 
     /* 
         {
@@ -204,11 +204,11 @@ export const ReviewPage = () => {
                 <BookCard {...data} />
                 <div className={classes.rightCards}>
                     <WriteReviewCard isbn={isbn} />
-                    <SortBy />
+                    <SortBy reviews={reviews.data} />
                 </div>
             </div>
             <div>
-                {review.data && review.data.length > 0 ? review.data.map((i) => (<SingleReview key={i} />)) : <Typography>Sorry, nothing to see here.</Typography>}
+                {reviews.data && reviews.data.length > 0 ? reviews.data.map((i) => (<SingleReview {...i.data} key={i} />)) : <Typography>Sorry, nothing to see here.</Typography>}
             </div>
         </>
     );

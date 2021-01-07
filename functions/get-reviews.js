@@ -9,7 +9,9 @@ const books = new faunadb.Client({ secret: process.env.FAUNA_BOOKS_SERVER_KEY })
 
 exports.handler = async (event, _context, callback) => {
     console.log("Reading database...");
-    const givenData = event.body;
+    const givenData = JSON.parse(event.body);
+    var book = String(givenData.book);
+    console.log(book);
 
     console.log(givenData);
 
@@ -21,7 +23,7 @@ exports.handler = async (event, _context, callback) => {
                         q.Index(
                             'reviews_by_isbn'
                         ),
-                        givenData
+                        book
                     )
                 ),
                 q.Lambda(
@@ -31,6 +33,7 @@ exports.handler = async (event, _context, callback) => {
             )
         );
         const all = res.data;
+        console.log(all);
         console.log(`Success! ${all.length} items found`);
 
         return callback(
