@@ -29,7 +29,8 @@ interface ReviewSchema {
     date: string,
     rating: Number,
     likes: Number,
-    book: string
+    book: string,
+    dislikes: Number
 }
 
 interface ReviewQuery {

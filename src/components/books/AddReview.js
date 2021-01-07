@@ -66,6 +66,7 @@ const AddReview = () => {
                     date,
                     rating: value,
                     likes: 1,
+                    dislikes: 0,
                     book: typeof isbn !== "string" ? String(isbn) : isbn
                 })}>Submit Review</Button>
             </CardContent>
