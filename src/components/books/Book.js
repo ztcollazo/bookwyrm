@@ -26,9 +26,6 @@ import { ReviewCard } from "./Review";
 const queryBook = async (key, params) => await getBook(params);
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 650,
-  },
   media: {
     width: 128,
     flex: '1 0 auto',
@@ -54,11 +51,11 @@ export function Book(props) {
 
 export function BookCard(props) {
   const { title, authors, description, isbn13, isbn10, image, subtitle } = props;
-  const { pageHref, reviewHref } = props;
+  const { pageHref, reviewHref, className } = props;
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className={className}>
       <CardActionArea className={classes.flex} component={Link} to={ pageHref ? pageHref : window.location.pathname }>
         {image ? <CardMedia
           component="img"
