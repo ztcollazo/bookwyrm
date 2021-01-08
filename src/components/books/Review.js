@@ -201,7 +201,7 @@ export const ReviewPage = () => {
     return (
         <>
             <div className={classes.topCards}>
-                <BookCard {...data} />
+                <BookCard {...data} pageHref={`/book/${data.isbn13}`} />
                 <div className={classes.rightCards}>
                     <WriteReviewCard isbn={isbn} />
                     <SortBy reviews={reviews.data} />
