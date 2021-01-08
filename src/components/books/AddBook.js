@@ -34,13 +34,15 @@ const AddBook = () => {
         return getIsbn.resolve(isbnNum).then(book => {
             console.log(book);
             let data = book;
+            const isbn10 = data.industryIdentifiers[0].type === "ISBN_10" ? data.industryIdentifiers[0].identifier : data.industryIdentifiers[1].identifier;
+            const isbn13 = data.industryIdentifiers[0].type === "ISBN_10" ? data.industryIdentifiers[1].identifier : data.industryIdentifiers[0].identifier;
 
             return {
                 title: data.title,
                 subtitle: data.subtitle,
                 authors: data.authors,
-                isbn10: data.industryIdentifiers[0].identifier,
-                isbn13: data.industryIdentifiers[1].identifier ? data.industryIdentifiers[1].identifier : null,
+                isbn10,
+                isbn13: isbn13 ? isbn13 : null,
                 publisher: data.publisher,
                 publishedDate: data.publishedDate,
                 description: data.description,
@@ -75,9 +77,7 @@ const AddBook = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        addBook(
-            JSON.stringify(book)
-        );
+        addBook(book);
     }
 
     const handleClick = async () => {
