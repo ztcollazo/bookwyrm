@@ -8,7 +8,7 @@ const books = new faunadb.Client({ secret: process.env.FAUNA_BOOKS_SERVER_KEY })
 
 exports.handler = async (event, _context, callback) => {
     const data = event.body;
-    const old = event.previous;
+    const old = data.previous;
     const ref = old.isbn || old.ref
     console.log("Updating...");
 
