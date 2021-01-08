@@ -13,6 +13,7 @@ import Browse from "./components/Browse";
 import Auth0ProviderWithHistory from './components/Auth0ProviderWithHistory.js';
 import AuthCallback from './components/AuthCallback';
 import AddReview from './components/books/AddReview';
+import Rating from './components/books/Rating';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -27,7 +28,7 @@ ReactDOM.render(
               <AddBook />
             </Route>
             <Route path="/top-books">
-
+              <Rating />
             </Route>
             <Route path="/review/:isbn">
                 <ReviewPage />
