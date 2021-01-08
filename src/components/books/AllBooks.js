@@ -11,7 +11,7 @@ import {
 import { Alert } from "@material-ui/lab";
 import { BookCard } from "./Book";
 
-const queryAllBooks = async (key) => await getAllBooks();
+const queryAllBooks = async (key) => await getAllBooks({ sortBy: 'none' });
 
 const useStyles = makeStyles((theme) => ({
     spinner: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AllBooks = () => {
     const classes = useStyles();
-    const { data, isLoading, isError, error } = useQuery(['all-books'], queryAllBooks);
+    const { data = [], isLoading, isError, error } = useQuery(['all-books'], queryAllBooks);
     const books = data;
 
     const Content = () => {
@@ -37,7 +37,8 @@ const AllBooks = () => {
                 </Backdrop>
             );
         } else if (isError) {
-            return <Alert severity="error">Sorry, something went wrong. {error.message}</Alert>
+            console.log(error.message)
+            return <Alert severity="error">Sorry, something went wrong.</Alert>
         } else {
             return (
                 <List id="results">
