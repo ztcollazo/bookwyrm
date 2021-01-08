@@ -7,13 +7,26 @@ dotenv.config({ path: path.resolve("../../../.env") });
 const q = faunadb.query;
 const books = new faunadb.Client({ secret: process.env.FAUNA_BOOKS_SERVER_KEY });
 
-exports.handler = async (_event, _context, callback) => {
+exports.handler = async (event, _context, callback) => {
+    /*
+        ?sort_by=rating
+        queryStringParameters = {
+            sort_by: 'rating',
+        }
+    */
+    const sort = event.queryStringParameters;
     console.log("Reading database...");
     try {
-        const res = await books.query(
+        var index;
+        if (sort.sort_by === "rating") {
+            index = "books_by_ratings";
+        } else {
+            index = "all_books";
+        }
+        var res = await books.query(
             q.Paginate(
                 q.Match(
-                    q.Index("all_books")
+                    q.Index(index)
                 )
             )
         );

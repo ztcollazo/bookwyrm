@@ -57,12 +57,23 @@ export const addBook = async (data: BookSchema): Object => {
     }
 }
 
-export const getAllBooks = async (): Object => {
+type EnumSortTypes = 'rating' | 'none';
+interface GetBooks {
+    sortBy?: EnumSortTypes,
+}
+
+export const getAllBooks = async ({sortBy}: GetBooks): Object => {
+    let body = null;
+    if (sortBy === "rating") {
+        body = new URLSearchParams({sort_by: sortBy});
+    }
+
     try {
         const response = await fetch(
             "/.netlify/functions/read-all",
             {
-                method: 'GET'
+                method: 'GET',
+                queryStringParameters: body
             }
         );
         const json = await response.json();
