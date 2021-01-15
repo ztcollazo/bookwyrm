@@ -17,10 +17,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const queryResults = (key, params) => getChunkOfBooks(params)
+
 const Results = (props) => {
     const context = React.useContext(AppContext);
     const classes = useStyles();
-    const { data } = useQuery(context.searchInput, getChunkOfBooks);
+    const { data } = useQuery(['search', context.searchInput], queryResults);
     const searchResults = data;
     
     return (
