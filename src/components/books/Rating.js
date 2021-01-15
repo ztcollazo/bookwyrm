@@ -12,21 +12,10 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const sort = (a, b) => {
-    if (a.rating < b.rating) {
-        return 1;
-    }
-    if (a.rating > b.rating) {
-        return -1;
-    }
-    return 0;
-}
-
 const TopTen = () => {
     const classes = useStyles();
-    const { data = [] } = useQuery(["rank-books", { sortBy: 'rating' }], queryBooks);
-    var topTen = data.slice(0, 10);
-    topTen = topTen.sort(sort);
+    const { data = [] } = useQuery(["ratings", { sortBy: 'rating' }], queryBooks);
+    var topTen = data;
 
     return (
         <List>
