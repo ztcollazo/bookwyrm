@@ -63,18 +63,14 @@ interface GetBooks {
 }
 
 export const getAllBooks = async ({sortBy}: GetBooks): Object => {
-    let body = null;
+    let searchParams = new URLSearchParams();
     if (sortBy === "rating") {
-        body = new URLSearchParams({sort_by: sortBy});
+        searchParams.append('sort_by', sortBy);
     }
 
     try {
         const response = await fetch(
-            "/.netlify/functions/read-all",
-            {
-                method: 'GET',
-                queryStringParameters: body
-            }
+            "/.netlify/functions/read-all?" + searchParams.toString()
         );
         const json = await response.json();
         console.log(json);
@@ -91,7 +87,7 @@ export const getChunkOfBooks = async (data: BookQuery): Object => {
             "/.netlify/functions/get-chunk",
             {
                 method: 'POST',
-                body: JSON.stringify(data)
+                body: data
             }
         );
         var json = await response.json();

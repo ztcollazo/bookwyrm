@@ -18,16 +18,18 @@ exports.handler = async (event, _context, callback) => {
     console.log("Reading database...");
     try {
         var index;
-        if (sort.sort_by === "rating") {
+        if (sort.sort_by === 'rating') {
             index = "books_by_ratings";
         } else {
             index = "all_books";
         }
+        console.log(index);
         var res = await books.query(
             q.Paginate(
                 q.Match(
                     q.Index(index)
-                )
+                ), 
+                sort.sort_by === 'rating' ? { size: 10 } : {}
             )
         );
         const all = res.data;
@@ -35,7 +37,13 @@ exports.handler = async (event, _context, callback) => {
 
         const getAll = all.map(
             (ref) => {
-                return q.Get(ref);
+                var bookRef;
+                if (sort.sort_by === 'rating') {
+                    bookRef = ref[1];
+                } else {
+                    bookRef = ref;
+                }
+                return q.Get(bookRef);
             }
         );
         const ret = await books.query(getAll);
