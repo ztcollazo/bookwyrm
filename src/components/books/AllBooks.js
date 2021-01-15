@@ -22,12 +22,32 @@ const useStyles = makeStyles((theme) => ({
         zIndex: theme.zIndex.drawer - 1,
         color: '#fff'
     }
-}))
+}));
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
 
 const AllBooks = () => {
     const classes = useStyles();
     const { data = [], isLoading, isError, error } = useQuery(['all-books'], queryAllBooks);
-    const books = data;
+    var books = data;
+    books = shuffle(books);
 
     const Content = () => {
         if (isLoading) {
