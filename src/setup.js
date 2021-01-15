@@ -2,8 +2,7 @@ import React, { createContext } from "react";
 import  {
     HomeRounded,
     SubjectRounded,
-    FormatListNumberedRounded,
-    RateReviewRounded
+    FormatListNumberedRounded
 } from "@material-ui/icons"
 
 export const AppContext = createContext({
@@ -28,10 +27,5 @@ export const pages = [
         link: "/top-books",
         title: "Top Books",
         icon: <FormatListNumberedRounded />
-    },
-    {
-        link: "/review",
-        title: "Review",
-        icon: <RateReviewRounded />
     }
 ];
