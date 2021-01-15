@@ -18,12 +18,16 @@ import {
     CssBaseline,
     Divider,
     ButtonGroup,
+    Button
 } from "@material-ui/core";
 import {
     ChevronRightRounded,
     ArrowForwardRounded,
     SearchRounded,
-    ChevronLeftRounded
+    ChevronLeftRounded,
+    LockOpenRounded,
+    LockRounded,
+    VpnKeyRounded
 } from "@material-ui/icons";
 import { pages } from "../setup";
 import clsx from "clsx";
@@ -164,13 +168,41 @@ const useStyles = makeStyles((theme) => ({
     loginButton: {
         color: "whitesmoke",
         borderColor: "whitesmoke"
+    }, 
+    sideLogin: {
+        marginTop: 10
     }
 }));
+
+const SideLogin = ({ isAuthenticated, loginWithRedirect, logout }) => {
+    if (isAuthenticated) {
+        return (
+            <List>
+                <ListItem title="Logout" component={Button} onClick={() => logout()}>
+                    <ListItemIcon><LockRounded /></ListItemIcon>
+                    <ListItemText>LOGOUT</ListItemText>
+                </ListItem>
+            </List>
+        )
+    }
+    return (
+        <List>
+            <ListItem title="Login" component={Button} onClick={() => loginWithRedirect()}>
+                <ListItemIcon><LockOpenRounded /></ListItemIcon>
+                <ListItemText>LOGIN</ListItemText>
+            </ListItem>
+            <ListItem title="Sign Up" component={Button} onClick={() => loginWithRedirect({ screen_hint: 'signup' })}>
+                <ListItemIcon><VpnKeyRounded /></ListItemIcon>
+                <ListItemText>SIGN UP</ListItemText>
+            </ListItem>
+        </List>
+    )
+}
 
 const NavLinks = (props) => {
     return pages.map((page) => { 
         return (
-            <ListItem button key={page.title} component={NavLink} to={page.link} exact activeClassName={ props.classes.linkActive }>
+            <ListItem title={page.title} button key={page.title} component={NavLink} to={page.link} exact activeClassName={ props.classes.linkActive }>
                 <ListItemIcon>
                     {page.icon}
                 </ListItemIcon>
@@ -193,7 +225,7 @@ const Nav = (props) => {
     const {open, toggleDrawer} = props;
     const [searchInput, setSearchInput] = React.useState("");
     // const [authenticated, setAuthenticated] = React.useState(isAuthenticated);
-    const { isAuthenticated, isLoading } = useAuth0();
+    const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
 
     React.useEffect(() => {
         console.log(`${isAuthenticated}, ${isLoading}`);
@@ -225,7 +257,7 @@ const Nav = (props) => {
                             <img className={classes.img} src="/logo.png" alt="The BookWyrm Logo" />
                             <Typography className={classes.title} variant="h1"> BookWyrm</Typography>
                         </Link>
-                        <form onSubmit={handleSubmit} id="holder" className={classes.search} float="right" >
+                        <form title="Search" onSubmit={handleSubmit} id="holder" className={classes.search} float="right" >
                             <div className={classes.searchIcon}>
                                 <SearchRounded />
                             </div>
@@ -274,6 +306,8 @@ const Nav = (props) => {
                     <List>
                         <NavLinks classes={classes} />
                     </List>
+                    <Divider />
+                    <SideLogin loginWithRedirect={loginWithRedirect} logout={logout} isAuthenticated={isAuthenticated} />
                 </Drawer>
             </header>
             <div className={classes.toolbar} />
