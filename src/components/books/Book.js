@@ -22,6 +22,7 @@ import { useQuery } from "react-query";
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from "react-router-dom";
 import { ReviewCard } from "./Review";
+import clsx from "clsx";
 
 const queryBook = async (key, params) => await getBook(params);
 
@@ -40,6 +41,9 @@ const useStyles = makeStyles({
   cards: {
     display: 'flex',
   },
+  card: {
+    flex: '1 0 50%',
+  }
 });
 
 export function Book(props) {
@@ -55,7 +59,7 @@ export function BookCard(props) {
   const classes = useStyles();
 
   return (
-    <Card className={className}>
+    <Card className={clsx(classes.card, className)}>
       <CardActionArea className={classes.flex} component={Link} to={ pageHref ? pageHref : window.location.pathname }>
         {image ? <CardMedia
           component="img"
