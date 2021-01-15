@@ -7,8 +7,8 @@ const AuthButton = (props) => {
 
     return (
         isAuthenticated ? 
-            <Button className={props.className} variant="outlined" onClick={() => logout({returnTo: window.location.origin})}>Logout</Button> : 
-            <Button className={props.className} variant="outlined" onClick={() => loginWithRedirect()}>Login</Button>
+            <Button title="Logout" className={props.className} variant="outlined" onClick={() => logout({returnTo: window.location.origin})}>Logout</Button> : 
+            <Button title="Login" className={props.className} variant="outlined" onClick={() => loginWithRedirect()}>Login</Button>
     )
 }
 
