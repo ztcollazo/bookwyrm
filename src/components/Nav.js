@@ -17,8 +17,7 @@ import {
     ListItemText,
     CssBaseline,
     Divider,
-    ButtonGroup,
-    Button
+    ButtonGroup
 } from "@material-ui/core";
 import {
     ChevronRightRounded,
@@ -178,7 +177,7 @@ const SideLogin = ({ isAuthenticated, loginWithRedirect, logout }) => {
     if (isAuthenticated) {
         return (
             <List>
-                <ListItem title="Logout" component={Button} onClick={() => logout()}>
+                <ListItem title="Logout" button onClick={() => logout()}>
                     <ListItemIcon><LockRounded /></ListItemIcon>
                     <ListItemText>LOGOUT</ListItemText>
                 </ListItem>
@@ -187,11 +186,11 @@ const SideLogin = ({ isAuthenticated, loginWithRedirect, logout }) => {
     }
     return (
         <List>
-            <ListItem title="Login" component={Button} onClick={() => loginWithRedirect()}>
+            <ListItem title="Login" button onClick={() => loginWithRedirect()}>
                 <ListItemIcon><LockOpenRounded /></ListItemIcon>
                 <ListItemText>LOGIN</ListItemText>
             </ListItem>
-            <ListItem title="Sign Up" component={Button} onClick={() => loginWithRedirect({ screen_hint: 'signup' })}>
+            <ListItem title="Sign Up" button onClick={() => loginWithRedirect({ screen_hint: 'signup' })}>
                 <ListItemIcon><VpnKeyRounded /></ListItemIcon>
                 <ListItemText>SIGN UP</ListItemText>
             </ListItem>
