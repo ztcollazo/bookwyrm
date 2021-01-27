@@ -30,31 +30,31 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const buttons = [
+    {
+        name: "Top Books",
+        link: "/top-books"
+    },
+    {
+        name: "Browse",
+        link: "/browse"
+    },
+    {
+        name: "Review a Book",
+        link: "/review"
+    }
+];
+
+const ButtonList = () => {
+    return buttons.map((link, i) => {
+        return (
+            <Button component={ Link } key={link.name} id={ "button-" + i } to={ link.link }>{ link.name }</Button>
+        );
+    });
+}
+
 export const HomeContent = () => {
     const classes = useStyles();
-
-    const buttons = [
-        {
-            name: "Top Books",
-            link: "/top-books"
-        },
-        {
-            name: "Browse",
-            link: "/browse"
-        },
-        {
-            name: "Review a Book",
-            link: "/review"
-        }
-    ];
-
-    const ButtonList = () => {
-        return buttons.map((link, i) => {
-            return (
-                <Button component={ Link } key={link.name} id={ "button-" + i } to={ link.link }>{ link.name }</Button>
-            );
-        });
-    }
 
     return (
         <div className={classes.root}>
