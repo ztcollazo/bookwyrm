@@ -43,10 +43,6 @@ export const HomeContent = () => {
             link: "/browse"
         },
         {
-            name: "Give Suggestions",
-            link: "/forum"
-        },
-        {
             name: "Review a Book",
             link: "/review"
         }
