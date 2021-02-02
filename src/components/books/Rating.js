@@ -15,6 +15,8 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
+const Span = (props) => <span {...props}>{props.children}</span>;
+
 const TopTen = () => {
     const classes = useStyles();
     const { data = [] } = useQuery(["ratings", { sortBy: 'rating' }], queryBooks);
@@ -24,7 +26,8 @@ const TopTen = () => {
             {
                 data.map((g, i) => {
                     return (
-                        <ListItem className={classes.li} key={i + 1}>
+                        <ListItem component={Span} className={classes.li} key={i + 1}>
+                            <Typography gutterBotom variant="h4" className={classes.header}>{i + 1}.</Typography>
                             <BookCard {...g} pageHref={`/book/${g.isbn13 || g.isbn10 || g.isbn}`} reviewHref={`/write-review/${g.isbn13 || g.isbn10 || g.isbn}`} />
                         </ListItem>
                     );
