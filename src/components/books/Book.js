@@ -5,9 +5,9 @@ import humanizeString from "humanize-string";
 import { 
   Button, 
   Card, 
-  CardActionArea, 
-  // CardActions, 
+  CardActionArea,  
   CardContent, 
+  CardHeader, 
   CardMedia, 
   Paper, 
   Table, 
@@ -16,13 +16,14 @@ import {
   TableContainer, 
   TableHead, 
   TableRow, 
-  Typography 
+  Typography,
+  makeStyles 
 } from "@material-ui/core";
 import { useQuery } from "react-query";
-import { makeStyles } from '@material-ui/core/styles';
 import { Link } from "react-router-dom";
 import { ReviewCard } from "./Review";
 import clsx from "clsx";
+import { Rating } from "@material-ui/lab";
 
 const queryBook = async (key, params) => await getBook(params);
 
@@ -54,7 +55,7 @@ export function Book(props) {
 }
 
 export function BookCard(props) {
-  const { title, authors, description, isbn13, isbn10, image, subtitle } = props;
+  const { title, authors, description, isbn13, isbn10, image, subtitle, rating } = props;
   const { pageHref, reviewHref, className } = props;
   const classes = useStyles();
 
@@ -67,37 +68,27 @@ export function BookCard(props) {
           image={image}
           title={title}
         /> : null}
+        <div>
+          <CardHeader title={title + (subtitle ? `: ${subtitle}`: "")} subheader={`by ${authors && authors.length > 1 ? authors.join(", ") : authors  ? authors[0] : null}`} action={rating ? <Rating style={{ float: "right" }} readOnly value={rating} /> : null} />
+          <CardContent style={{marginTop: -15}} component="div">
+            <Typography variant="body2" color="textSecondary" component="p">
+              {description || null}
+            </Typography>
 
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {title}
-          </Typography>
+            <Typography variant="body2">ISBN: {isbn13 || isbn10 || null}</Typography>
 
-          {
-            subtitle && <Typography gutterBottom variant="h6" component="h3">{subtitle}</Typography>
-          }
-
-          <Typography gutterBottom variant="body2">
-            by {authors && authors.length > 1 ? authors.join(", ") : authors  ? authors[0] : null}
-          </Typography>
-
-          <Typography variant="body2" color="textSecondary" component="p">
-            {description || null}
-          </Typography>
-
-          <Typography variant="body2">ISBN: {isbn13 || isbn10 || null}</Typography>
-
-          {pageHref && reviewHref && (
-            <>
-              <Button style={{marginTop: 10}} size="small" color="primary" variant="outlined" component={Link} to={pageHref}>
-                  View Book
-              </Button>
-              <Button style={{marginTop: 10, marginLeft: 10}} size="small" color="primary" variant="outlined" component={Link} to={reviewHref}>
-                  Review Book
-              </Button>
-            </>
-          )}
-        </CardContent>
+            {pageHref && reviewHref && (
+              <>
+                <Button style={{marginTop: 10}} size="small" color="primary" variant="outlined" component={Link} to={pageHref}>
+                    View Book
+                </Button>
+                <Button style={{marginTop: 10, marginLeft: 10}} size="small" color="primary" variant="outlined" component={Link} to={reviewHref}>
+                    Review Book
+                </Button>
+              </>
+            )}
+          </CardContent>
+        </div>
       </CardActionArea>
     </Card>
   );
