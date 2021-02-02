@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, List, ListItem, makeStyles } from "@material-ui/core";
+import { List, ListItem, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import { useQuery } from "react-query";
 import { BookCard } from "./Book";
@@ -9,19 +9,25 @@ const queryBooks = (key, params) => getAllBooks(params);
 const useStyles = makeStyles(() => ({
     li: {
         margin: 10
+    },
+    header: {
+        margin: 10
     }
 }));
 
 const TopTen = () => {
     const classes = useStyles();
     const { data = [] } = useQuery(["ratings", { sortBy: 'rating' }], queryBooks);
-    var topTen = data;
 
     return (
         <List>
             {
-                topTen.map((data, i) => {
-                    return <ListItem className={classes.li} component={BookCard} {...data} pageHref={`/book/${data.isbn13 || data.isbn10 || data.isbn}`} reviewHref={`/write-review/${data.isbn13 || data.isbn10 || data.isbn}`} key={i + 1} />
+                data.map((g, i) => {
+                    return (
+                        <ListItem className={classes.li} key={i + 1}>
+                            <BookCard {...g} pageHref={`/book/${g.isbn13 || g.isbn10 || g.isbn}`} reviewHref={`/write-review/${g.isbn13 || g.isbn10 || g.isbn}`} />
+                        </ListItem>
+                    );
                 })
             }
         </List>
@@ -29,13 +35,15 @@ const TopTen = () => {
 }
 
 export const Rating = () => {
+    const classes = useStyles();
+
     return (
-        <Card>
-            <CardHeader title="Top Books" />
-            <CardContent>
+        <div>
+            <Typography className={classes.header} gutterBottom variant="h4">Top Ten</Typography>
+            <div>
                 <TopTen />
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     )
 }
 
