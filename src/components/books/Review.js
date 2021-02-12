@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { getBook, getReviews } from "../../fauna";
+import { addReaction, getBook, getReviews } from "../../fauna";
 import { Rating } from "@material-ui/lab";
 import { 
     Card,
@@ -24,6 +24,7 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 import BookCard from "./Book";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const useStyles = makeStyles(() => ({
     card: {
@@ -179,6 +180,36 @@ export const ReviewCard = ({title, authors = [], rating, raters, isbn13}) => {
 
 const SingleReview = (props) => {
     const classes = useStyles();
+    const { user, isAuthenticated } = useAuth0();
+    var likeCount = 0;
+    var dislikeCount = 0;
+
+    const countReactions = (reactions) => {
+        for (let i of reactions) {
+            if (i.value === "like") {
+                likeCount++;
+            } else if (i.value === "dislike") {
+                dislikeCount++;
+            }
+        }
+    }
+
+    const createReaction = async (event) => {
+        console.log(props.id);
+        try {
+            await addReaction({
+                user: user.email,
+                value: event.currentTarget.id,
+                review: props.id
+            });
+        } catch (error) {
+            console.error(error);
+        }
+        window.location.reload();
+        countReactions(props.reactions);
+    }
+    
+    countReactions(props.reactions);
 
     return (
         <Card className={classes.review} >
@@ -187,8 +218,10 @@ const SingleReview = (props) => {
                 <Typography>{props.body}</Typography>
             </CardContent>
             <CardActions>
-                <IconButton><ThumbUpRounded /></IconButton>
-                <IconButton><ThumbDownRounded /></IconButton>
+                <IconButton disabled={!isAuthenticated} onClick={createReaction} id="like"><ThumbUpRounded /></IconButton>
+                <Typography>{likeCount}</Typography>
+                <IconButton disabled={!isAuthenticated} onClick={createReaction} id="dislike"><ThumbDownRounded /></IconButton>
+                <Typography>{dislikeCount}</Typography>
             </CardActions>
         </Card>
     )
@@ -292,13 +325,13 @@ export const ReviewPage = () => {
         switch (sort) {
             case "greatest":
             case "least":
-                return filteredReviews.sort(sortArrayByRating(sort));
+                return filteredReviews.length > 0 ? filteredReviews.sort(sortArrayByRating(sort)) : [];
             case "newest":
             case "oldest":
-                return filteredReviews.sort(sortByDate(sort));
+                return filteredReviews.length > 0 ? filteredReviews.sort(sortByDate(sort)) : [];
             case "most":
             case "lowest":
-                return filteredReviews.sort(sortByLikes(sort));
+                return filteredReviews.length > 0 ? filteredReviews.sort(sortByLikes(sort)) : [];;
             default:
                 return filteredReviews    
         }
@@ -327,7 +360,7 @@ export const ReviewPage = () => {
                 </div>
             </div>
             <div>
-                {sortedReviews && sortedReviews.length > 0 ? sortedReviews.map((i, k) => (<SingleReview {...i.data} key={k} />)) : <Typography>Sorry, nothing to see here.</Typography>}
+                {sortedReviews && sortedReviews.length > 0 ? sortedReviews.map((i, k) => (<SingleReview {...i.data} id={i.ref?.['@ref'].id} key={k} />)) : <Typography>Sorry, nothing to see here.</Typography>}
             </div>
         </>
     );

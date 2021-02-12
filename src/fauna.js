@@ -28,15 +28,37 @@ interface ReviewSchema {
     body: string,
     date: string,
     rating: Number,
-    likes: Number,
-    book: string,
-    dislikes: Number
+    book: string
+}
+
+type ReactionValueEnum = 'like' | 'dislike';
+
+interface ReactionSchema {
+    review: string,
+    user: string,
+    value: ReactionValueEnum
 }
 
 interface ReviewQuery {
-    book: string,
-    ratingGreaterThan?: Number,
-    ratingLessThan?: Number
+    book: string
+}
+
+export const addReaction = async (data: ReactionSchema): Object => {
+    try {
+        const response = await fetch(
+            '/.netlify/functions/create-reaction',
+            {
+                method: 'POST',
+                body: JSON.stringify(data)
+            }
+        );
+        const json = await response.json();
+        console.log(json);
+        return json;
+    }
+    catch (error) {
+        console.error(error);
+    }
 }
 
 export const addBook = async (data: BookSchema): Object => {

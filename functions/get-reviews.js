@@ -13,26 +13,49 @@ exports.handler = async (event, _context, callback) => {
     var book = String(givenData.book);
     console.log(book);
 
+    const getReactions = async (x) => {
+        var reactions = await books.query(
+            q.Map(
+                q.Paginate(
+                    q.Match(
+                        q.Index("reactions_by_review"),
+                        x
+                    )
+                ),
+                q.Lambda(
+                    'Z',
+                    q.Get(q.Var('Z'))
+                )
+            ) 
+        );
+        return reactions;
+    }
+
     console.log(givenData);
 
     try {
         const res = await books.query(
-            q.Map(
-                q.Paginate(
-                    q.Match(
-                        q.Index(
-                            'reviews_by_isbn'
-                        ),
-                        book
-                    )
-                ),
-                q.Lambda(
-                    'X',
-                    q.Get(q.Var('X'))
+            q.Paginate(
+                q.Match(
+                    q.Index(
+                        'reviews_by_isbn'
+                    ),
+                    book
                 )
             )
         );
-        const all = res.data;
+        console.log(res);
+        const ret = res.data.map(async (i) => {
+            var info = await books.query(q.Get(i));
+            return {
+                data: {
+                    reactions: (await getReactions(i)).data.map(i => i.data),
+                    ...info.data
+                },
+                ref: i
+            }
+        })
+        const all = await Promise.all(ret);
         console.log(all);
         console.log(`Success! ${all.length} items found`);
 
@@ -55,3 +78,4 @@ exports.handler = async (event, _context, callback) => {
         );
     }
 }
+

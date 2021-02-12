@@ -4,7 +4,7 @@ import { Rating } from "@material-ui/lab";
 import React from "react";
 import { useQuery } from "react-query";
 import { useHistory, useParams } from "react-router-dom";
-import { addReview, getBook } from "../../fauna";
+import { addReview, getBook, addReaction } from "../../fauna";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const queryBook = async (key, params) => await getBook(params);
@@ -19,7 +19,12 @@ const AddReview = () => {
     const history = useHistory();
 
     const setReview = async (params) => {
-        await addReview(params);
+        var res = await addReview(params);
+        await addReaction({
+            user: user.email,
+            value: "like",
+            review: res.ref?.["@ref"].id
+        });
         history.push(`/review/${isbn}`);
     }
     var date = new Date();
@@ -65,8 +70,6 @@ const AddReview = () => {
                     body: body,
                     date,
                     rating: value,
-                    likes: 1,
-                    dislikes: 0,
                     book: typeof isbn !== "string" ? String(isbn) : isbn
                 })}>Submit Review</Button>
             </CardContent>
