@@ -23,7 +23,7 @@
     "husky": "4.3.0",
     "netlify-cli": "3.8.4",
     "netlify-lambda": "2.0.1",
-    "react-scripts": "^4.0.0"
+    "react-scripts": "^4.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
