@@ -22,7 +22,7 @@
     "@testing-library/user-event": "^12.7.2",
     "husky": "5.1.1",
     "netlify-cli": "3.8.4",
-    "netlify-lambda": "2.0.1",
+    "netlify-lambda": "2.0.3",
     "react-scripts": "^4.0.2"
   },
   "scripts": {
