@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery, useMutation, useQueryCache } from "react-query";
 import { useParams } from "react-router-dom";
 import { addReaction, getBook, getReviews } from "../../fauna";
 import { Rating } from "@material-ui/lab";
@@ -181,35 +181,48 @@ export const ReviewCard = ({title, authors = [], rating, raters, isbn13}) => {
 const SingleReview = (props) => {
     const classes = useStyles();
     const { user, isAuthenticated } = useAuth0();
-    var likeCount = 0;
-    var dislikeCount = 0;
-
-    const countReactions = (reactions) => {
-        for (let i of reactions) {
-            if (i.value === "like") {
-                likeCount++;
-            } else if (i.value === "dislike") {
-                dislikeCount++;
-            }
+    const [likeCount, setLikeCount] = React.useState(0);
+    const [dislikeCount, setDislikeCount] = React.useState(0);
+    const queryClient = useQueryCache();
+    const [mutate] = useMutation(addReaction, {
+        onSuccess: (variables) => {
+            queryClient.invalidateQueries(['get-reviews', { book: props.book }]);
         }
-    }
+    })
+
+    const buttonIsDisabled = !isAuthenticated || props.reactions.some((reaction) => {
+        return reaction.user === user.email;
+    });
+
+    React.useEffect(() => {
+        const countReactions = (reactions) => {
+            var likeCount = 0;
+            var dislikeCount = 0;
+
+            for (let i of reactions) {
+                if (i.value === "like") {
+                    likeCount++;
+                } else if (i.value === "dislike") {
+                    dislikeCount++;
+                }
+            }
+
+            setLikeCount(likeCount);
+            setDislikeCount(dislikeCount);
+        }
+
+        countReactions(props.reactions);
+    }, [props.reactions]);
 
     const createReaction = async (event) => {
-        console.log(props.id);
-        try {
-            await addReaction({
-                user: user.email,
-                value: event.currentTarget.id,
-                review: props.id
-            });
-        } catch (error) {
-            console.error(error);
+        const reaction = {
+            user: user.email,
+            value: event.currentTarget.id,
+            review: props.id
         }
-        window.location.reload();
-        countReactions(props.reactions);
+        console.log(props.id);
+        await mutate(reaction);
     }
-    
-    countReactions(props.reactions);
 
     return (
         <Card className={classes.review} >
@@ -218,9 +231,9 @@ const SingleReview = (props) => {
                 <Typography>{props.body}</Typography>
             </CardContent>
             <CardActions>
-                <IconButton disabled={!isAuthenticated} onClick={createReaction} id="like"><ThumbUpRounded /></IconButton>
+                <IconButton disabled={buttonIsDisabled} onClick={createReaction} id="like"><ThumbUpRounded /></IconButton>
                 <Typography>{likeCount}</Typography>
-                <IconButton disabled={!isAuthenticated} onClick={createReaction} id="dislike"><ThumbDownRounded /></IconButton>
+                <IconButton disabled={buttonIsDisabled} onClick={createReaction} id="dislike"><ThumbDownRounded /></IconButton>
                 <Typography>{dislikeCount}</Typography>
             </CardActions>
         </Card>
