@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
-import { AppContext } from "../setup";
+import { AppContext, pages } from "../setup";
 import { useAuth0 } from "@auth0/auth0-react"
 import { 
     AppBar, 
@@ -28,7 +28,6 @@ import {
     LockRounded,
     VpnKeyRounded
 } from "@material-ui/icons";
-import { pages } from "../setup";
 import clsx from "clsx";
 import AuthButton from "./AuthButton";
 
@@ -179,7 +178,7 @@ const SideLogin = ({ isAuthenticated, loginWithRedirect, logout }) => {
             <List>
                 <ListItem title="Logout" button onClick={() => logout()}>
                     <ListItemIcon><LockRounded /></ListItemIcon>
-                    <ListItemText>LOGOUT</ListItemText>
+                    <ListItemText>Logout</ListItemText>
                 </ListItem>
             </List>
         )
@@ -188,33 +187,37 @@ const SideLogin = ({ isAuthenticated, loginWithRedirect, logout }) => {
         <List>
             <ListItem title="Login" button onClick={() => loginWithRedirect()}>
                 <ListItemIcon><LockOpenRounded /></ListItemIcon>
-                <ListItemText>LOGIN</ListItemText>
+                <ListItemText>Login</ListItemText>
             </ListItem>
             <ListItem title="Sign Up" button onClick={() => loginWithRedirect({ screen_hint: 'signup' })}>
                 <ListItemIcon><VpnKeyRounded /></ListItemIcon>
-                <ListItemText>SIGN UP</ListItemText>
+                <ListItemText>Sign Up</ListItemText>
             </ListItem>
         </List>
     )
 }
 
 const NavLinks = (props) => {
+    const classes = useStyles();
     return pages.map((page) => { 
         return (
-            <ListItem title={page.title} button key={page.title} component={NavLink} to={page.link} exact activeClassName={ props.classes.linkActive }>
+            <ListItem title={page.title} button key={page.title} component={NavLink} to={page.link} exact activeClassName={ classes.linkActive }>
                 <ListItemIcon>
                     {page.icon}
                 </ListItemIcon>
-                <ListItemText className={props.classes.linkItemText} primary={page.title} />
+                <ListItemText className={classes.linkItemText} primary={page.title} />
             </ListItem> 
         );
     });
 }
 
-const DrawerIcon = ({onClick, classes, open}) => {
-    return <IconButton className={classes.drawerIcon} onClick={ onClick }>
-        {open ? <ChevronLeftRounded /> : <ChevronRightRounded />}
-    </IconButton>;
+const DrawerIcon = ({onClick, open}) => {
+    const classes = useStyles();
+    return (
+        <IconButton className={classes.drawerIcon} onClick={ onClick }>
+            {open ? <ChevronLeftRounded /> : <ChevronRightRounded />}
+        </IconButton>
+    );
 }
 
 const Nav = (props) => {
@@ -223,12 +226,10 @@ const Nav = (props) => {
     const context = React.useContext(AppContext);
     const {open, toggleDrawer} = props;
     const [searchInput, setSearchInput] = React.useState("");
-    // const [authenticated, setAuthenticated] = React.useState(isAuthenticated);
-    const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
+    const [shouldBeResponsive, setShouldBeResponsive] = React.useState(window.innerWidth <= 775);
+    const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
-    React.useEffect(() => {
-        console.log(`${isAuthenticated}, ${isLoading}`);
-    })
+    window.onresize = () => setShouldBeResponsive(window.innerWidth <= 775);
 
     const handleChange = (event) => {
         event.preventDefault();
@@ -256,7 +257,7 @@ const Nav = (props) => {
                             <img className={classes.img} src="/logo.png" alt="The BookWyrm Logo" />
                             <Typography className={classes.title} variant="h1"> BookWyrm</Typography>
                         </Link>
-                        <form title="Search" onSubmit={handleSubmit} id="holder" className={classes.search} float="right" >
+                        {!shouldBeResponsive && <form title="Search" onSubmit={handleSubmit} id="holder" className={classes.search}>
                             <div className={classes.searchIcon}>
                                 <SearchRounded />
                             </div>
@@ -275,7 +276,7 @@ const Nav = (props) => {
                             <IconButton id="searchButton" type="submit" className={classes.searchButton}>
                                 <ArrowForwardRounded />
                             </IconButton>
-                        </form>
+                        </form>}
                         <ButtonGroup className={classes.login} variant="outlined">
                             <AuthButton className={classes.loginButton} />
                         </ButtonGroup>
@@ -298,12 +299,30 @@ const Nav = (props) => {
                         })
                     }}
                 >
-                    <div className={classes.toolbar}>
-                        <DrawerIcon open={open} classes={classes} onClick={toggleDrawer} />
-                    </div>
+                    <List className={classes.toolbar}>
+                        <ListItem component={DrawerIcon} open={open} onClick={toggleDrawer} />
+                    </List>
                     <Divider />
                     <List>
-                        <NavLinks classes={classes} />
+                        <NavLinks />
+                        <ListItem style={{backgroundColor: 'whitesmoke', borderRadius: 5}} component="form" title="Search" onSubmit={handleSubmit} id="holder">
+                            <ListItemIcon margin={5} component={IconButton} onClick={toggleDrawer}>
+                                <SearchRounded />
+                            </ListItemIcon>
+                            <ListItemText className={classes.linkItemText}>
+                                <InputBase 
+                                    name="search-input" 
+                                    placeholder="Search" type="search" 
+                                    id="search" 
+                                    onChange={handleChange} 
+                                    value={searchInput}
+                                    inputProps={{ 'aria-label': 'search' }}
+                                />
+                            </ListItemText>
+                            <IconButton id="searchButton" type="submit">
+                                <ArrowForwardRounded />
+                            </IconButton>
+                        </ListItem>
                     </List>
                     <Divider />
                     <SideLogin loginWithRedirect={loginWithRedirect} logout={logout} isAuthenticated={isAuthenticated} />
