@@ -43,7 +43,7 @@ function shuffle(array) {
   return array;
 }
 
-const AllBooks = () => {
+const AllBooks = (...props) => {
     const classes = useStyles();
     const { data = [], isLoading, isError, error } = useQuery(['all-books'], queryAllBooks);
     var books = data;
@@ -61,7 +61,7 @@ const AllBooks = () => {
             return <Alert severity="error">Sorry, something went wrong.</Alert>
         } else {
             return (
-                <List id="results">
+                <List id="results" {...props} style={{maxWidth: 880, margin: '0 auto'}}>
                     {books ? books.map((book) => {
                         var ln = book;
                         
