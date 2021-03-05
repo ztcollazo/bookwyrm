@@ -17,7 +17,8 @@ import {
     ListItemText,
     CssBaseline,
     Divider,
-    ButtonGroup
+    ButtonGroup,
+    useMediaQuery
 } from "@material-ui/core";
 import {
     ChevronRightRounded,
@@ -133,8 +134,8 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
-        display: 'none',
         textDecoration: 'none',
+        display: 'none',
         [theme.breakpoints.up('sm')]: {
           display: 'inline',
         },
@@ -226,10 +227,8 @@ const Nav = (props) => {
     const context = React.useContext(AppContext);
     const {open, toggleDrawer} = props;
     const [searchInput, setSearchInput] = React.useState("");
-    const [shouldBeResponsive, setShouldBeResponsive] = React.useState(window.innerWidth <= 775);
+    const shouldBeResponsive = useMediaQuery('(max-width:775px)');
     const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-
-    window.onresize = () => setShouldBeResponsive(window.innerWidth <= 775);
 
     const handleChange = (event) => {
         event.preventDefault();
@@ -305,12 +304,13 @@ const Nav = (props) => {
                     <Divider />
                     <List>
                         <NavLinks />
-                        <ListItem style={{backgroundColor: 'whitesmoke', borderRadius: 5}} component="form" title="Search" onSubmit={handleSubmit} id="holder">
+                        <ListItem component="form" title="Search" onSubmit={handleSubmit} id="holder">
                             <ListItemIcon margin={5} component={IconButton} onClick={toggleDrawer}>
                                 <SearchRounded />
                             </ListItemIcon>
                             <ListItemText className={classes.linkItemText}>
                                 <InputBase 
+                                    style={{borderBottom: '2px solid #333333'}}
                                     name="search-input" 
                                     placeholder="Search" type="search" 
                                     id="search" 
@@ -319,9 +319,6 @@ const Nav = (props) => {
                                     inputProps={{ 'aria-label': 'search' }}
                                 />
                             </ListItemText>
-                            <IconButton id="searchButton" type="submit">
-                                <ArrowForwardRounded />
-                            </IconButton>
                         </ListItem>
                     </List>
                     <Divider />
