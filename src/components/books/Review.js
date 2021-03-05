@@ -25,13 +25,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import BookCard from "./Book";
 import { useAuth0 } from "@auth0/auth0-react";
+import clsx from 'clsx';
 
 const useStyles = makeStyles(() => ({
-    card: {
-        width: '43%',
-        float: 'right',
-        marginLeft: '10px'
-    },
     stars: {
         color: '#DDCD00'
     },
@@ -55,8 +51,12 @@ const useStyles = makeStyles(() => ({
     review: {
         marginTop: 10
     },
-    topCards: {
-        display: 'flex'
+    flexContainer: {
+        display: 'flex',
+        flexWrap: 'wrap'
+    },
+    justifyBetween: {
+        justifyContent: 'space-between',
     },
     rightCards: {
         display: 'flex',
@@ -66,17 +66,17 @@ const useStyles = makeStyles(() => ({
         marginTop: 0,
         marginBottom: 0,
         textAlign: 'center',
+        flex: '1 0 350px'
     },
     write: {
-        padding: 10
+        padding: 10,
     },
     sort: {
         marginTop: 10,
         padding: 10
 	},
 	select: {
-		margin: 16,
-		display: 'block'
+		marginLeft: 16,
     },
     emailLink: {
         color: "darkgrey",
@@ -88,13 +88,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const WriteReviewCard = ({isbn}) => {
-    const classes = useStyles();
-
-    return (
-        <Card className={classes.write}>
-            <Button variant="outlined" component={Link} to={`/write-review/${isbn}`}>Write A Review</Button>
-        </Card>
-    )
+    return <Button variant="contained" color="primary" component={Link} to={`/write-review/${isbn}`}>Write A Review</Button>;
 }
 
 const SortBy = ({sort, setSort, filter, setFilter}) => {
@@ -109,49 +103,51 @@ const SortBy = ({sort, setSort, filter, setFilter}) => {
     }
 
     return (
-        <Card className={classes.sort}>
-            <FormControl className={classes.select} variant="outlined">
-                <Select
-                    labelId="simple-select-outlined-label" 
-                    id="simple-select-outlined"
-                    value={sort}
-                    onChange={handleSort}
-                    displayEmpty
-                >   
-                    <MenuItem value="newest">Newest</MenuItem>
-                    <MenuItem value="oldest">Oldest</MenuItem>
-                    <MenuItem value="least">Least to greatest</MenuItem>
-                    <MenuItem value="greatest">Greatest to Least</MenuItem>
-                    <MenuItem value="most">Most Votes</MenuItem>
-                    <MenuItem value="lowest">Least Votes</MenuItem>
-                </Select>
-            </FormControl>
-            <FormControl className={classes.select} variant="outlined">
-                <Select
-                    labelId="simple-select-outlined-label" 
-                    id="simple-select-outlined"
-                    value={filter}
-                    onChange={handleChange}
-                    displayEmpty
-                >   
-                    <MenuItem value={5}>Five Stars</MenuItem>
-                    <MenuItem value={4}>Four Stars & greater</MenuItem>
-                    <MenuItem value={3}>Three Stars & greater</MenuItem>
-                    <MenuItem value={2}>Two Stars & greater</MenuItem>
-                    <MenuItem value="">All</MenuItem>
-                </Select>
-            </FormControl>
-        </Card>
+            <>
+                <FormControl>
+                    <Select
+                        className={classes.select}
+                        labelId="simple-select-outlined-label" 
+                        id="simple-select-outlined"
+                        value={sort}
+                        onChange={handleSort}
+                        displayEmpty
+                    >   
+                        <MenuItem value="newest">Newest</MenuItem>
+                        <MenuItem value="oldest">Oldest</MenuItem>
+                        <MenuItem value="least">Least to greatest</MenuItem>
+                        <MenuItem value="greatest">Greatest to Least</MenuItem>
+                        <MenuItem value="most">Most Votes</MenuItem>
+                        <MenuItem value="lowest">Least Votes</MenuItem>
+                    </Select>
+                </FormControl>
+                <FormControl className={classes.select}>
+                    <Select
+                        labelId="simple-select-outlined-label" 
+                        id="simple-select-outlined"
+                        value={filter}
+                        onChange={handleChange}
+                        displayEmpty
+                    >   
+                        <MenuItem value={5}>Five Stars</MenuItem>
+                        <MenuItem value={4}>Four Stars & greater</MenuItem>
+                        <MenuItem value={3}>Three Stars & greater</MenuItem>
+                        <MenuItem value={2}>Two Stars & greater</MenuItem>
+                        <MenuItem value="">All</MenuItem>
+                    </Select>
+                </FormControl>
+            </>
+
     )
 
 }
 
-export const ReviewCard = ({title, authors = [], rating, raters, isbn13}) => {
+export const ReviewCard = ({title, authors = [], rating, raters, isbn13, className}) => {
     const classes = useStyles();
     var author = authors.length > 1 ? authors.join(", ") : authors[0];
 
     return (
-        <Card className={classes.card}>
+        <Card className={className}>
             <CardActionArea component={Link} to={`/review/${isbn13}`} className={classes.action}>
                 <CardHeader title="Reviews" subheader={title + ' by ' + author} action={<Rating value={Math.round(rating)} readOnly />} />
                 <CardContent className={classes.content}>
@@ -364,17 +360,17 @@ export const ReviewPage = () => {
     */
 
     return (
-        <>
-            <div className={classes.topCards}>
-                <BookCard {...data} pageHref={`/book/${data.isbn13}`} />
-                <div className={classes.rightCards}>
-                    <WriteReviewCard isbn={isbn} />
-                    <SortBy setFilter={setFilter} setSort={setSort} filter={filter} sort={sort} />
-                </div>
-            </div>
+        <div style={{maxWidth: 880, margin: '0 auto'}}>
+            <BookCard style={{margin: 0}} {...data} pageHref={`/book/${data.isbn13}`} />
             <div>
+                <div style={{marginTop: 30, marginBottom: 30}} className={clsx(classes.flexContainer, classes.justifyBetween)}>
+                    <WriteReviewCard isbn={isbn} />
+                    <div>
+                        <SortBy setFilter={setFilter} setSort={setSort} filter={filter} sort={sort} />
+                    </div>
+                </div>
                 {sortedReviews && sortedReviews.length > 0 ? sortedReviews.map((i, k) => (<SingleReview {...i.data} id={i.ref?.['@ref'].id} key={k} />)) : <Typography>Sorry, nothing to see here.</Typography>}
             </div>
-        </>
+        </div>
     );
 }

@@ -41,9 +41,13 @@ const useStyles = makeStyles({
   },
   cards: {
     display: 'flex',
+    flexWrap: 'wrap',
+    margin: -5
   },
   card: {
-    flex: '1 0 50%',
+    flex: '1 0 400px',
+    width: '100%',
+    margin: 5,
   }
 });
 
@@ -55,12 +59,11 @@ export function Book(props) {
 }
 
 export function BookCard(props) {
-  const { title, authors, description, isbn13, isbn10, image, subtitle, rating } = props;
-  const { pageHref, reviewHref, className } = props;
+  const { title, authors, description, isbn13, isbn10, image, subtitle, rating, pageHref, reviewHref, className, ...rest } = props;
   const classes = useStyles();
 
   return (
-    <Card className={clsx(classes.card, className)}>
+    <Card className={clsx(classes.card, className)} {...rest}>
       <CardActionArea className={classes.flex} component={Link} to={ pageHref ? pageHref : window.location.pathname }>
         {image ? <CardMedia
           component="img"
@@ -69,7 +72,7 @@ export function BookCard(props) {
           title={title}
         /> : null}
         <div>
-          <CardHeader title={title + (subtitle ? `: ${subtitle}`: "")} subheader={`by ${authors && authors.length > 1 ? authors.join(", ") : authors  ? authors[0] : null}`} action={rating ? <Rating style={{ float: "right" }} readOnly value={rating} /> : null} />
+          <CardHeader title={<>{title}{subtitle ? <Typography style={{display: 'inline'}}>{` ${subtitle}`}</Typography> : null}</>} subheader={`by ${authors && authors.length > 1 ? authors.join(", ") : authors  ? authors[0] : null}`} action={rating ? <Rating style={{ float: "right" }} readOnly value={rating} /> : null} />
           <CardContent style={{marginTop: -15}} component="div">
             <Typography variant="body2" color="textSecondary" component="p">
               {description || null}
@@ -116,7 +119,7 @@ export const BookPage = () => {
     <>
       <div className={classes.cards}>
         <BookCard {...data} />
-        <ReviewCard {...data} />
+        <ReviewCard className={classes.card} {...data} />
       </div>
       <TableContainer component={Paper} style={{marginTop: 20}}>
         <Table>
