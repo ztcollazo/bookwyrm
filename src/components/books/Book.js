@@ -23,7 +23,6 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { ReviewCard } from "./Review";
 import clsx from "clsx";
-import { Rating } from "@material-ui/lab";
 
 const queryBook = async (key, params) => await getBook(params);
 
@@ -72,7 +71,7 @@ export function BookCard(props) {
           title={title}
         /> : null}
         <div>
-          <CardHeader title={<>{title}{subtitle ? <Typography style={{display: 'inline'}}>{` ${subtitle}`}</Typography> : null}</>} subheader={`by ${authors && authors.length > 1 ? authors.join(", ") : authors  ? authors[0] : null}`} action={rating ? <Rating style={{ float: "right" }} readOnly value={rating} /> : null} />
+          <CardHeader title={<>{title}{subtitle ? <Typography style={{display: 'inline'}}>{` ${subtitle}`}</Typography> : null}</>} subheader={`by ${authors && authors.length > 1 ? authors.join(", ") : authors  ? authors[0] : null}`} />
           <CardContent style={{marginTop: -15}} component="div">
             <Typography variant="body2" color="textSecondary" component="p">
               {description || null}
