@@ -84,8 +84,21 @@ const useStyles = makeStyles(() => ({
         '&:hover': {
             textDecoration: "underline"
         }
+    },
+    strip: {
+        padding: -10,
+        borderBottom: '0.5px solid black'
     }
 }));
+
+const calculateRating = (rating, raters, reviews = []) => {
+    // I went kinda crazy with the numbers. The data was too unpredictable
+    var ratings = reviews.map(i => Number(i.data.rating));
+    var sum = ratings.reduce((a, b) => Number(a) + Number(b), 0);
+    var avg = ((Number(rating) * Number(raters)) + Number(sum)) / (Number(raters) + Number(reviews.length));
+    console.log(avg);
+    return avg;
+}
 
 const WriteReviewCard = ({isbn}) => {
     return <Button variant="contained" color="primary" component={Link} to={`/write-review/${isbn}`}>Write A Review</Button>;
@@ -145,16 +158,38 @@ const SortBy = ({sort, setSort, filter, setFilter}) => {
 export const ReviewCard = ({title, authors = [], rating, raters, isbn13, className}) => {
     const classes = useStyles();
     var author = authors.length > 1 ? authors.join(", ") : authors[0];
+    const { data = [] } = useQuery(['get-reviews', { book: isbn13 }], queryReviews);
+    console.log(data);
+
+
+    var reviews = data.slice(0, 3);
+    console.log(reviews);
+
+    var r = calculateRating(rating, raters, data)
 
     return (
         <Card className={className}>
             <CardActionArea component={Link} to={`/review/${isbn13}`} className={classes.action}>
-                <CardHeader title="Reviews" subheader={title + ' by ' + author} action={<Rating value={Math.round(rating)} readOnly />} />
+                <CardHeader title="Reviews" subheader={title + ' by ' + author} action={<Rating value={Math.round(r)} readOnly />} />
                 <CardContent className={classes.content}>
-                    {/* 3 Reviews Go Here. To do: add a <CardActionArea /> to redirect to the reviews page. */}
+                    <div style={{borderTop: '0.5px solid black', marginBottom: '5px'}}>
+                        {
+                            reviews.map((k, i) => {
+                                return (
+                                    <div className={classes.strip} key={i}>
+                                        <span className={clsx(classes.flexContainer, classes.justifyBetween)}>
+                                            <Typography variant="h6" gutterBottom>{k.data.title}</Typography>
+                                            <Rating value={Number(k.data.rating)} readOnly />
+                                        </span>
+                                        <Typography gutterBottom>{k.data.body}</Typography>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                     <span className={classes.info}>
-                        <Typography className={classes.left} variant="subtitle2" gutterBottom>{rating + " stars"}</Typography>
-                        <Typography className={classes.right} variant="subtitle2" gutterBottom>{raters + " reviews"}</Typography>
+                        <Typography className={classes.left} variant="subtitle2" gutterBottom>{Math.round(r) + " stars"}</Typography>
+                        <Typography className={classes.right} variant="subtitle2" gutterBottom>{(Number(raters) + data.length) + " reviews"}</Typography>
                     </span>
                 </CardContent>
             </CardActionArea>
