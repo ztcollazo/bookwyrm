@@ -19,7 +19,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.7.2",
+    "@testing-library/user-event": "^12.8.1",
     "husky": "5.1.1",
     "netlify-cli": "3.8.4",
     "netlify-lambda": "2.0.3",
