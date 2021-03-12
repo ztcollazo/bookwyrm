@@ -29,11 +29,12 @@ const queryBook = async (key, params) => await getBook(params);
 const useStyles = makeStyles({
   media: {
     width: 128,
-    flex: '1 0 auto',
+    flex: '0 0 auto',
   },
   flex: {
       display: 'flex',
       alignItems: 'flex-start',
+      flexWrap: 'wrap'
   },
   columns: {
     width: '150px'
@@ -44,9 +45,9 @@ const useStyles = makeStyles({
     margin: -5
   },
   card: {
-    flex: '1 0 400px',
+    flex: '1 1 400px',
     width: '100%',
-    margin: 5,
+    margin: 5
   }
 });
 
@@ -70,7 +71,7 @@ export function BookCard(props) {
           image={image}
           title={title}
         /> : null}
-        <div>
+        <div style={{flex: '1 0 200px'}}>
           <CardHeader title={<>{title}{subtitle ? <Typography style={{display: 'inline'}}>{` ${subtitle}`}</Typography> : null}</>} subheader={`by ${authors && authors.length > 1 ? authors.join(", ") : authors  ? authors[0] : null}`} />
           <CardContent style={{marginTop: -15}} component="div">
             <Typography variant="body2" color="textSecondary" component="p">
