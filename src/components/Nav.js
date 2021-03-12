@@ -8,7 +8,7 @@ import {
     IconButton, 
     Typography, 
     InputBase, 
-    Drawer,
+    SwipeableDrawer,
     List,
     ListItem,
     fade, 
@@ -18,7 +18,8 @@ import {
     CssBaseline,
     Divider,
     ButtonGroup,
-    useMediaQuery
+    useMediaQuery,
+    TextField
 } from "@material-ui/core";
 import {
     ChevronRightRounded,
@@ -27,7 +28,8 @@ import {
     ChevronLeftRounded,
     LockOpenRounded,
     LockRounded,
-    VpnKeyRounded
+    VpnKeyRounded,
+    MenuRounded
 } from "@material-ui/icons";
 import clsx from "clsx";
 import AuthButton from "./AuthButton";
@@ -61,12 +63,22 @@ const useStyles = makeStyles((theme) => ({
       whiteSpace: 'nowrap',
     },
     drawerOpen: {
-        top: '75px',
+        top: 75,
         width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
+    '@media (max-width:600px)': {
+        drawerOpen: {
+            width: '100%',
+            top: 75,
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+        }
     },
     drawerClose: {
         top: '75px',
@@ -221,6 +233,17 @@ const DrawerIcon = ({onClick, open}) => {
     );
 }
 
+const Logo = () => {
+    const classes = useStyles();
+
+    return (
+        <Link to="/" className={classes.link}>
+            <img className={classes.img} src="/logo.png" alt="The BookWyrm Logo" />
+            <Typography className={classes.title} variant="h1"> BookWyrm</Typography>
+        </Link>
+    )
+}
+
 const Nav = (props) => {
     const history = useHistory();
     const classes = useStyles();
@@ -228,7 +251,9 @@ const Nav = (props) => {
     const {open, toggleDrawer} = props;
     const [searchInput, setSearchInput] = React.useState("");
     const shouldBeResponsive = useMediaQuery('(max-width:775px)');
+    const shouldMakeDrawerResponsive = useMediaQuery('(max-width:600px)')
     const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+    const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
     const handleChange = (event) => {
         event.preventDefault();
@@ -252,10 +277,7 @@ const Nav = (props) => {
                     className={classes.appBar}
                 >
                     <Toolbar id="top" >
-                        <Link to="/" className={classes.link}>
-                            <img className={classes.img} src="/logo.png" alt="The BookWyrm Logo" />
-                            <Typography className={classes.title} variant="h1"> BookWyrm</Typography>
-                        </Link>
+                        {!shouldMakeDrawerResponsive ? <Logo /> : <IconButton onClick={toggleDrawer}><MenuRounded style={{color: 'white', margin: 0}} /></IconButton>}
                         {!shouldBeResponsive && <form title="Search" onSubmit={handleSubmit} id="holder" className={classes.search}>
                             <div className={classes.searchIcon}>
                                 <SearchRounded />
@@ -281,8 +303,11 @@ const Nav = (props) => {
                         </ButtonGroup>
                     </Toolbar>
                 </AppBar>
-                <Drawer
-                    variant="permanent"
+                <SwipeableDrawer
+                    disableBackdropTransition={!iOS} 
+                    disableDiscovery={iOS}
+                    variant={!shouldMakeDrawerResponsive ? "permanent" : "temporary"}
+                    open={shouldMakeDrawerResponsive && open}
                     className={
                         clsx(
                             classes.drawer, {
@@ -304,15 +329,16 @@ const Nav = (props) => {
                     <Divider />
                     <List>
                         <NavLinks />
-                        <ListItem component="form" title="Search" onSubmit={handleSubmit} id="holder">
+                        <ListItem component="form" style={{width: '100%'}} title="Search" onSubmit={handleSubmit} id="holder">
                             <ListItemIcon margin={5} component={IconButton} onClick={toggleDrawer}>
                                 <SearchRounded />
                             </ListItemIcon>
                             <ListItemText className={classes.linkItemText}>
-                                <InputBase 
-                                    style={{borderBottom: '2px solid #333333'}}
+                                <TextField 
+                                    style={{width: '100%'}}
                                     name="search-input" 
-                                    placeholder="Search" type="search" 
+                                    placeholder="Search" 
+                                    type="search" 
                                     id="search" 
                                     onChange={handleChange} 
                                     value={searchInput}
@@ -323,7 +349,7 @@ const Nav = (props) => {
                     </List>
                     <Divider />
                     <SideLogin loginWithRedirect={loginWithRedirect} logout={logout} isAuthenticated={isAuthenticated} />
-                </Drawer>
+                </SwipeableDrawer>
             </header>
             <div className={classes.toolbar} />
         </>
