@@ -162,10 +162,16 @@ export const ReviewCard = ({title, authors = [], rating, raters, isbn13, classNa
     console.log(data);
 
 
-    var reviews = data.slice(0, 3);
+    var reviews = data.slice(0, 2);
     console.log(reviews);
 
     var r = calculateRating(rating, raters, data)
+
+    const roundTo = (number, decimal = 10) => {
+        var int = Math.floor(number);
+        var dec = Math.round((number - int) * Math.pow(10, decimal / 10)) / Math.pow(10, decimal / 10);
+        return int + dec;
+    }
 
     return (
         <Card className={className}>
@@ -188,7 +194,7 @@ export const ReviewCard = ({title, authors = [], rating, raters, isbn13, classNa
                         }
                     </div>
                     <span className={classes.info}>
-                        <Typography className={classes.left} variant="subtitle2" gutterBottom>{Math.round(r) + " stars"}</Typography>
+                        <Typography className={classes.left} variant="subtitle2" gutterBottom>{roundTo(r) + " stars"}</Typography>
                         <Typography className={classes.right} variant="subtitle2" gutterBottom>{(Number(raters) + data.length) + " reviews"}</Typography>
                     </span>
                 </CardContent>
