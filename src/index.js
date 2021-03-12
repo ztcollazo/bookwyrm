@@ -14,51 +14,52 @@ import Auth0ProviderWithHistory from './components/Auth0ProviderWithHistory.js';
 import AuthCallback from './components/AuthCallback';
 import AddReview from './components/books/AddReview';
 import Rating from './components/books/Rating';
+import { ThemeProvider } from "@material-ui/core";
+import { theme } from "./setup";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Auth0ProviderWithHistory>
-        <App>
-          <Switch>
-            <Route exact strict path="/">
-              <HomeContent />
-            </Route>
-            <Route path="/add-book">
-              <AddBook />
-            </Route>
-            <Route path="/top-books">
-              <Rating />
-            </Route>
-            <Route path="/review/:isbn">
-                <ReviewPage />
-            </Route>
-            <Route path="/browse">
-              <Browse />
-            </Route>
-            <Route path="/results">
-              <Results />
-            </Route>
-            <Route path="/dashboard">
-
-            </Route>
-            <Route path="/book/:isbn">
-              <BookPage />
-            </Route>
-            <Route path="/auth-callback">
-              <AuthCallback />
-            </Route>
-            <Route path="/review">
-              <Redirect to="/browse" />
-            </Route>
-            <Route path="/write-review/:isbn">
-              <AddReview />
-            </Route>
-            <Route>
-              <NoResults />
-            </Route>
-          </Switch>
-        </App>
+        <ThemeProvider theme={theme}>
+          <App>
+            <Switch>
+              <Route exact strict path="/">
+                <HomeContent />
+              </Route>
+              <Route path="/add-book">
+                <AddBook />
+              </Route>
+              <Route path="/top-books">
+                <Rating />
+              </Route>
+              <Route path="/review/:isbn">
+                  <ReviewPage />
+              </Route>
+              <Route path="/browse">
+                <Browse />
+              </Route>
+              <Route path="/results">
+                <Results />
+              </Route>
+              <Route path="/book/:isbn">
+                <BookPage />
+              </Route>
+              <Route path="/auth-callback">
+                <AuthCallback />
+              </Route>
+              <Route path="/review">
+                <Redirect to="/browse" />
+              </Route>
+              <Route path="/write-review/:isbn">
+                <AddReview />
+              </Route>
+              <Route>
+                <NoResults />
+              </Route>
+            </Switch>
+          </App>
+          </ThemeProvider>
       </Auth0ProviderWithHistory>
     </Router>
   </React.StrictMode>,
