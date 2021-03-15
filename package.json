@@ -10,7 +10,7 @@
     "clsx": "^1.1.1",
     "core-js": "^3.9.0",
     "humanize-string": "^2.1.0",
-    "node-isbn": "^1.6.0",
+    "node-isbn": "^1.6.1",
     "react": "^17.0.1",
     "react-dom": "^16.13.1",
     "react-query": "2.23.0",
