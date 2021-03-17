@@ -48,7 +48,7 @@ const App = (props) => {
 
   return (
     <AppContext.Provider value={{ searchInput, setSearchInput, searchResults, setSearchResults }}>
-      <Nav toggleDrawer={toggleDrawer} open={open} />
+      <Nav toggleDrawer={toggleDrawer} setOpen={setOpen} open={open} />
       <main id="main" className={ clsx(classes.main, {
         [classes.contentShift]: open
       })}>

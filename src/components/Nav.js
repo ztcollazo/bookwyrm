@@ -214,7 +214,7 @@ const NavLinks = (props) => {
     const classes = useStyles();
     return pages.map((page) => { 
         return (
-            <ListItem title={page.title} button key={page.title} component={NavLink} to={page.link} exact activeClassName={ classes.linkActive }>
+            <ListItem onClick={props.setOpen(false)} title={page.title} button key={page.title} component={NavLink} to={page.link} exact activeClassName={ classes.linkActive }>
                 <ListItemIcon>
                     {page.icon}
                 </ListItemIcon>
@@ -248,7 +248,7 @@ const Nav = (props) => {
     const history = useHistory();
     const classes = useStyles();
     const context = React.useContext(AppContext);
-    const {open, toggleDrawer} = props;
+    const {open, toggleDrawer, setOpen} = props;
     const [searchInput, setSearchInput] = React.useState("");
     const shouldBeResponsive = useMediaQuery('(max-width:775px)');
     const shouldMakeDrawerResponsive = useMediaQuery('(max-width:600px)')
@@ -308,6 +308,7 @@ const Nav = (props) => {
                     disableDiscovery={iOS}
                     variant={!shouldMakeDrawerResponsive ? "permanent" : "temporary"}
                     open={shouldMakeDrawerResponsive && open}
+                    onClose={() => setOpen(false)}
                     className={
                         clsx(
                             classes.drawer, {
@@ -328,7 +329,7 @@ const Nav = (props) => {
                     </List>
                     <Divider />
                     <List>
-                        <NavLinks />
+                        <NavLinks setOpen={setOpen} />
                         <ListItem component="form" style={{width: '100%'}} title="Search" onSubmit={handleSubmit} id="holder">
                             <ListItemIcon margin={5} component={IconButton} onClick={toggleDrawer}>
                                 <SearchRounded />
