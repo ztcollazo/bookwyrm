@@ -100,8 +100,8 @@ const calculateRating = (rating, raters, reviews = []) => {
     return avg;
 }
 
-const WriteReviewCard = ({isbn}) => {
-    return <Button variant="contained" color="primary" component={Link} to={`/write-review/${isbn}`}>Write A Review</Button>;
+const WriteReviewCard = ({isbn, disabled}) => {
+    return <Button disabled={disabled} variant="contained" color="primary" component={Link} to={`/write-review/${isbn}`}>Write A Review</Button>;
 }
 
 const SortBy = ({sort, setSort, filter, setFilter}) => {
@@ -287,6 +287,7 @@ export const ReviewPage = () => {
     const reviews = useQuery(['get-reviews', { book: isbn }], queryReviews);
     const [filter, setFilter] = React.useState("");
     const [sort, setSort] = React.useState("newest");
+    const { user = {} } = useAuth0();
 
     const filteredReviews = React.useMemo(() => {
         if (!reviews.data || reviews.data.length === 0) {
@@ -387,6 +388,8 @@ export const ReviewPage = () => {
         }
     }, [sort, filteredReviews])
 
+    const disabled = sortedReviews.some((r) => r.reviewer === (user.name || user.email));
+
     /* 
         {
             data: {
@@ -405,7 +408,7 @@ export const ReviewPage = () => {
             <BookCard style={{margin: 0}} {...data} pageHref={`/book/${data.isbn13}`} />
             <div>
                 <div style={{marginTop: 30, marginBottom: 30}} className={clsx(classes.flexContainer, classes.justifyBetween)}>
-                    <WriteReviewCard isbn={isbn} />
+                    <WriteReviewCard disabled={disabled} isbn={isbn} />
                     <div>
                         <SortBy setFilter={setFilter} setSort={setSort} filter={filter} sort={sort} />
                     </div>
