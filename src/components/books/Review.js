@@ -263,7 +263,7 @@ const SingleReview = (props) => {
 
     return (
         <Card className={classes.review} >
-            <CardHeader title={props.title} subheader={<a className={classes.emailLink} target="_blank" rel="noopener noreferrer" href={`https://mailto:${props.reviewer}`}>{props.reviewer}</a>} action={<Rating value={Number(props.rating)} readOnly />} />
+            <CardHeader title={props.title} subheader={props.reviewer} action={<Rating value={Number(props.rating)} readOnly />} />
             <CardContent>
                 <Typography>{props.body}</Typography>
             </CardContent>
