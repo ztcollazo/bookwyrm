@@ -26,7 +26,7 @@ const TopTen = () => {
                     return (
                         <ListItem component="span" className={classes.li} key={i + 1}>
                             <Typography gutterBotom variant="h4" className={classes.header}>{i + 1}.</Typography>
-                            <BookCard {...g} pageHref={`/book/${g.isbn13 || g.isbn10 || g.isbn}`} reviewHref={`/write-review/${g.isbn13 || g.isbn10 || g.isbn}`} />
+                            <BookCard {...g} pageHref={`/book/${g.isbn13 || g.isbn10 || g.isbn}`} reviewHref={`/review/${g.isbn13 || g.isbn10 || g.isbn}`} />
                         </ListItem>
                     );
                 })

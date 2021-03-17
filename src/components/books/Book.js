@@ -86,7 +86,7 @@ export function BookCard(props) {
                     View Book
                 </Button>
                 <Button style={{marginTop: 10, marginLeft: 10}} size="small" color="primary" variant="outlined" component={Link} to={reviewHref}>
-                    Review Book
+                    See Reviews
                 </Button>
               </>
             )}

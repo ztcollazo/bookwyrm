@@ -34,7 +34,7 @@ const Results = (props) => {
                     
                     return (
                         <ListItem key={ln.isbn13}>
-                            <BookCard {...ln} pageHref={`/book/${ln.isbn13 || ln.isbn10 || ln.isbn}`} reviewHref={`/write-review/${ln.isbn13 || ln.isbn10 || ln.isbn}`} />
+                            <BookCard {...ln} pageHref={`/book/${ln.isbn13 || ln.isbn10 || ln.isbn}`} reviewHref={`/review/${ln.isbn13 || ln.isbn10 || ln.isbn}`} />
                         </ListItem>
                     )
                 })}
