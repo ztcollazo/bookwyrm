@@ -315,13 +315,25 @@ export const ReviewPage = () => {
     }
 
     const sortByLikes = (order) => (a, b) => {
+        var aTotalLikes = a.data.reactions.map((a) => {
+            if (a.value === "like") {
+                return 1;
+            }
+            return -1;
+        }).reduce((a, b) => a + b);
+        var bTotalLikes = b.data.reactions.map((a) => {
+            if (a.value === "like") {
+                return 1;
+            }
+            return -1;
+        }).reduce((a, b) => a + b);
         if (order === "most") {
-            if (a.data.likes > b.data.likes) {
+            if (aTotalLikes > bTotalLikes) {
                 return -1;
             }
             return 1;
         }
-        if (a.data.likes < b.data.likes) {
+        if (aTotalLikes < bTotalLikes) {
             return -1;
         }
         return 1;
