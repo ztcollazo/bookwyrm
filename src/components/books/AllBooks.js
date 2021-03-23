@@ -61,7 +61,7 @@ const AllBooks = (...props) => {
             return <Alert severity="error">Sorry, something went wrong.</Alert>
         } else {
             return (
-                <List id="results" {...props} style={{maxWidth: 880, margin: '0 auto'}}>
+                <List id="results" style={{maxWidth: 880, margin: '0 auto'}}>
                     {books ? books.map((book) => {
                         var ln = book;
                         
