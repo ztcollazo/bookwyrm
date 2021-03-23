@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         textAlign: 'center',
-        fontSize: '60px'
+        fontSize: 60
     },
     subtitle: {
         textAlign: 'center',
-        fontSize: '40px'
+        fontSize: 40
     },
     buttons: {
         textAlign: 'center',

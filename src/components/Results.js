@@ -13,7 +13,7 @@ import BookCard from "./books/Book";
 
 const useStyles = makeStyles((theme) => ({
     header: {
-        fontSize: '37px'
+        fontSize: 37
     },
 }));
 

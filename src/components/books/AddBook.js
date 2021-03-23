@@ -12,13 +12,13 @@ const isbn = require("node-isbn");
 const useStyles = makeStyles(theme => ({
     input: {
         backgroundColor: '#bbbbbb',
-        padding: '5px',
+        padding: 5,
         borderRadius: theme.shape.borderRadius,
-        margin: '2px',
-        fontSize: '20px'
+        margin: 2,
+        fontSize: 20
     },
     button: {
-        margin: '2px'
+        margin: 2
     }
 }));
 
