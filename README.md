@@ -7,3 +7,7 @@
  View our site at [https://bookwyrm.netlify.app](https://bookwyrm.netlify.app)
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ztcollazo/BookWyrm)
+
+This is my first React website, so feel free to make suggestions. You can also fork and edit, as this is just a test website.
+
+Note: FaunaDB may not be the greatest for react apps, but it works.
