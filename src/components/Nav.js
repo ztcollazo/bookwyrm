@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { AppContext, pages } from "../setup";
 import { useAuth0 } from "@auth0/auth0-react"
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     },
     link: {
         textDecoration: 'none',
-        marginTop: '5px'
+        marginTop: 5
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      height: '75px',
+      height: 75,
       backgroundColor: '#333333'
     },
     hide: {
@@ -62,34 +62,48 @@ const useStyles = makeStyles((theme) => ({
       flexShrink: 0,
       whiteSpace: 'nowrap',
     },
-    drawerOpen: {
-        top: 75,
-        width: drawerWidth,
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
     '@media (max-width:600px)': {
         drawerOpen: {
             width: '100%',
             top: 75,
+            // transition: theme.transitions.create('width', {
+            //     easing: theme.transitions.easing.sharp,
+            //     duration: theme.transitions.duration.enteringScreen,
+            // }),
+        },
+        drawerClose: {
+            top: 75,
+            // transition: theme.transitions.create('width', {
+            //     easing: theme.transitions.easing.sharp,
+            //     duration: theme.transitions.duration.leavingScreen,
+            // }),
+            // overflowX: 'hidden',
+            // width: 0,
+            // [theme.breakpoints.up('sm')]: {
+            //     width: theme.spacing(7) + 1,
+            // }
+        }
+    },
+    '@media (min-width:600px)': {
+        drawerOpen: {
+            top: 75,
+            width: drawerWidth,
             transition: theme.transitions.create('width', {
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
             }),
-        }
-    },
-    drawerClose: {
-        top: '75px',
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        overflowX: 'hidden',
-        width: theme.spacing(7) + 1,
-        [theme.breakpoints.up('sm')]: {
+        },
+        drawerClose: {
+            top: 75,
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen,
+            }),
+            overflowX: 'hidden',
             width: theme.spacing(7) + 1,
+            [theme.breakpoints.up('sm')]: {
+                width: theme.spacing(7) + 1,
+            },
         },
     },
     toolbar: {
@@ -97,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems: 'center',
       justifyContent: 'flex-end',
       padding: theme.spacing(0, 1),
-      height: '75px',
+      height: 75,
       // necessary for content to be below app bar
       ...theme.mixins.toolbar,
     },
@@ -107,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
     },
     search: {
         position: 'fixed',
-        marginRight: '30px',
+        marginRight: 30,
         borderRadius: theme.shape.borderRadius,
         backgroundColor: fade(theme.palette.common.white, 0.15),
         '&:hover': {
@@ -119,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
           marginLeft: theme.spacing(1),
           width: 'auto',
         },
-        right: '80px',
+        right: 80,
         float: 'right'
     },
     searchIcon: {
@@ -151,16 +165,15 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
           display: 'inline',
         },
-        fontSize: '50px',
+        fontSize: 50,
         color: '#FFFFFF'
     },
     img: {
-        width: "40px",
-        height: '40px'
+        width: 40,
+        height: 40
     },
     drawerIcon: {
-        //marginLeft: '-5px',
-        left: '5px'
+        left: 5,
     },
     linkItemText: {
         color: '#000000',
@@ -173,7 +186,7 @@ const useStyles = makeStyles((theme) => ({
     },
     login: {
         position: "absolute",
-        right: "10px",
+        right: 10,
         color: "white"
     },
     loginButton: {
@@ -186,10 +199,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SideLogin = ({ isAuthenticated, loginWithRedirect, logout }) => {
+    const { setOpen } = useContext(AppContext);
     if (isAuthenticated) {
         return (
             <List>
-                <ListItem title="Logout" button onClick={() => logout()}>
+                <ListItem title="Logout" button onClick={() => {setOpen(false); return logout();}}>
                     <ListItemIcon><LockRounded /></ListItemIcon>
                     <ListItemText>Logout</ListItemText>
                 </ListItem>
@@ -212,9 +226,11 @@ const SideLogin = ({ isAuthenticated, loginWithRedirect, logout }) => {
 
 const NavLinks = (props) => {
     const classes = useStyles();
+    const { setOpen } = useContext(AppContext);
+
     return pages.map((page) => { 
         return (
-            <ListItem title={page.title} button key={page.title} component={NavLink} to={page.link} exact activeClassName={ classes.linkActive }>
+            <ListItem title={page.title} button key={page.title} component={NavLink} to={page.link} exact activeClassName={ classes.linkActive } onClick={() => setOpen(false)}>
                 <ListItemIcon>
                     {page.icon}
                 </ListItemIcon>
@@ -248,16 +264,20 @@ const Nav = (props) => {
     const history = useHistory();
     const classes = useStyles();
     const context = React.useContext(AppContext);
-    const {open, toggleDrawer} = props;
     const [searchInput, setSearchInput] = React.useState("");
     const shouldBeResponsive = useMediaQuery('(max-width:775px)');
-    const shouldMakeDrawerResponsive = useMediaQuery('(max-width:600px)')
+    const { shouldMakeDrawerResponsive } = props;
     const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const {open, setOpen} = context;
 
     const handleChange = (event) => {
         event.preventDefault();
         setSearchInput(event.currentTarget.value);
+    }
+
+    const toggleDrawer = () => {
+        open ? setOpen(false) : setOpen(true);
     }
 
     const handleSubmit = (event) => {
@@ -266,6 +286,7 @@ const Nav = (props) => {
         history.push('/results');
         context.setSearchInput(searchInput);
         setSearchInput("");
+        setOpen(false);
     }
 
     return (
@@ -308,6 +329,7 @@ const Nav = (props) => {
                     disableDiscovery={iOS}
                     variant={!shouldMakeDrawerResponsive ? "permanent" : "temporary"}
                     open={shouldMakeDrawerResponsive && open}
+                    anchor="left"
                     className={
                         clsx(
                             classes.drawer, {
@@ -322,6 +344,8 @@ const Nav = (props) => {
                             [classes.drawerClose]: !open
                         })
                     }}
+                    onClose={() => setOpen(false)}
+                    onOpen={() => setOpen(true)}
                 >
                     <List className={classes.toolbar}>
                         <ListItem component={DrawerIcon} open={open} onClick={toggleDrawer} />

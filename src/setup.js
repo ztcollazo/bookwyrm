@@ -11,6 +11,8 @@ export const AppContext = createContext({
     setSearchInput() {},
     searchResults: "",
     setSearchResults() {},
+    open: "",
+    setOpen() {}
 });
 
 export const pages = [

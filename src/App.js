@@ -1,7 +1,7 @@
 import React from 'react';
 import Nav, { drawerWidth } from "./components/Nav";
 import { AppContext } from './setup';
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, useMediaQuery } from "@material-ui/core";
 import clsx from "clsx";
 
 const colors = {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   content: {
-    padding: '20px',
+    padding: 20,
   }
 }));
 
@@ -40,17 +40,14 @@ const App = (props) => {
   const [searchInput, setSearchInput] = React.useState("");
   const [searchResults, setSearchResults] = React.useState("");
   const [open, setOpen] = React.useState(false);
+  const shouldMakeDrawerResponsive = useMediaQuery('(max-width:600px)');
   const classes = useStyles();
 
-  const toggleDrawer = () => {
-    open ? setOpen(false) : setOpen(true);
-  }
-
   return (
-    <AppContext.Provider value={{ searchInput, setSearchInput, searchResults, setSearchResults }}>
-      <Nav toggleDrawer={toggleDrawer} open={open} />
+    <AppContext.Provider value={{ searchInput, setSearchInput, searchResults, setSearchResults, open, setOpen }}>
+      <Nav shouldMakeDrawerResponsive={shouldMakeDrawerResponsive} />
       <main id="main" className={ clsx(classes.main, {
-        [classes.contentShift]: open
+        [classes.contentShift]: open && !shouldMakeDrawerResponsive
       })}>
         <div id="content" className={classes.content}>
           {children}
