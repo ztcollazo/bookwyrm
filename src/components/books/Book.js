@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { getBook } from "../../fauna";
 import humanizeString from "humanize-string";
 import { 
@@ -13,8 +13,7 @@ import {
   Table, 
   TableBody, 
   TableCell, 
-  TableContainer, 
-  TableHead, 
+  TableContainer,  
   TableRow, 
   Typography,
   makeStyles 
@@ -37,7 +36,7 @@ const useStyles = makeStyles({
       flexWrap: 'wrap'
   },
   columns: {
-    width: '150px'
+    width: 150
   },
   cards: {
     display: 'flex',
@@ -59,12 +58,14 @@ export function Book(props) {
 }
 
 export function BookCard(props) {
-  const { title, authors, description, isbn13, isbn10, image, subtitle, rating, pageHref, reviewHref, className, ...rest } = props;
+  const history = useHistory();
+  // eslint-disable-next-line no-unused-vars
+  const { title, authors, description, isbn13, isbn10, image, subtitle, pageHref, reviewHref, className, ...rest } = props;
   const classes = useStyles();
 
   return (
-    <Card className={clsx(classes.card, className)} {...rest}>
-      <CardActionArea className={classes.flex} component={Link} to={ pageHref ? pageHref : window.location.pathname }>
+    <Card className={clsx(classes.card, className)}>
+      <CardActionArea className={classes.flex} onClick={() => history.push(pageHref ? pageHref : window.location.pathname)}>
         {image ? <CardMedia
           component="img"
           className={classes.media}
@@ -108,8 +109,10 @@ export const BookPage = () => {
   });
 
   const formatStrings = (text) => {
-    if (!text.includes("isbn")) {
+    if (!text.includes("isbn") && !text.includes("publishedDate")) {
       return humanizeString(text);
+    } else if (text.includes("publishedDate")) {
+      return text.replace("publishedDate", "Year published");
     } else {
       return text.replace("isbn", "ISBN-");
     }
@@ -123,12 +126,6 @@ export const BookPage = () => {
       </div>
       <TableContainer component={Paper} style={{marginTop: 20}}>
         <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell className={classes.columns}>Key</TableCell>
-              <TableCell>Value</TableCell>
-            </TableRow>
-          </TableHead>
           <TableBody>
             {
               tableData.map(key => (
