@@ -16,7 +16,7 @@
     "author": "Netlify",
     "license": "MIT",
     "dependencies": {
-        "dotenv": "^8.2.0",
+        "dotenv": "^9.0.1",
         "faunadb": "^2.14.2"
     }
 }
