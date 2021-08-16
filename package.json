@@ -13,7 +13,7 @@
     "node-isbn": "^1.6.0",
     "react": "^17.0.1",
     "react-dom": "^16.13.1",
-    "react-query": "2.23.0",
+    "react-query": "3.19.6",
     "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
