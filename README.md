@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**If you're looking for the old version (react + faunadb), you can find it in the `old` branch**
 
-Things you may want to cover:
+This application uses ruby version 2.7.3, with rbenv for management.
 
-* Ruby version
+To run locally:
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. `git clone https://github.com/ztcollazo/BookWyrm.git`
+2. `rails db:migrate`
+3. `rails server`
