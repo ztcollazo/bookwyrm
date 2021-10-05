@@ -1,13 +1,24 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/2824b8d5-f6de-4764-befd-3d8136496dc9/deploy-status)](https://app.netlify.com/sites/bookwyrm/deploys)
+# README
 
-# Bookwyrm
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-## The Place for all Books
+Things you may want to cover:
 
- View our site at [https://bookwyrm.netlify.app](https://bookwyrm.netlify.app)
+* Ruby version
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ztcollazo/BookWyrm)
+* System dependencies
 
-This is my first React website, so feel free to make suggestions. You can also fork and edit, as this is just a test website.
+* Configuration
 
-Note: FaunaDB may not be the greatest for react apps, but it works.
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...

@@ -1,9 +1,0 @@
-[ignore]
-.*/build/.*
-<PROJECT_ROOT>/(node-modules|functions/node_modules)/.*
-
-[include]
-src/
-
-[options]
-react.runtime=automatic
