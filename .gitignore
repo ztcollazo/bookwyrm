@@ -1,2 +1,1 @@
-*.key
-*.pem
+config/master.key
