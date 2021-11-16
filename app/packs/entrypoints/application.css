@@ -1,0 +1,125 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree app/assets/stylesheets
+ *= require_self
+ */
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "tailwindcss/screens";
+
+@font-face {
+    font-family: bubbblegum;
+    src: url("../../assets/fonts/bubbble_gum/BubbbleGum.otf");
+}
+
+@layer base {
+    input[type='text'],
+    input[type='email'],
+    input[type='password'],
+    input[type='number'] {
+        @apply rounded-md focus:ring-2 ring-primary;
+    }
+
+    input[type='checkbox'] {
+        @apply rounded-sm focus:ring-2 ring-primary w-4 mb-1 mr-1;
+    }
+}
+
+@layer components {
+
+    /* adapted from https://cssfx.netlify.app/ */
+    .highlight-animation {
+        position: relative;
+        z-index: 1;
+    }
+
+    .highlight-animation::before {
+        padding: 15px;
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: -0.5em;
+        right: -0.5em;
+        background-color: theme('colors.gray.200');
+        transform-origin: bottom center;
+        transform: scaleY(0.1);
+        transition: all 0.1s ease-in-out;
+    }
+
+    .highlight-animation.active::before {
+        transform: scaleY(1.25);
+        transition: none;
+    }
+
+    .highlight-animation:hover::before {
+        transform: scaleY(1.25);
+        background-color: theme('colors.gray.200');
+        opacity: 0.75;
+    }
+
+    .btn {
+        @apply rounded-lg px-4 py-3 focus:ring-4 focus:ring-opacity-50 shadow-md cursor-pointer;
+        border: 1px solid var(--btn-color);
+    }
+
+    .btn-primary {
+        --btn-color: theme('colors.primary.DEFAULT');
+        --tw-ring-color: theme('colors.primary.light');
+        background-color: var(--btn-color);
+        color: white
+    }
+
+    .btn-danger {
+        --btn-color: theme('colors.danger.DEFAULT') !important;
+        --tw-ring-color: theme('colors.danger.light') !important;
+        background-color: var(--btn-color);
+        color: white
+    }
+
+    .btn-outline {
+        background-color: initial !important;
+        color: initial;
+    }
+
+    .alert {
+        @apply rounded-md mt-2 m-5 text-white flex flex-row justify-start;
+        background-color: var(--alert-bg-color);
+        --alert-bg-color: theme('colors.info.DEFAULT');
+    }
+
+    .alert.alert-info {
+        --alert-bg-color: theme('colors.info.DEFAULT');
+    }
+
+    .alert.alert-success {
+        --alert-bg-color: theme('colors.success.DEFAULT');
+    }
+
+    .alert.alert-warning {
+        --alert-bg-color: theme('colors.warning.DEFAULT');
+    }
+
+    .alert.alert-danger {
+        --alert-bg-color: theme('colors.danger.DEFAULT');
+    }
+}
+
+@layer utils {
+    .font-bubbblegum {
+        font-family: bubbblegum, Verdana, Roboto, sans-serif;
+    }
+}

@@ -7,3 +7,6 @@ config/master.key
 yarn-debug.log*
 .yarn-integrity
 /node_modules/
+
+# Ignore application configuration
+/config/application.yml

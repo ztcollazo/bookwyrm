@@ -1,0 +1,59 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <h1 class="text-4xl text-center m-4">Edit Account</h1>
+
+  <div class="w-3/4 m-auto">
+    <div class="flex flex-row justify-stretch">
+      <div class="field mb-4 p-2 w-full">
+        <%= f.label :first_name, class: "font-bold inline-block mb-2" %>
+        <%= f.text_field :first_name, autofocus: true, class: "w-full", placeholder: "First name" %>
+      </div>
+
+      <div class="field mb-4 p-2 w-full">
+        <%= f.label :last_name, class: "font-bold inline-block mb-2" %>
+        <%= f.text_field :last_name, class: "w-full", placeholder: "Last name" %>
+      </div>
+    </div>
+
+    <div class="flex flex-row justify-stretch">
+      <div class="field mb-4 w-full p-2">
+        <%= f.label :username, class: 'font-bold inline-block mb-2' %><br />
+        <%= f.text_field :username, class: 'w-full' %>
+      </div>
+
+      <div class="field mb-4 w-full p-2">
+        <%= f.label :email, class: 'font-bold inline-block mb-2' %><br />
+        <%= f.email_field :email, autocomplete: "email", class: 'w-full' %>
+      </div>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="field mb-4 p-2 w-full">
+      <%= f.label :password, class: 'font-bold inline-block mb-2' %> <i>(leave blank if you don't want to change it)</i><br />
+      <%= f.password_field :password, autocomplete: "new-password", class: 'w-full' %>
+    </div>
+
+    <div class="field mb-4 p-2 w-full">
+      <%= f.label :password_confirmation, class: 'font-bold inline-block mb-2' %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'w-full' %>
+    </div>
+
+    <div class="field mb-4 p-2 w-full">
+      <%= f.label :current_password, class: 'font-bold inline-block mb-2' %> <i>(we need your current password to confirm your changes)</i><br />
+      <%= f.password_field :current_password, autocomplete: "current-password", class: 'w-full' %>
+    </div>
+
+    <div class="actions mb-4 p-2 w-full">
+      <%= f.submit "Update my account", class: 'btn btn-primary w-full' %>
+    </div>
+    <div class="actions mb-4 p-2 w-full">
+      <h3 class="font-bold inline-block mb-2">Cancel my account</h3>
+
+      <p class="mb-6"><%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn w-full btn-danger' %></p>
+    </div>
+  </div>
+<% end %>

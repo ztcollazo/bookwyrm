@@ -1,0 +1,20 @@
+<header class="w-full">
+  <div style="z-index: 1;" class="bg-white w-full fixed border-b-[1px] border-gray-200 left-0 right-0 top-0 p-6 flex flex-row justify-between">
+    <div class="inline-block">
+      <a href="<%= root_path %>"><h1 style="font-family: bubbblegum, Roboto, sans-serif" class="text-2xl inline-block lowercase">bookwyrm</h1></a>
+      <nav class="mx-5 inline-block">
+        <span class="highlight-animation <%= "active" if current_page? root_path %> text-lg mx-3 text-gray-700 align-text-bottom"><%= link_to "Home", root_path %></span>
+        <span class="highlight-animation <%= "active" if current_page? about_path %> text-lg mx-3 text-gray-700 align-text-bottom"><%= link_to "About", about_path %></span>
+      </nav>
+    </div>
+    <div>
+      <% unless user_signed_in? %>
+        <%=  link_to "Log in", login_path, class: 'btn btn-primary btn-outline mx-2 text-primary-dark'  %>
+        <%=  link_to "Sign up", signup_path, class: 'btn btn-primary mx-2'  %>
+      <% else %>
+        <%= gravatar_for current_user %>
+      <% end %>
+    </div>
+  </div>
+  <div class="relative h-28"></div>
+</header>
