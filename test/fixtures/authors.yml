@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Some Body
+  olid: OL123456M
+  bio: This is a very descriptive bio
+  birth_date: <%= Time.zone.now %>
+  links:
+    -
+      name: Something
+      url: https://example.com
+  photos:
+    - 1234567
