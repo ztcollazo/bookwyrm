@@ -14,6 +14,21 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-// Activate Active Storage
+//= require jquery
+//= require jquery_ujs
+
+// import Rails from "@rails/ujs"
+// import Turbolinks from "turbolinks"
 // import * as ActiveStorage from "@rails/activestorage"
+import { Application } from "@hotwired/stimulus"
+import { definitionsFromContext } from "stimulus/webpack-helpers"
+
+// Rails.start()
+// Turbolinks.start()
 // ActiveStorage.start()
+const application = Application.start()
+const context = require.context("../../javascript/controllers", true, /\.js$/);
+window.Stimulus = application
+application.load(definitionsFromContext(context))
+
+export { application }
