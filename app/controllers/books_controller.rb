@@ -16,7 +16,7 @@ class BooksController < ApplicationController
   # POST /books or /books.json
   def create
     @book = Book.create(book_params)
-    @authors = create_author
+    @authors = create_authors
 
     if @book.save
       redirect_to @book, notice: 'Book was successfully created.'
@@ -34,19 +34,23 @@ class BooksController < ApplicationController
   private
 
   # Separate the author creation logic from the books
-  def create_author
+  def create_authors
     if author_params.is_a?(Array)
       author_params.each do |author|
-        a = Author.find_by_olid(author[:olid]) || Author.create(author)
-        if a.save
-          @book.authors << a
-          a
-        else
-          @book.errors.add(:base, 'Could not create authors')
-        end
+        create_author author
       end
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def create_author(author)
+    a = Author.find_by_olid(author[:olid]) || Author.create(author)
+    if a.save
+      @book.authors << a
+      a
+    else
+      @book.errors.add(:base, 'Could not create authors')
     end
   end
 

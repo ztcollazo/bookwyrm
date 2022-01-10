@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper for main application
 module ApplicationHelper
   def gravatar_for(user, size = 32, **params)
     gravatar_id  = Digest::MD5.hexdigest(user.email.downcase)
