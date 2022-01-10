@@ -1,4 +1,4 @@
-<header class="w-full">
+<header class="w-full z-50">
   <div style="z-index: 1;" class="bg-white w-full fixed border-b-[1px] border-gray-200 left-0 right-0 top-0 p-6 flex flex-row justify-between">
     <div class="inline-block">
       <a href="<%= root_path %>"><h1 style="font-family: bubbblegum, Roboto, sans-serif" class="text-2xl inline-block lowercase">bookwyrm</h1></a>
@@ -7,18 +7,18 @@
         <span class="highlight-animation <%= "active" if current_page? about_path %> text-lg mx-3 text-gray-700 align-text-bottom"><%= link_to "About", about_path %></span>
       </nav>
     </div>
-    <div data-dropdown-hidden-class="hidden" data-controller="dropdown">
+    <div data-controller="dropdown" data-dropdown-hidden-class="hidden">
       <% unless user_signed_in? %>
         <%=  link_to "Log in", login_path, class: 'btn btn-primary btn-outline mx-2 text-primary-dark'  %>
         <%=  link_to "Sign up", signup_path, class: 'btn btn-primary mx-2'  %>
       <% else %>
-        <button data-dropdown-target="button" class="cursor-pointer" data-action="click->dropdown#toggle click@document->dropdown#close">
+        <button class="cursor-pointer" data-action="click->dropdown#toggle click@document->dropdown#close">
           <%= gravatar_for current_user %>
         </button>
         <div data-dropdown-target="dropdownMenu" class="shadow-lg border-1 border-primary fixed right-0 mr-4 flex flex-col bg-white hidden rounded-md">
-          <%= link_to "Edit Account", edit_user_registration_path, class: "bg-white focus:ring-2 px-4 focus:ring-primary rounded-md p-2", method: "get" %>
+          <%= link_to "Edit Account", edit_user_registration_path, class: "bg-white focus:ring-2 px-4 focus:ring-primary rounded-md p-2", method: "get", 'data-action': 'dropdown#toggle' %>
           <hr class="my-2" />
-          <%= link_to "Logout", logout_path, class: "bg-white focus:ring-2 px-4 focus:ring-primary rounded-md p-2" %>
+          <%= link_to "Logout", logout_path, class: "bg-white focus:ring-2 px-4 focus:ring-primary rounded-md p-2", 'data-action': 'dropdown#toggle' %>
         </div>
       <% end %>
     </div>
