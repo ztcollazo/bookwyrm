@@ -1,0 +1,68 @@
+<% provide :title, @author.name %>
+
+<div class="flex flex-col">
+  <div class="flex justify-start w-full flex-wrap md:flex-nowrap flex-1">
+    <div
+      data-controller="carousel"
+      class="swiper swiper-initialized swiper-horizontal swiper-pointer-events self-start w-full md:w-1/3 mb-4 md:mb-0"
+      data-carousel-options-value='{
+        "navigation": {
+          "nextEl": ".swiper-button-next",
+          "prevEl": ".swiper-button-prev"
+         },
+         "pagination": {
+          "el": ".swiper-pagination",
+          "clickable": true,
+          "dynamicBullets": true
+         }
+        }'
+    >
+      <div class="swiper-wrapper">
+        <% @author.photos.each do |photo| %>
+          <div class="swiper-slide w-2/3 m-auto">
+            <img loading="lazy" src="https://covers.openlibrary.org/a/id/<%= photo %>.jpg" style="z-index: 1;" alt="<%= @author.name %> image" class="rounded-md relative w-full" />
+          </div>
+        <% end %>
+      </div>
+      <div class="swiper-pagination"></div>
+
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+    <div class="flex flex-col justify-between md:ml-8 w-full">
+      <div class="flex flex-col w-full">
+        <div class="flex flex-row flex-wrap">
+          <h1 style="flex: 1 1 90%;" class="text-5xl font-bold text-center md:text-left align"><%= @author.name %></h1>
+          <div style="flex: 1 1 10%" class="flex md:flex-col flex-row justify-center gap-4 w-full md:justify-around">
+            <a target="_blank" rel="noopener noreferrer" title="View &#34;<%= @author.name %>&#34; on OpenLibrary" href="https://openlibrary.org/authors/<%= @author.olid %>">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+            <% @author.links.each do |link| %>
+              <% if link %>
+                <a target="_blank" rel="noopener noreferrer" title="<%= link[:name] ? link[:name] : link[:title] %>" href="<%= link[:url] %>">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div style="overflow-wrap: break-word;" class="mt-4 text-center md:text-left w-full">
+          <%= raw markdown @author.bio %>
+        </div>
+      </div>
+      <p class="text-sm text-gray-300">
+        Born <%= @author.birth_date.to_datetime.strftime("%B %-d, %Y") %>
+      </p>
+    </div>
+  </div>
+  <div class="-mx-4 mt-8">
+    <h2 class="md:text-left text-center flex flex-col items-center text-3xl">Popular books</h2>
+    <% @author.books.each do |book| %>
+      <%= render 'books/book', book: book, author: false, link: true %>
+    <% end %>
+  </div>
+</div>

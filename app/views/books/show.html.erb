@@ -1,0 +1,46 @@
+<%= provide :title, @book.title %>
+
+<div class="flex flex-wrap md:flex-nowrap mt-4">
+  <img loading="lazy" style="flex: 1 1 auto; max-height: 50vh" src="<%= @book.cover %>" alt="<%= @book.title %> cover" class="rounded-md mb-4 h-auto self-start" />
+  <div style="flex: 2 1 auto" class="flex flex-col md:ml-8 justify-between">
+    <div class="flex flex-col">
+      <div class="flex justify-between flex-wrap">
+        <div style="flex: 1 1 max-content" class="flex mb-5 flex-col items-start justify-start">
+          <h1 class="text-5xl text-center md:text-left font-bold align"><%= @book.title %></h1>
+          <%= tag.h3 @book.subtitle, class: 'text-4xl text-center md:text-left align-bottom font-extralight mt-2 text-gray-400 tracking-tight' unless @book.subtitle.blank? %>
+        </div>
+        <div style="flex: 1 1 10%" class="flex mb-5 md:flex-col items-center justify-around">
+          <a target="_blank" rel="noopener noreferrer" title="View &#34;<%= @book.title %>&#34; on OpenLibrary" href="https://openlibrary.org/books/<%= @book.olid %>">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+          <% if @book.identifiers['goodreads'] %>
+            <a target="_blank" rel="noopener noreferrer" class="md:mt-4 md:-ml-1" href="https://www.goodreads.com/book/show/<%= @book.identifiers['goodreads'][0] %>">
+              <img width="32" style="border-radius: 50%;" src="https://www.goodreads.com/favicon.ico" alt="Goodreads logo" />
+            </a>
+          <% end %>
+        </div>
+      </div>
+      <h2 class="text-3xl md:text-left text-center">By <% @book.authors.each do |author| %>
+            <%= 'and ' if @book.authors[-1] == author && @book.authors.length > 1 %><%= link_to author.name, author_path(author), class: 'text-primary hover-underline' %><%= ', ' unless @book.authors[-1] == author %>
+          <% end %>
+      </h2>
+      <div class="mt-4 md:text-left text-center">
+        <%= raw markdown @book.description.gsub(/((\(From ((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9%_+.~#?&\/\/=]*))|Goodreads)\):?\s*)|- \[source\](.|\s)*)/, '') %>
+      </div>
+    </div>
+    <div class="flex justify-between flex-wrap mt-4">
+      <p style="flex: 1 1 0; white-space: nowrap;" class="text-sm text-center md:text-left text-gray-300">
+        &copy;<%= @book.publish_date.year %>
+        <% @book.publishers.each do |publisher| %>
+          <%= 'and ' if @book.publishers[-1] == publisher && @book.publishers.length > 1 %><%= publisher == "cholastic" ? "Scholastic" : publisher  %><%= ', ' unless @book.publishers[-1] == publisher %>
+        <% end %>
+      </p>
+      <div style="flex: 1 1 0; white-space: nowrap;" class="text-md text-center md:text-left text-gray-400">
+        <p>ISBN 13: <%= @book.isbn_13 %></p>
+        <p>ISBN 10: <%= @book.isbn_10 %></p>
+      </div>
+    </div>
+  </div>
+</div>

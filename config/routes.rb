@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  # For books and authors, we can limit the necessary routes because
+  # All of the data comes from OpenLibrary.
+  resources :authors, only: %i[show]
+  resources :books, only: %i[new create show destroy]
   root 'static#index'
   get '/about', to: 'static#about'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

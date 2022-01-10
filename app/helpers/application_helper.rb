@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def gravatar_for(user, size = 32, **params)
     gravatar_id  = Digest::MD5.hexdigest(user.email.downcase)
@@ -17,5 +19,11 @@ module ApplicationHelper
     return 'warning' if type == 'warning'
 
     'info'
+  end
+
+  def markdown(text)
+    md = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, no_intra_emphasis: true, hard_wrap: true,
+                                                          fenced_code_blocks: true, space_after_headers: true)
+    md.render(text)
   end
 end

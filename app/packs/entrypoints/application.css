@@ -71,6 +71,28 @@
         opacity: 0.75;
     }
 
+    .hover-underline {
+        position: relative;
+    }
+
+    .hover-underline::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: theme('colors.primary.DEFAULT');
+        transform-origin: bottom right;
+        transform: scaleX(0);
+        transition: transform 0.5s ease;
+    }
+
+    .hover-underline:hover::before {
+        transform-origin: bottom left;
+        transform: scaleX(1);
+    }
+
     .btn {
         @apply rounded-lg px-4 py-3 focus:ring-4 focus:ring-opacity-50 shadow-md cursor-pointer;
         border: 1px solid var(--btn-color);

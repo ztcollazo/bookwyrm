@@ -1,0 +1,28 @@
+<main class="w-3/4 m-auto" data-controller="books" data-books-book-value="{}">
+  <%= form_with model: book do |form| %>
+    <div data-books-target="errors"><%= render 'devise/shared/error_messages', resource: form.object %></div>
+
+    <div class="field mb-4 w-full p-2">
+      <label class="font-bold inline-block mb-2" for="isbn">Book ISBN (10 or 13)</label>
+      <input pattern="\d+" type="text" data-action="input->books#getData" id="isbn" class="w-full" data-books-target="isbn" />
+    </div>
+
+    <%= form.hidden_field :isbn_13, 'data-books-target': 'isbn13' %>
+    <%= form.hidden_field :isbn_10, 'data-books-target': 'isbn10' %>
+    <%= form.hidden_field :cover, 'data-books-target': 'cover' %>
+    <%= form.hidden_field :title, 'data-books-target': 'title' %>
+    <%= form.hidden_field :description, 'data-books-target': 'description' %>
+    <%= form.hidden_field :identifiers, 'data-books-target': 'identifiers' %>
+    <%= form.hidden_field :publish_date, 'data-books-target': 'publishDate' %>
+    <%= form.hidden_field :olid, 'data-books-target': 'olid' %>
+    <%= form.hidden_field :publishers, 'data-books-target': 'publishers' %>
+    <%= form.hidden_field :subtitle, 'data-books-target': 'subtitle' %>
+    <%= form.hidden_field :authors_data, 'data-books-target': 'authors' %>
+
+    <div data-books-target="preview"></div>
+
+    <div class="actions mb-4 w-full p-2">
+      <%= form.submit class: "btn btn-primary w-full", 'data-books-target': 'submit', style: 'pointer-events: none; opacity: 80%;' %>
+    </div>
+  <% end %>
+</main>

@@ -22,6 +22,7 @@
 // import * as ActiveStorage from "@rails/activestorage"
 import { Application } from "@hotwired/stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
+import "swiper/css/bundle"
 
 // Rails.start()
 // Turbolinks.start()

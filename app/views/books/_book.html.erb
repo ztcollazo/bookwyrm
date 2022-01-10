@@ -1,0 +1,22 @@
+<div id="book_preview" class="flex m-5 h-full w-full items-start flex-wrap justify-center md:justify-between rounded-md shadow-md overflow-hidden">
+  <img loading="lazy" src="<%= book.cover %>" style="flex: 1 10 35%; margin: auto; max-width: 20vh; width: 100%;" alt="<%= book.title %> cover" />
+  <div style="flex: 2 1 50%" class="flex flex-col p-4 justify-between">
+    <div>
+      <a href="<%= book_path book if local_assigns[:link] && link %>">
+        <div class="flex flex-col">
+          <h1 class="text-3xl md:text-left text-center"><%= book.title %></h1>
+          <%= tag.h3 book.subtitle, class: 'text-2xl font-extralight md:text-left text-center align-bottom mt-1 text-gray-400 tracking-tight' unless book.subtitle.empty? %>
+        </div>
+      </a>
+      <% if author %>
+        <h2 class="text-xl">By <% book.authors.each do |author| %>
+            <%= 'and ' if book.authors[-1] == author && book.authors.length > 1 %><%= author.name %><%= ', ' unless book.authors[-1] == author %>
+          <% end %>
+        </h2>
+      <% end %>
+    </div>
+    <div style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 4; overflow: hidden; width: auto; visibility: visible; -webkit-box-orient: vertical; word-wrap: break-word;">
+      <%= raw markdown book.description.gsub(/((\(From ((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9%_+.~#?&\/\/=]*))|Goodreads)\):?\s*)|- \[source\](.|\s)*)/, '') %>
+    </div>
+  </div>
+</div>

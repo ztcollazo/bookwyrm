@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -24,6 +26,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'devise'
 gem 'figaro'
 gem 'jquery-rails'
+gem 'redcarpet'
 gem 'stimulus-rails'
 
 # Use Active Storage variant
