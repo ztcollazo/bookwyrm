@@ -16,3 +16,4 @@ yarn-debug.log*
 /tmp/development_secret.txt
 /tmp/**/*
 /log/**/*
+/.idea/**/*
