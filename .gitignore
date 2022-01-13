@@ -10,3 +10,9 @@ yarn-debug.log*
 
 # Ignore application configuration
 /config/application.yml
+
+/tmp/cache/**/*
+/tmp/storage/**/*
+/tmp/development_secret.txt
+/tmp/**/*
+/log/**/*
