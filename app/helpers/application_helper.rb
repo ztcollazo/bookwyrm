@@ -2,10 +2,10 @@
 
 # Helper for main application
 module ApplicationHelper
-  def gravatar_for(user, size = 32, **params)
+  def gravatar_for(user, size: 32, **params)
     gravatar_id  = Digest::MD5.hexdigest(user.email.downcase)
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-    image_tag(gravatar_url, alt: user.username, **params)
+    image_tag(gravatar_url, alt: user.username, **params, class: "rounded-full #{params.class}")
   end
 
   def full_title(title = '')
@@ -15,7 +15,7 @@ module ApplicationHelper
   end
 
   def message_type(type)
-    return 'danger' if %w[alert danger].include?(type)
+    return 'danger' if %w[alert danger error failure].include?(type)
     return 'success' if type == 'success'
     return 'warning' if type == 'warning'
 

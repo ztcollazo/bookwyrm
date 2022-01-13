@@ -3,32 +3,40 @@
 # The controller for the books
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show update destroy]
-  before_action :signed_in?, only: %i[new create destroy]
+  before_action :authenticate_user!, only: %i[new create destroy]
 
-  # GET /books/1 or /books/1.json
-  def show; end
+  # GET /books/1
+  def show
+    @rating = @book.reviews.average(:rating)
+    @reviews_count = @book.reviews.count
+  end
 
   # GET /books/new
   def new
     @book = Book.new
   end
 
-  # POST /books or /books.json
+  # POST /books
   def create
     @book = Book.create(book_params)
     @authors = create_authors
 
     if @book.save
-      redirect_to @book, notice: 'Book was successfully created.'
+      redirect_to @book, flash: { success: 'Book was successfully created.' }
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  # DELETE /books/1 or /books/1.json
+  # DELETE /books/1
   def destroy
-    @book.destroy
-    redirect_to books_url, notice: 'Book was successfully destroyed.'
+    if current_user.admin? # we don't want just anyone to delete books
+      @book.destroy if current_user.admin?
+      redirect_to root_url, flash: { success: 'Book was successfully destroyed.' }
+    else
+      redirect_to root_url,
+                  flash: { warning: 'You are not authorized to perform this action.' }
+    end
   end
 
   private
@@ -56,12 +64,26 @@ class BooksController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_book
+    set_book_for_destroy
+    return if @dont_redirect
+
+    find_book
+  end
+
+  def find_book
     book = Book.find_by(isbn_13: params[:id]) || Book.find_by(isbn_10: params[:id])
     if book
       @book = book
     else
       redirect_to book_path(Book.find(params[:id]).isbn_13 || Book.find(params[:id]).isbn_10)
     end
+  end
+
+  def set_book_for_destroy
+    return unless action_name == 'destroy'
+
+    @book = Book.find_by(isbn_13: params[:id]) || Book.find_by(isbn_10: params[:id]) || Book.find(params[:id])
+    @dont_redirect = true
   end
 
   # Only allow a list of trusted parameters through.

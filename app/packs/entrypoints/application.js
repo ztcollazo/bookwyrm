@@ -14,18 +14,22 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-//= require jquery
-//= require jquery_ujs
+/*#__PURE__*/ //= require rails-ujs
+/*#__PURE__*/ //= require jquery
+/*#__PURE__*/ //= require jquery_ujs
 
 // import Rails from "@rails/ujs"
 // import Turbolinks from "turbolinks"
 // import * as ActiveStorage from "@rails/activestorage"
+import Rails from "@rails/ujs"
+import Turbolinks from "turbolinks"
+import {} from "jquery-ujs"
 import { Application } from "@hotwired/stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 import "swiper/css/bundle"
 
-// Rails.start()
-// Turbolinks.start()
+Rails.start()
+Turbolinks.start()
 // ActiveStorage.start()
 const application = Application.start()
 const context = require.context("../../javascript/controllers", true, /\.js$/);

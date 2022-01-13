@@ -1,0 +1,31 @@
+<%= form_with(model: [@book, review]) do |form| %>
+  <%= render 'devise/shared/error_messages', resource: review %>
+
+  <div class="m-auto">
+    <div class="flex flex-row justify-stretch">
+      <div class="field mb-4 -pr-10 p-2 w-full">
+        <%= form.label :title, class: 'font-bold inline-block mb-2' %>
+        <%= form.text_field :title, autofocus: true, class: 'w-full text-2xl', placeholder: 'Review Title' %>
+      </div>
+      <div class="field mb-4 p-2 w-full px-5 rate ml-4 w-max" data-controller="ratings">
+        <%= form.label :rating, class: 'font-bold block mb-4' %>
+        <%= form.hidden_field :rating, 'data-ratings-target': 'value' %>
+        <div style="cursor:pointer;" class="flex justify-end gap-2">
+          <span data-ratings-target="1" data-action="click->ratings#fix" style="width: 2rem !important; height: 2rem !important; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); background-color: lightgray;"></span>
+          <span data-ratings-target="2" data-action="click->ratings#fix" style="width: 2rem !important; height: 2rem !important; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); background-color: lightgray;"></span>
+          <span data-ratings-target="3" data-action="click->ratings#fix" style="width: 2rem !important; height: 2rem !important; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); background-color: lightgray;"></span>
+          <span data-ratings-target="4" data-action="click->ratings#fix" style="width: 2rem !important; height: 2rem !important; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); background-color: lightgray;"></span>
+          <span data-ratings-target="5" data-action="click->ratings#fix" style="width: 2rem !important; height: 2rem !important; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); background-color: lightgray;"></span>
+        </div>
+      </div>
+    </div>
+    <div class="field p-2 mb-4 w-full">
+      <%= form.label :content, class: 'inline-block font-bold mb-2' %>
+      <%= form.text_area :content, class: 'w-full rounded-md ring-primary focus:ring-2', style: 'resize:none', placeholder: 'Review Description', rows: '5' %>
+    </div>
+  </div>
+
+  <div class="actions p-2">
+    <%= form.submit class: 'w-full btn btn-primary' %>
+  </div>
+<% end %>

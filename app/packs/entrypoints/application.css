@@ -28,7 +28,8 @@
     input[type='text'],
     input[type='email'],
     input[type='password'],
-    input[type='number'] {
+    input[type='number'],
+    textarea {
         @apply rounded-md focus:ring-2 ring-primary;
     }
 
@@ -95,7 +96,7 @@
 
     .btn {
         @apply rounded-lg px-4 py-3 focus:ring-4 focus:ring-opacity-50 shadow-md cursor-pointer;
-        border: 1px solid var(--btn-color);
+        border: 2px solid var(--btn-color);
     }
 
     .btn-primary {
