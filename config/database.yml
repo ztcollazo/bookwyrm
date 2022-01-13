@@ -7,14 +7,14 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: <%= ENV.fetch("BOOKWYRM_PG_USERNAME") %>
-  password: <%= ENV.fetch("BOOKWYRM_PG_PASSWORD") %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
   database: bookwyrm_development
+  username: <%= ENV.fetch("BOOKWYRM_PG_USERNAME") %>
+  password: <%= ENV.fetch("BOOKWYRM_PG_PASSWORD") %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -22,7 +22,8 @@ development:
 test:
   <<: *default
   database: bookwyrm_test
+  username: <%= ENV.fetch("BOOKWYRM_PG_USERNAME") %>
+  password: <%= ENV.fetch("BOOKWYRM_PG_PASSWORD") %>
 
 production:
   <<: *default
-  database: db/production.sqlite3
