@@ -5,11 +5,13 @@ require 'test_helper'
 class BooksControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   setup do
+    @user = users(:one)
+    @user.confirm
     @book = books(:one)
   end
 
   test 'should get new' do
-    sign_in users(:one)
+    sign_in @user
     get new_book_url
     assert_response :success
   end
@@ -23,7 +25,8 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy book' do
-    sign_in users(:one)
+    sign_in @user
+    @user.admin = true
     assert_difference('Book.count', -1) do
       delete book_url(@book.isbn_13)
     end

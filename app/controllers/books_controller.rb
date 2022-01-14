@@ -75,7 +75,8 @@ class BooksController < ApplicationController
     if book
       @book = book
     else
-      redirect_to book_path(Book.find(params[:id]).isbn_13 || Book.find(params[:id]).isbn_10)
+      new_book = Book.find(params[:id])
+      redirect_to book_path(new_book.isbn_13 || new_book.isbn_10)
     end
   end
 

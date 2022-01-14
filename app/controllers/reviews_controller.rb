@@ -27,7 +27,7 @@ class ReviewsController < ApplicationController
     @review = @book.reviews.new(**review_params, user: current_user)
 
     if @review.save
-      redirect_to book_reviews_path(@book), flash: { success: 'Review was successfully created.' }
+      redirect_to book_reviews_path(@book.isbn_13), flash: { success: 'Review was successfully created.' }
     else
       render 'reviews/new', status: :unprocessable_entity
     end
@@ -36,7 +36,7 @@ class ReviewsController < ApplicationController
   # PATCH/PUT /book/isbn/reviews/1
   def update
     if @review.update(review_params)
-      redirect_to book_reviews_path(@book, @review), flash: { success: 'Review was successfully updated.' }
+      redirect_to book_reviews_path(@book.isbn_13), flash: { success: 'Review was successfully updated.' }
     else
       render :edit, status: :unprocessable_entity
     end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :users, only: %i[show]
   # For books and authors, we can limit the necessary routes because
   # All of the data comes from OpenLibrary.
   resources :authors, only: %i[show]
