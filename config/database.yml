@@ -9,8 +9,12 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  <% if ENV.fetch("DATABASE_URL") {nil} %>
+  url: <%= ENV.fetch("DATABASE_URL") %>
+  <% elsif ENV.fetch("DATABASE_USERNAME") {nil} %>
   username: <%= ENV.fetch("DATABASE_USERNAME") %>
   password: <%= ENV.fetch("DATABASE_PASSWORD") %>
+  <% end %>
 
 development:
   <<: *default
@@ -25,4 +29,5 @@ test:
 
 production:
   <<: *default
+  database: bookwyrm_production
   url: <%= ENV["DATABASE_URL"] %>
