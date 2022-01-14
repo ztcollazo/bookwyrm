@@ -3,7 +3,7 @@
   <div style="flex: 2 1 50%" class="flex flex-col p-4 justify-between">
     <div>
       <% if local_assigns[:link] && link %>
-        <a href="<%= book_path book %>">
+        <a href="<%= book_path book.isbn_13 %>">
       <% end %>
           <div class="flex flex-col">
             <h1 class="text-3xl text-left"><%= book.title %></h1>
