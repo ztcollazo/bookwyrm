@@ -13,8 +13,8 @@ default: &default
 development:
   <<: *default
   database: bookwyrm_development
-  username: <%= ENV.fetch("BOOKWYRM_PG_USERNAME") %>
-  password: <%= ENV.fetch("BOOKWYRM_PG_PASSWORD") %>
+  username: <%= ENV.fetch("BOOKWYRM_DB_USERNAME") %>
+  password:
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -22,10 +22,13 @@ development:
 test:
   <<: *default
   database: bookwyrm_test
-  username: <%= ENV.fetch("BOOKWYRM_PG_USERNAME") %>
-  password: <%= ENV.fetch("BOOKWYRM_PG_PASSWORD") %>
+  username: <%= ENV.fetch("BOOKWYRM_DB_USERNAME") %>
+  password: ''
 
 production:
   <<: *default
+  database: bookwyrm_production
+  username:
+  secret_key_base: <%= ENV.fetch("SECRET_KEY_BASE") %>
   url: <%= ENV["DATABASE_URL"] %>
   pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>

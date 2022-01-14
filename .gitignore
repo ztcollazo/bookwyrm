@@ -8,6 +8,8 @@ yarn-debug.log*
 .yarn-integrity
 /node_modules/
 
+/.env
+
 # Ignore application configuration
 /config/application.yml
 

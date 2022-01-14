@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+if ! bundle exec rails db:migrate;
+then
+  exit 1
+fi
