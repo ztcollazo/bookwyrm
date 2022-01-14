@@ -1,5 +1,6 @@
 config/master.key
 
+/public/assets
 /public/packs
 /public/packs-test
 /node_modules
