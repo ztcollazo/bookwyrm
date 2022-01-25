@@ -10,7 +10,8 @@
             <h1 class="text-5xl text-center md:text-left font-bold"><%= @book.title %></h1>
             <%= tag.h3 @book.subtitle, class: 'text-4xl text-center md:text-left align-bottom font-extralight mt-2 text-gray-400 tracking-tight' unless @book.subtitle.blank? %>
           </div>
-          <div style="flex: 1 1 25%" data-controller="dropdown" data-dropdown-hidden-class="hidden" data-action="mouseover->dropdown#toggle mouseout->dropdown#close" class="flex w-max mb-6 lg:justify-end justify-center md:justify-start gap-2">
+          <% if @rating %>
+          <div style="flex: 1 1 25%" data-controller="dropdown" data-dropdown-hidden-class="hidden" data-dropdown-target="button" aria-haspopup="true" aria-expanded="false" data-action="mouseover->dropdown#toggle mouseout->dropdown#close" class="flex w-max mb-6 lg:justify-end justify-center md:justify-start gap-2">
             <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
               <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 0.5 ? 'gold' : 'lightgray' %>;"></span>
               <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 1 ? 'gold' : 'lightgray' %>;"></span>
@@ -36,6 +37,7 @@
               <p class="text-gray-500 text-md"><%= pluralize(@reviews_count, 'total rating') %>.</p>
             </div>
           </div>
+            <%end  %>
         </div>
         <div class="flex justify-between flex-wrap lg:flex-nowrap">
           <h2 class="text-3xl md:text-left text-center">By
@@ -80,9 +82,13 @@
       &nbsp;for&nbsp;
       <i><%= @book.title %></i>
     </h1>
+    <% if @book.reviews.empty? %>
+      <p>No reviews available.</p>
+      <% else %>
     <% @book.reviews.limit(3).each do |review| %>
       <%= render review %>
     <% end %>
+      <% end %>
     <a href="<%= book_reviews_path @book.isbn_13 %>" class="text-center text-lg text-primary hover-underline w-max">View all reviews</a>
   </div>
 </div>

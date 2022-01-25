@@ -1,26 +1,62 @@
 <header class="w-full z-50">
-  <div style="z-index: 1;" class="bg-white w-full fixed border-b-[1px] border-gray-200 left-0 right-0 top-0 p-6 flex flex-row justify-between">
-    <div class="inline-block">
-      <a href="<%= root_path %>"><h1 style="font-family: bubbblegum, Roboto, sans-serif" class="text-2xl inline-block lowercase">bookwyrm</h1></a>
-      <nav class="mx-5 inline-block">
-        <span class="highlight-animation <%= "active" if current_page? root_path %> text-lg mx-3 text-gray-700 align-text-bottom"><%= link_to "Home", root_path %></span>
-        <span class="highlight-animation <%= "active" if current_page? about_path %> text-lg mx-3 text-gray-700 align-text-bottom"><%= link_to "About", about_path %></span>
-      </nav>
-    </div>
-    <div data-controller="dropdown" data-dropdown-hidden-class="hidden">
-      <% unless user_signed_in? %>
-        <%=  link_to "Log in", login_path, class: 'btn btn-primary btn-outline mx-2 text-primary-dark'  %>
-        <%=  link_to "Sign up", signup_path, class: 'btn btn-primary mx-2'  %>
-      <% else %>
-        <button class="cursor-pointer" data-action="click->dropdown#toggle click@document->dropdown#close">
-          <%= gravatar_for current_user %>
+  <div style="z-index: 1; border-bottom-width: 1px;" data-dropdown-hidden-class="hidden" data-controller="dropdown" class="bg-white w-full fixed border-gray-200 left-0 right-0 top-0 p-4 flex flex-col gap-5 justify-between items-start w-full">
+    <div class="flex justify-between w-full">
+      <div class="inline-block flex justify-between items-center">
+        <button data-dropdown-target="button" data-action="click->dropdown#toggle" aria-haspopup="true" aria-expanded="false" class="lg:hidden block mr-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+          </svg>
         </button>
-        <div data-dropdown-target="dropdownMenu" class="shadow-lg border-1 border-primary fixed right-0 mr-4 flex flex-col bg-white hidden rounded-md">
-          <%= link_to "Edit Account", edit_user_registration_path, class: "bg-white focus:ring-2 px-4 focus:ring-primary rounded-md p-2", method: "get", 'data-action': 'dropdown#toggle' %>
-          <hr class="my-2" />
-          <%= link_to "Logout", logout_path, class: "bg-white focus:ring-2 px-4 focus:ring-primary rounded-md p-2", 'data-action': 'dropdown#toggle' %>
+        <a href="<%= root_path %>" class="flex gap-3 items-center w-max">
+          <img src="<%= asset_path 'logo.png' %>" width="32" alt="" class="lg:block hidden" />
+          <h1 style="font-family: bubbblegum, Roboto, sans-serif" class="text-2xl font-bubbblegum inline-block lowercase">bookwyrm</h1>
+        </a>
+        <nav class="mx-5 lg:inline-block hidden">
+          <a href="<%= root_path %>" class="text-primary pb-1 px-1 hover-underline text-lg mx-3">Home</a>
+          <a href="<%= about_path %>" class="text-primary pb-1 px-1 hover-underline text-lg mx-3">About</a>
+        </nav>
+      </div>
+      <div class="flex gap-5">
+        <form action="<%= search_path %>" method="get" class="lg:block hidden">
+          <div class="border-primary rounded-full pl-5 flex items-center focus:ring-2 ring-primary pr-1 border-2">
+            <input type="search" name="q" style="appearance: none; outline: none; box-shadow: none; border: none;" placeholder="Search..." />
+            <button type="submit" class="bg-primary shadow-sm text-white rounded-full p-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
+          </div>
+        </form>
+        <div class="flex justify-between items-center" data-controller="dropdown" data-dropdown-hidden-class="hidden">
+          <% unless user_signed_in? %>
+            <%=  link_to "Log in", login_path, class: 'btn btn-primary btn-outline mx-2 p-2 px-3'  %>
+            <%=  link_to "Sign up", signup_path, class: 'btn btn-primary p-2 px-3 mx-2'  %>
+          <% else %>
+            <button aria-haspopup="true" data-dropdown-target="button" aria-expanded="false" class="cursor-pointer flex items-center gap-1 text-gray-500 text-thin" data-action="click->dropdown#toggle click@document->dropdown#close">
+              <%= gravatar_for current_user %>&#9660;
+            </button>
+            <div data-dropdown-target="dropdownMenu" class="shadow-lg border-1 border-primary fixed right-0 mr-4 flex flex-col bg-white hidden top-16 rounded-md">
+              <%= link_to "Edit Account", edit_user_registration_path, class: "bg-white focus:ring-2 px-4 focus:ring-primary rounded-md p-2", method: "get", 'data-action': 'dropdown#toggle' %>
+              <hr class="my-2" />
+              <%= link_to "Logout", logout_path, class: "bg-white focus:ring-2 px-4 focus:ring-primary rounded-md p-2", 'data-action': 'dropdown#toggle' %>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
+    </div>
+    <div data-dropdown-target="dropdownMenu" onmouseup="this.classList.remove('hidden')" class="flex hidden w-full flex-col gap-4 justify-between items-start">
+      <a href="<%= root_path %>" class="text-primary pb-1 px-1 hover-underline text-lg mx-3">Home</a>
+      <a href="<%= about_path %>" class="text-primary pb-1 px-1 hover-underline text-lg mx-3">About</a>
+      <form action="<%= search_path %>" method="get" class="w-full">
+        <div class="border-primary rounded-full pl-5 flex items-center justify-between focus:ring-2 ring-primary pr-1 border-2">
+          <input class="w-full" required type="search" name="q" style="appearance: none; outline: none; box-shadow: none; border: none;" placeholder="Search..." />
+          <button type="submit" class="bg-primary shadow-sm text-white rounded-full p-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
   <div class="relative h-28"></div>

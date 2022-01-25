@@ -4,7 +4,8 @@
   <div class="flex justify-start w-full flex-wrap md:flex-nowrap flex-1">
     <div
       data-controller="carousel"
-      class="swiper swiper-initialized swiper-horizontal swiper-pointer-events self-start w-full md:w-1/3 mb-4 md:mb-0"
+      style="max-width: 320px;"
+      class="swiper relative z-0 swiper-initialized swiper-horizontal swiper-pointer-events self-start w-full md:w-1/3 mb-4 md:mb-0"
       data-carousel-options-value='{
         "navigation": {
           "nextEl": ".swiper-button-next",
@@ -20,7 +21,7 @@
       <div class="swiper-wrapper">
         <% @author.photos.each do |photo| %>
           <div class="swiper-slide w-2/3 m-auto">
-            <img loading="lazy" src="https://covers.openlibrary.org/a/id/<%= photo %>.jpg" style="z-index: 1;" alt="<%= @author.name %> image" class="rounded-md relative w-full" />
+            <img loading="lazy" src="https://covers.openlibrary.org/a/id/<%= photo %>.jpg" style="z-index: 0;" alt="<%= @author.name %> image" class="rounded-md w-full" />
           </div>
         <% end %>
       </div>

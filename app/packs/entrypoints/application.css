@@ -39,39 +39,6 @@
 }
 
 @layer components {
-
-    /* adapted from https://cssfx.netlify.app/ */
-    .highlight-animation {
-        position: relative;
-        z-index: 1;
-    }
-
-    .highlight-animation::before {
-        padding: 15px;
-        content: '';
-        position: absolute;
-        z-index: -1;
-        top: 0;
-        bottom: 0;
-        left: -0.5em;
-        right: -0.5em;
-        background-color: theme('colors.gray.200');
-        transform-origin: bottom center;
-        transform: scaleY(0.1);
-        transition: all 0.1s ease-in-out;
-    }
-
-    .highlight-animation.active::before {
-        transform: scaleY(1.25);
-        transition: none;
-    }
-
-    .highlight-animation:hover::before {
-        transform: scaleY(1.25);
-        background-color: theme('colors.gray.200');
-        opacity: 0.75;
-    }
-
     .hover-underline {
         position: relative;
     }
@@ -115,7 +82,7 @@
 
     .btn-outline {
         background-color: initial !important;
-        color: initial;
+        color: var(--btn-color);
     }
 
     .alert {

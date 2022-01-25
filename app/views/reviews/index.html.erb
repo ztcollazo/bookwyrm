@@ -2,32 +2,36 @@
 
 <div class="flex md:justify-between w-full justify-center md:items-end items-center md:flex-nowrap flex-wrap-reverse">
   <h1 class="text-4xl md:text-left text-center w-full m-4">Reviews for <a href="<%= book_path @book %>" class="text-primary hover-underline"><%= @book.title %></a></h1>
-  <div style="flex: 1 1 25%" data-controller="dropdown" data-dropdown-hidden-class="hidden" data-action="mouseover->dropdown#toggle mouseout->dropdown#close" class="flex w-max mb-6 lg:justify-end justify-center md:justify-start gap-2">
-    <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
-      <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 0.5 ? 'gold' : 'lightgray' %>;"></span>
-      <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 1 ? 'gold' : 'lightgray' %>;"></span>
-    </span>
-    <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
-      <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 1.5 ? 'gold' : 'lightgray' %>;"></span>
-      <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 2 ? 'gold' : 'lightgray' %>;"></span>
-    </span>
-    <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
-      <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 2.5 ? 'gold' : 'lightgray' %>;"></span>
-      <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 3 ? 'gold' : 'lightgray' %>;"></span>
-    </span>
-    <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
-      <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 3.5 ? 'gold' : 'lightgray' %>;"></span>
-      <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 4 ? 'gold' : 'lightgray' %>;"></span>
-    </span>
-    <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
-      <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 4.5 ? 'gold' : 'lightgray' %>;"></span>
-      <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 5 ? 'gold' : 'lightgray' %>;"></span>
-    </span>
-    <div data-dropdown-target="dropdownMenu" class="hidden absolute mt-10 bg-white p-4 shadow-lg rounded-md">
-      <h3 class="text-2xl"><%= @rating %> out of 5 stars</h3>
-      <p class="text-gray-500 text-md"><%= pluralize(@reviews_count, 'total rating') %>.</p>
+  <% if @rating %>
+    <div style="flex: 1 1 25%" data-controller="dropdown" data-dropdown-target="button" aria-haspopup="true" aria-expanded="false" data-dropdown-hidden-class="hidden" data-action="mouseover->dropdown#toggle mouseout->dropdown#close" class="flex w-max mb-6 lg:justify-end justify-center md:justify-start gap-2">
+      <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+        <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 0.5 ? 'gold' : 'lightgray' %>;"></span>
+        <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 1 ? 'gold' : 'lightgray' %>;"></span>
+      </span>
+      <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+        <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 1.5 ? 'gold' : 'lightgray' %>;"></span>
+        <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 2 ? 'gold' : 'lightgray' %>;"></span>
+      </span>
+      <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+        <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 2.5 ? 'gold' : 'lightgray' %>;"></span>
+        <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 3 ? 'gold' : 'lightgray' %>;"></span>
+      </span>
+      <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+        <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 3.5 ? 'gold' : 'lightgray' %>;"></span>
+        <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 4 ? 'gold' : 'lightgray' %>;"></span>
+      </span>
+      <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+        <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 4.5 ? 'gold' : 'lightgray' %>;"></span>
+        <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 5 ? 'gold' : 'lightgray' %>;"></span>
+      </span>
+      <div data-dropdown-target="dropdownMenu" class="hidden absolute mt-10 bg-white p-4 shadow-lg rounded-md">
+        <h3 class="text-2xl"><%= @rating %> out of 5 stars</h3>
+        <p class="text-gray-500 text-md"><%= pluralize(@reviews_count, 'total rating') %>.</p>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div></div>
+  <% end %>
 </div>
 
 <div class="m-auto mb-10">
@@ -35,8 +39,12 @@
     <%= link_to 'New Review', new_book_review_path, class: 'btn btn-primary w-full text-center' %>
   </div>
   <div class="flex flex-col gap-5 p-2">
-    <% @reviews.each do |review| %>
-      <%= render review %>
+    <% if @reviews.empty? %>
+      <p class="text-lg text-center my-5">No reviews available.</p>
+    <% else %>
+      <% @reviews.each do |review| %>
+        <%= render review %>
+      <% end %>
     <% end %>
   </div>
 

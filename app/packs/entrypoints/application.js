@@ -27,6 +27,7 @@ import {} from "jquery-ujs"
 import { Application } from "@hotwired/stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 import "swiper/css/bundle"
+import "./application.css"
 
 Rails.start()
 Turbolinks.start()

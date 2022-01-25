@@ -48,7 +48,7 @@ class BooksController < ApplicationController
         create_author author
       end
     else
-      render :new, status: :unprocessable_entity
+      @book.errors.add(:base, 'Could not create authors')
     end
   end
 
@@ -59,6 +59,7 @@ class BooksController < ApplicationController
       a
     else
       @book.errors.add(:base, 'Could not create authors')
+      render :new
     end
   end
 
