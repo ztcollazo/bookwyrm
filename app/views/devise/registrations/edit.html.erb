@@ -3,8 +3,8 @@
 
   <h1 class="text-4xl text-center m-4">Edit Account</h1>
 
-  <div class="w-3/4 m-auto">
-    <div class="flex flex-row justify-stretch">
+  <div class="md:w-3/4 m-auto">
+    <div class="flex flex-row flex-wrap md:flex-nowrap justify-stretch">
       <div class="field mb-4 p-2 w-full">
         <%= f.label :first_name, class: "font-bold inline-block mb-2" %>
         <%= f.text_field :first_name, autofocus: true, class: "w-full", placeholder: "First name" %>
@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <div class="flex flex-row justify-stretch">
+    <div class="flex flex-row flex-wrap md:flex-nowrap justify-stretch">
       <div class="field mb-4 w-full p-2">
         <%= f.label :username, class: 'font-bold inline-block mb-2' %><br />
         <%= f.text_field :username, class: 'w-full' %>
