@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_13_163907) do
+ActiveRecord::Schema.define(version: 2022_01_15_015953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,8 +46,10 @@ ActiveRecord::Schema.define(version: 2022_01_13_163907) do
     t.string "publishers", default: [], array: true
     t.string "subtitle"
     t.datetime "publish_date"
+    t.tsvector "searchable", default: -> { "(setweight(to_tsvector('english'::regconfig, (COALESCE(title, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, COALESCE(description, ''::text)), 'B'::\"char\"))" }
     t.index ["isbn_10"], name: "index_books_on_isbn_10", unique: true
     t.index ["isbn_13"], name: "index_books_on_isbn_13", unique: true
+    t.index ["searchable"], name: "index_books_on_searchable", using: :gin
   end
 
   create_table "reviews", force: :cascade do |t|

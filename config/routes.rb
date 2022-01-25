@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   delete '/books/:id/delete', to: 'books#destroy'
   root 'static#index'
   get '/about', to: 'static#about'
+  get '/search', to: 'static#search'
   devise_scope :user do
     get 'signup', to: 'devise/registrations#new'
     get 'login', to: 'devise/sessions#new'
