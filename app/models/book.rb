@@ -10,7 +10,7 @@ class Book < ApplicationRecord
   validates :isbn_13, presence: true
   validates :isbn_10, presence: true
   validate :has_authors?
-  pg_search_scope :search_books, against: { title: 'A', description: 'B', publishers: 'C' },
+  pg_search_scope :search_books, against: { title: 'A', isbn_13: 'B', subtitle: 'C', description: 'D' },
                                  using: { tsearch: { dictionary: 'english', tsvector_column: 'searchable' } }
 
   private

@@ -109,7 +109,7 @@ CREATE TABLE public.books (
     publishers character varying[] DEFAULT '{}'::character varying[],
     subtitle character varying,
     publish_date timestamp without time zone,
-    searchable tsvector GENERATED ALWAYS AS ((setweight(to_tsvector('english'::regconfig, (COALESCE(title, ''::character varying))::text), 'A'::"char") || setweight(to_tsvector('english'::regconfig, COALESCE(description, ''::text)), 'B'::"char"))) STORED
+    searchable tsvector GENERATED ALWAYS AS ((((setweight(to_tsvector('english'::regconfig, (COALESCE(title, ''::character varying))::text), 'A'::"char") || setweight(to_tsvector('english'::regconfig, (COALESCE((isbn_13)::character varying(255), ''::character varying))::text), 'B'::"char")) || setweight(to_tsvector('english'::regconfig, (COALESCE(subtitle, ''::character varying))::text), 'C'::"char")) || setweight(to_tsvector('english'::regconfig, COALESCE(description, ''::text)), 'D'::"char"))) STORED
 );
 
 
@@ -338,13 +338,6 @@ CREATE UNIQUE INDEX index_books_on_isbn_13 ON public.books USING btree (isbn_13)
 
 
 --
--- Name: index_books_on_searchable; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_books_on_searchable ON public.books USING gin (searchable);
-
-
---
 -- Name: index_reviews_on_book_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -433,6 +426,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220110221815'),
 ('20220113163907'),
 ('20220115015722'),
-('20220115015953');
+('20220115015953'),
+('20220128201234');
 
 
