@@ -32,7 +32,7 @@
             <%=  link_to "Log in", login_path, class: 'btn btn-primary btn-outline mx-2 p-2 px-3'  %>
             <%=  link_to "Sign up", signup_path, class: 'btn btn-primary p-2 px-3 mx-2'  %>
           <% else %>
-            <button aria-haspopup="true" data-dropdown-target="button" aria-expanded="false" class="cursor-pointer flex items-center gap-1 text-gray-500 text-thin" data-action="click->dropdown#toggle click@document->dropdown#close">
+            <button aria-haspopup="true" data-dropdown-target="button" aria-expanded="false" class="cursor-pointer flex items-center gap-1 text-gray-500 text-thin" data-click-outside="true" data-action="click->dropdown#toggle click@document->dropdown#close">
               <%= gravatar_for current_user %>&#9660;
             </button>
             <div data-dropdown-target="dropdownMenu" class="shadow-lg border-1 border-primary fixed right-0 mr-4 flex flex-col bg-white hidden top-16 rounded-md">
@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <div data-dropdown-target="dropdownMenu" onmouseup="this.classList.remove('hidden')" class="flex hidden w-full flex-col gap-4 justify-between items-start">
+    <div data-dropdown-target="dropdownMenu" class="flex hidden w-full flex-col gap-4 justify-between items-start">
       <a href="<%= root_path %>" class="text-primary pb-1 px-1 hover-underline text-lg mx-3">Home</a>
       <a href="<%= about_path %>" class="text-primary pb-1 px-1 hover-underline text-lg mx-3">About</a>
       <form action="<%= search_path %>" method="get" class="w-full">

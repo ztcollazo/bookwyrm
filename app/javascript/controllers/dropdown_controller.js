@@ -6,7 +6,8 @@ export default class extends Controller {
 
   connect() {
     super.connect();
-    document.onclick = (event) => {
+    document.body.onclick = (event) => {
+      if (this.dropdownMenuTarget.getAttribute('data-click-outside') || this.dropdownMenuTarget.getAttribute('data-click-outside') === true) return;
       event.stopPropagation();
     }
   }
