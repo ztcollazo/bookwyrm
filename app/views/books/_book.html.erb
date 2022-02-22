@@ -1,19 +1,48 @@
-<div class="flex m-5 h-full w-full items-start flex-wrap justify-center md:justify-between rounded-md shadow-lg overflow-hidden">
-  <img loading="lazy" src="<%= book.cover %>" style="flex: 1 10 35%; margin: auto; max-width: 20vh; width: 100%;" alt="<%= book.title %> cover" />
-  <div style="flex: 2 1 50%" class="flex flex-col p-4 justify-between">
-    <div>
+<div class="flex h-full w-full items-start flex-wrap justify-center md:justify-between rounded-md shadow-lg overflow-hidden">
+  <img src="<%= book.cover %>" style="flex: 1 10 35%; margin: auto; max-width: 20vh; width: 100%;" alt="<%= book.title %> cover" />
+  <div style="flex: 2 1 50%" class="flex flex-col p-4 justify-between w-full">
+    <div class="w-full">
       <% if local_assigns[:link] && link %>
         <a href="<%= book_path book.isbn_13 %>">
       <% end %>
-          <div class="flex flex-col">
-            <h1 class="text-3xl text-center md:text-left"><%= book.title %></h1>
-            <%= tag.h3 book.subtitle, class: 'text-2xl font-extralight md:text-left text-center align-bottom mt-1 text-gray-400 tracking-tight' unless book.subtitle.blank? %>
+          <div class="flex flex-col w-full">
+            <div class="flex justify-between flex-wrap-reverse">
+              <h1 style="flex: 0 0 56%" class="text-3xl w-full text-left"><%= book.title %></h1>
+              <% @rating = book.reviews.average(:rating) %>
+              <div style="flex: 0 0 232px;" data-controller="dropdown" data-dropdown-hidden-class="hidden" data-dropdown-target="button" aria-haspopup="true" aria-expanded="false" data-action="mouseover->dropdown#toggle mouseout->dropdown#close" class="flex w-min self-stretch justify-start gap-2">
+                <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 0.5 ? 'gold' : 'lightgray' %>;"></span>
+                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 1 ? 'gold' : 'lightgray' %>;"></span>
+                </span>
+                <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 1.5 ? 'gold' : 'lightgray' %>;"></span>
+                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 2 ? 'gold' : 'lightgray' %>;"></span>
+                </span>
+                <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 2.5 ? 'gold' : 'lightgray' %>;"></span>
+                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 3 ? 'gold' : 'lightgray' %>;"></span>
+                </span>
+                <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 3.5 ? 'gold' : 'lightgray' %>;"></span>
+                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 4 ? 'gold' : 'lightgray' %>;"></span>
+                </span>
+                <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 4.5 ? 'gold' : 'lightgray' %>;"></span>
+                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 5 ? 'gold' : 'lightgray' %>;"></span>
+                </span>
+                <div data-dropdown-target="dropdownMenu" class="hidden absolute mt-10 bg-white z-50 p-4 shadow-lg rounded-md">
+                  <h3 class="text-2xl"><%= @rating %> out of 5 stars</h3>
+                  <p class="text-gray-500 text-md"><%= pluralize(book.reviews.count, 'total rating') %>.</p>
+                </div>
+              </div>
+            </div>
+            <%= tag.h3 book.subtitle, class: 'text-2xl font-extralight text-left align-bottom mt-1 text-gray-400 tracking-tight' unless book.subtitle.blank? %>
           </div>
       <% if local_assigns[:link] && link %>
         </a>
       <% end %>
       <% if !local_assigns[:author] || author %>
-        <h2 class="text-xl md:text-left text-center">
+        <h2 class="text-xl text-left w-max">
           By <% book.authors.each do |author| %>
             <%= 'and ' if book.authors[-1] == author && book.authors.length > 1 %><a class="hover-underline text-primary" href="<%= author_path author %>"><%= author.name %></a><%= ', ' unless book.authors[-1] == author %>
           <% end %>

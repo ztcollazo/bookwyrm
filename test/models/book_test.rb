@@ -35,4 +35,8 @@ class BookTest < ActiveSupport::TestCase
     @book.authors = []
     assert_not @book.valid?
   end
+
+  test 'book should be searchable' do
+    assert Book.search_books(@book.title).include? @book
+  end
 end

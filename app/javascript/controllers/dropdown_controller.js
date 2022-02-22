@@ -14,10 +14,20 @@ export default class extends Controller {
 
   toggle(event) {
     event.stopPropagation();
-    this.dropdownMenuTarget.classList.toggle(this.hiddenClass);
+    if (Array.isArray(this.hiddenClasses)) {
+      for (let cls of this.hiddenClasses) {
+        this.dropdownMenuTarget.classList.toggle(cls);
+      }
+    } else {
+      this.dropdownMenuTarget.classList.toggle(this.hiddenClass)
+    }
   }
 
   close(event) {
-    this.dropdownMenuTarget.classList.add(this.hiddenClass);
+    if (Array.isArray(this.hiddenClasses)) {
+      this.dropdownMenuTarget.classList.add(...this.hiddenClasses);
+    } else {
+      this.dropdownMenuTarget.classList.add(this.hiddenClass)
+    }
   }
 }

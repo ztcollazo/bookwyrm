@@ -7,7 +7,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  has_many :reviews, dependent: :destroy
+  has_recommended :books
+  has_many :reviews, dependent: :nullify
+  scope :confirmed, -> { where.not(confirmed_at: nil) }
   validates :last_name, presence: true
   validates :first_name, presence: true
   validates :username, presence: true, uniqueness: { case_sensitive: false }
