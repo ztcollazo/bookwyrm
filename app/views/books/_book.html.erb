@@ -8,32 +8,35 @@
           <div class="flex flex-col w-full">
             <div class="flex justify-between flex-wrap-reverse">
               <h1 style="flex: 0 0 56%" class="text-3xl w-full text-left"><%= book.title %></h1>
-              <% @rating = book.reviews.average(:rating) %>
+              <% @rating = 0 %>
+              <% @rating = book.reviews.average(:rating) unless book.reviews.empty? %>
               <div style="flex: 0 0 232px;" data-controller="dropdown" data-dropdown-hidden-class="hidden" data-dropdown-target="button" aria-haspopup="true" aria-expanded="false" data-action="mouseover->dropdown#toggle mouseout->dropdown#close" class="flex w-min self-stretch justify-start gap-2">
-                <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
-                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 0.5 ? 'gold' : 'lightgray' %>;"></span>
-                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 1 ? 'gold' : 'lightgray' %>;"></span>
-                </span>
-                <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
-                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 1.5 ? 'gold' : 'lightgray' %>;"></span>
-                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 2 ? 'gold' : 'lightgray' %>;"></span>
-                </span>
-                <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
-                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 2.5 ? 'gold' : 'lightgray' %>;"></span>
-                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 3 ? 'gold' : 'lightgray' %>;"></span>
-                </span>
-                <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
-                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 3.5 ? 'gold' : 'lightgray' %>;"></span>
-                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 4 ? 'gold' : 'lightgray' %>;"></span>
-                </span>
-                <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
-                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 4.5 ? 'gold' : 'lightgray' %>;"></span>
-                  <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 5 ? 'gold' : 'lightgray' %>;"></span>
-                </span>
-                <div data-dropdown-target="dropdownMenu" class="hidden absolute mt-10 bg-white z-50 p-4 shadow-lg rounded-md">
-                  <h3 class="text-2xl"><%= @rating %> out of 5 stars</h3>
-                  <p class="text-gray-500 text-md"><%= pluralize(book.reviews.count, 'total rating') %>.</p>
-                </div>
+                <% if @rating > 0 %>
+                  <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+                    <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 0.5 ? 'gold' : 'lightgray' %>;"></span>
+                    <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 1 ? 'gold' : 'lightgray' %>;"></span>
+                  </span>
+                  <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+                    <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 1.5 ? 'gold' : 'lightgray' %>;"></span>
+                    <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 2 ? 'gold' : 'lightgray' %>;"></span>
+                  </span>
+                  <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+                    <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 2.5 ? 'gold' : 'lightgray' %>;"></span>
+                    <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 3 ? 'gold' : 'lightgray' %>;"></span>
+                  </span>
+                  <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+                    <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 3.5 ? 'gold' : 'lightgray' %>;"></span>
+                    <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 4 ? 'gold' : 'lightgray' %>;"></span>
+                  </span>
+                  <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
+                    <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 4.5 ? 'gold' : 'lightgray' %>;"></span>
+                    <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 5 ? 'gold' : 'lightgray' %>;"></span>
+                  </span>
+                  <div data-dropdown-target="dropdownMenu" class="hidden absolute mt-10 bg-white z-50 p-4 shadow-lg rounded-md">
+                    <h3 class="text-2xl"><%= @rating %> out of 5 stars</h3>
+                    <p class="text-gray-500 text-md"><%= pluralize(book.reviews.count, 'total rating') %>.</p>
+                  </div>
+                <% end %>
               </div>
             </div>
             <%= tag.h3 book.subtitle, class: 'text-2xl font-extralight text-left align-bottom mt-1 text-gray-400 tracking-tight' unless book.subtitle.blank? %>
