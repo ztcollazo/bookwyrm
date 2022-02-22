@@ -1,5 +1,5 @@
 <% flash.each do |type, message| %>
-  <div role="alert" class="alert alert-<%= message_type type %>">
+  <div role="alert" class="alert alert-<%= message_type type %> <%= 'md:ml-20' if signed_in? %>">
     <div style="border-right: 1px solid white;" class="p-4 flex flex-col justify-center">
       <% if message_type(type) == 'success' %>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">

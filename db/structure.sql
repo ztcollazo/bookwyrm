@@ -133,6 +133,42 @@ ALTER SEQUENCE public.books_id_seq OWNED BY public.books.id;
 
 
 --
+-- Name: disco_recommendations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.disco_recommendations (
+    id bigint NOT NULL,
+    subject_type character varying,
+    subject_id bigint,
+    item_type character varying,
+    item_id bigint,
+    context character varying,
+    score double precision,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: disco_recommendations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.disco_recommendations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: disco_recommendations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.disco_recommendations_id_seq OWNED BY public.disco_recommendations.id;
+
+
+--
 -- Name: reviews; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -240,6 +276,13 @@ ALTER TABLE ONLY public.books ALTER COLUMN id SET DEFAULT nextval('public.books_
 
 
 --
+-- Name: disco_recommendations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.disco_recommendations ALTER COLUMN id SET DEFAULT nextval('public.disco_recommendations_id_seq'::regclass);
+
+
+--
 -- Name: reviews id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -283,6 +326,14 @@ ALTER TABLE ONLY public.authors
 
 ALTER TABLE ONLY public.books
     ADD CONSTRAINT books_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: disco_recommendations disco_recommendations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.disco_recommendations
+    ADD CONSTRAINT disco_recommendations_pkey PRIMARY KEY (id);
 
 
 --
@@ -335,6 +386,20 @@ CREATE UNIQUE INDEX index_books_on_isbn_10 ON public.books USING btree (isbn_10)
 --
 
 CREATE UNIQUE INDEX index_books_on_isbn_13 ON public.books USING btree (isbn_13);
+
+
+--
+-- Name: index_disco_recommendations_on_item; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_disco_recommendations_on_item ON public.disco_recommendations USING btree (item_type, item_id);
+
+
+--
+-- Name: index_disco_recommendations_on_subject; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_disco_recommendations_on_subject ON public.disco_recommendations USING btree (subject_type, subject_id);
 
 
 --
@@ -427,6 +492,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220113163907'),
 ('20220115015722'),
 ('20220115015953'),
-('20220128201234');
+('20220128201234'),
+('20220129232432');
 
 

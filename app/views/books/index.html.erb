@@ -1,0 +1,8 @@
+<% provide :title, 'Top Books' %>
+
+<div class="md:w-3/4 m-auto py-5 px-4">
+  <h1 class="text-center text-4xl mb-4">Top Books</h1>
+  <ul class="flex flex-col justify-start items-center gap-5">
+    <%= render @books, link: true %>
+  </ul>
+</div>

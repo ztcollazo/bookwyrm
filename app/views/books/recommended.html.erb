@@ -1,0 +1,13 @@
+<% provide :title, 'Recommended Books' %>
+
+<div class="md:w-3/4 md:m-auto py-5 md:px-4">
+  <h1 class="text-center text-4xl mb-4">For you</h1>
+  <% if @books.empty? %>
+    <p class="text-lg text-center mt-10">No books yet! When you start reviewing books, it tells us what kind of books you like.</p>
+  <% else %>
+    <ul class="flex flex-col justify-start items-center gap-5">
+      <%= render @books, link: true %>
+      <li class="text-lg text-center mt-10">That's all we found for now.</li>
+    </ul>
+  <% end %>
+</div>

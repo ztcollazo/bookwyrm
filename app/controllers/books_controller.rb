@@ -3,7 +3,24 @@
 # The controller for the books
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show update destroy]
-  before_action :authenticate_user!, only: %i[new create destroy]
+  before_action :authenticate_user!, only: %i[new create destroy index]
+
+  # GET /books
+  # we need this rescue so that disco does not throw "comparison of float with 0 failed"
+  def index
+    bin = File.binread('tmp/recommender.bin')
+    # rubocop:disable Security/MarshalLoad
+    recommender = Marshal.load(bin)
+    # rubocop:enable Security/MarshalLoad
+    @books = Book.find(recommender.top_items(count: 10).map { |i| i[:item_id] })
+  rescue StandardError
+    @books = Book.includes(:reviews).order('reviews.rating ASC').limit(10)
+  end
+
+  # GET /books/recommended
+  def recommended
+    @books = current_user.recommended_books
+  end
 
   # GET /books/1
   def show
@@ -65,6 +82,8 @@ class BooksController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_book
+    return if params[:id] == 'recommended'
+
     set_book_for_destroy
     return if @dont_redirect
 

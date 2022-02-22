@@ -13,8 +13,9 @@
   <body>
     <%= render 'layouts/header' %>
     <%= render 'layouts/message' %>
-    <main class="px-16">
+    <main style="min-height: 80vh;" class="md:px-16 px-4 mb-16 <%= 'md:ml-16' if signed_in? %>">
       <%= yield %>
     </main>
+    <%= render 'layouts/footer' %>
   </body>
 </html>

@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  # Have to put this first so that it doesn't get confused with books/show
+  get '/books/recommended', to: 'books#recommended'
   resources :users, only: %i[show]
   # For books and authors, we can limit the necessary routes because
   # All of the data comes from OpenLibrary.
   resources :authors, only: %i[show]
-  resources :books, only: %i[new create show destroy] do
+  resources :books, only: %i[new create show destroy index] do
     resources :reviews
   end
   # UJS can be ridiculous sometimes, but we can use this hack.
