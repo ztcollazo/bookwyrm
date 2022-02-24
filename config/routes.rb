@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get '/search', to: 'search#index'
+  get 'search/books'
+  get 'search/authors'
   # Have to put this first so that it doesn't get confused with books/show
-  get '/books/recommended', to: 'books#recommended'
+  get '/books/recommended'
   resources :users, only: %i[show]
   # For books and authors, we can limit the necessary routes because
   # All of the data comes from OpenLibrary.
@@ -19,7 +22,6 @@ Rails.application.routes.draw do
   delete '/books/:id/delete', to: 'books#destroy'
   root 'static#index'
   get '/about', to: 'static#about'
-  get '/search', to: 'static#search'
   devise_scope :user do
     get 'signup', to: 'devise/registrations#new'
     get 'login', to: 'devise/sessions#new'

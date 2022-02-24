@@ -38,7 +38,8 @@ CREATE TABLE public.authors (
     links json[] DEFAULT '{}'::json[],
     photos bigint[] DEFAULT '{}'::bigint[],
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    searchable tsvector GENERATED ALWAYS AS (((setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::"char") || setweight(to_tsvector('english'::regconfig, COALESCE(bio, ''::text)), 'B'::"char")) || setweight(to_tsvector('english'::regconfig, (COALESCE(birth_date, ''::character varying))::text), 'C'::"char"))) STORED
 );
 
 
@@ -375,6 +376,13 @@ CREATE INDEX index_authors_books_on_book_id ON public.authors_books USING btree 
 
 
 --
+-- Name: index_authors_on_searchable; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_authors_on_searchable ON public.authors USING gin (searchable);
+
+
+--
 -- Name: index_books_on_isbn_10; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -493,6 +501,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220115015722'),
 ('20220115015953'),
 ('20220128201234'),
-('20220129232432');
+('20220129232432'),
+('20220223165028'),
+('20220224182619');
 
 

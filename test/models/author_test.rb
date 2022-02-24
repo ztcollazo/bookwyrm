@@ -18,4 +18,8 @@ class AuthorTest < ActiveSupport::TestCase
     @author.olid = ''
     assert_not @author.valid?
   end
+
+  test 'author should be searchable' do
+    assert Author.search_authors(@author.name).include? @author
+  end
 end

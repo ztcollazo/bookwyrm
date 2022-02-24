@@ -1,0 +1,27 @@
+<div class="md:w-3/4 w-full flex flex-col justify-between m-auto gap-5">
+  <div class="flex sm:justify-between justify-center gap-6 w-full xs:flex-nowrap flex-wrap">
+    <a href="<%= search_path q: params[:q] %>" class="flex gap-1 items-center text-primary hover-underline w-max">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Back to all results
+    </a>
+    <a href="<%= search_books_path q: params[:q] %>" class="text-primary hover-underline w-max">View book results</a>
+  </div>
+  <div class="md:text-4xl sm:text-3xl text-2xl text-center md:text-left font-bold flex gap-2 sm:flex-nowrap flex-wrap items-center justify-center">
+    <h1 style="flex: 1 0 320px;" class="w-full">Author results for:&nbsp;</h1>
+    <form style="flex: 1 1 50%;" action="<%= search_path %>" method="get" class="w-full">
+      <input type="search" class="input w-full rounded focus:ring-2 ring-primary p-1 px-2" name="q" value="<%= params[:q] %>" placeholder="Search..." />
+    </form>
+  </div>
+  <div id="results" class="flex flex-col items-center gap-5">
+    <% if @results.empty? %>
+      <p class="text-lg self-start ml-1">No authors found.</p>
+    <% else %>
+      <% @results.each do |res| %>
+        <%= render res, link: true %>
+      <% end %>
+    <% end %>
+    <p class="text-md self-center text-center"><a class="text-primary hover-underline" href="<%= new_book_path %>">Add a book to Bookwyrm.</a>&nbsp;When you add a book, the author gets added automatically.</p>
+  </div>
+</div>

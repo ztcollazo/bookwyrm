@@ -31,7 +31,7 @@
           </div>
         </div>
         <div style="overflow-wrap: break-word;" class="mt-4 text-center md:text-left w-full">
-          <%= raw markdown @author.bio %>
+          <%= raw markdown @author.bio.gsub(/((\(From ((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9%_+.~#?&\/\/=]*))|Goodreads)\):?\s*)|- \[source\](.|\s)*)/, '') %>
         </div>
       </div>
       <p class="text-sm text-gray-300">

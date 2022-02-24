@@ -8,8 +8,4 @@ class StaticController < ApplicationController
   end
 
   def about; end
-
-  def search
-    @results = Book.search_books(params[:q])
-  end
 end

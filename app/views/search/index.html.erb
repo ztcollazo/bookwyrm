@@ -1,0 +1,37 @@
+<div class="md:w-3/4 w-full flex flex-col justify-between m-auto gap-5">
+  <div class="md:text-4xl sm:text-3xl text-2xl text-center md:text-left font-bold flex gap-2 sm:flex-nowrap flex-wrap items-center justify-center">
+    <h1 style="flex: 1 0 320px;" class="w-full">Search results for:&nbsp;</h1>
+    <form style="flex: 1 1 50%;" action="<%= search_path %>" method="get" class="w-full">
+      <input type="search" class="input w-full rounded focus:ring-2 ring-primary p-1 px-2" name="q" value="<%= params[:q] %>" placeholder="Search..." />
+    </form>
+  </div>
+  <div class="flex flex-col gap-5 justify-between">
+    <div id="books" class="flex flex-col items-center gap-5">
+      <div class="flex sm:justify-between justify-center gap-4 items-center w-full flex-wrap sm:flex-nowrap">
+        <h2 class="md:text-2xl text-xl font-bold">Books</h2>
+        <a href="<%= search_books_path(q: params[:q]) %>" class="hover-underline text-primary">View all book results.</a>
+      </div>
+      <% if @books_results.empty? %>
+        <p class="text-lg self-start ml-1">No books found.</p>
+      <% else %>
+        <% @books_results.each do |res| %>
+          <%= render res, link: true %>
+        <% end %>
+      <% end %>
+      <a class="text-primary self-center text-center hover-underline text-md" href="<%= new_book_path %>">Add a book to Bookwyrm</a>
+    </div>
+    <div id="authors" class="flex flex-col items-center gap-5">
+      <div class="flex sm:justify-between justify-center gap-4 items-center w-full flex-wrap sm:flex-nowrap">
+        <h2 class="md:text-2xl text-xl font-bold">Authors</h2>
+        <a href="<%= search_authors_path(q: params[:q]) %>" class="hover-underline text-primary">View all author results.</a>
+      </div>
+      <% if @authors_results.empty? %>
+        <p class="text-lg self-start ml-1">No authors found.</p>
+      <% else %>
+        <% @authors_results.each do |res| %>
+          <%= render res, link: true %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

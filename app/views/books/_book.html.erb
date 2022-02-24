@@ -1,4 +1,4 @@
-<div class="flex h-full w-full items-start flex-wrap justify-center md:justify-between rounded-md shadow-lg overflow-hidden">
+<div class="book flex h-full w-full items-start flex-wrap justify-center md:justify-between rounded-md shadow-lg overflow-hidden">
   <img src="<%= book.cover %>" style="flex: 1 10 35%; margin: auto; max-width: 20vh; width: 100%;" alt="<%= book.title %> cover" />
   <div style="flex: 2 1 50%" class="flex flex-col p-4 justify-between w-full">
     <div class="w-full">
@@ -7,10 +7,10 @@
       <% end %>
           <div class="flex flex-col w-full">
             <div class="flex justify-between flex-wrap-reverse">
-              <h1 style="flex: 0 0 56%" class="text-3xl w-full text-left"><%= book.title %></h1>
+              <h1 style="flex: 1 0 56%" class="text-3xl w-full"><%= book.title %></h1>
               <% @rating = 0 %>
               <% @rating = book.reviews.average(:rating) unless book.reviews.empty? %>
-              <div style="flex: 0 0 232px;" data-controller="dropdown" data-dropdown-hidden-class="hidden" data-dropdown-target="button" aria-haspopup="true" aria-expanded="false" data-action="mouseover->dropdown#toggle mouseout->dropdown#close" class="flex w-min self-stretch justify-start gap-2">
+              <div style="flex: 0 1 232px;" data-controller="dropdown" data-dropdown-hidden-class="hidden" data-dropdown-target="button" aria-haspopup="true" aria-expanded="false" data-action="mouseover->dropdown#toggle mouseout->dropdown#close" class="flex w-min self-stretch justify-start gap-2">
                 <% if @rating > 0 %>
                   <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
                     <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 0.5 ? 'gold' : 'lightgray' %>;"></span>
@@ -39,13 +39,13 @@
                 <% end %>
               </div>
             </div>
-            <%= tag.h3 book.subtitle, class: 'text-2xl font-extralight text-left align-bottom mt-1 text-gray-400 tracking-tight' unless book.subtitle.blank? %>
+            <%= tag.h3 book.subtitle, class: 'text-2xl font-extralight align-bottom mt-1 text-gray-400 tracking-tight' unless book.subtitle.blank? %>
           </div>
       <% if local_assigns[:link] && link %>
         </a>
       <% end %>
       <% if !local_assigns[:author] || author %>
-        <h2 class="text-xl text-left w-max">
+        <h2 class="text-xl w-max">
           By <% book.authors.each do |author| %>
             <%= 'and ' if book.authors[-1] == author && book.authors.length > 1 %><a class="hover-underline text-primary" href="<%= author_path author %>"><%= author.name %></a><%= ', ' unless book.authors[-1] == author %>
           <% end %>

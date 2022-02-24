@@ -1,0 +1,17 @@
+<div class="author flex h-full w-full items-start flex-wrap justify-center md:justify-between rounded-md shadow-lg overflow-hidden">
+  <img src="https://covers.openlibrary.org/a/id/<%= author.photos[0] %>.jpg" style="flex: 1 10 35%; margin: auto; max-width: 20vh; width: 100%;" alt="<%= author.name %> photo" />
+  <div style="flex: 2 1 50%" class="flex flex-col p-4 justify-between w-full">
+    <div class="w-full mb-4">
+      <% if local_assigns[:link] && link %>
+        <a href="<%= author_path author %>">
+      <% end %>
+          <h1 style="flex: 0 0 56%" class="text-3xl w-full text-left"><%= author.name %></h1>
+      <% if local_assigns[:link] && link %>
+        </a>
+      <% end %>
+    </div>
+    <div style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 4; overflow: hidden; width: auto; visibility: visible; -webkit-box-orient: vertical; word-wrap: break-word;">
+      <%= raw markdown author.bio.gsub(/((\(From ((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9%_+.~#?&\/\/=]*))|Goodreads)\):?\s*)|- \[source\](.|\s)*)/, '') %>
+    </div>
+  </div>
+</div>
