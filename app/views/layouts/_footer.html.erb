@@ -1,3 +1,7 @@
 <footer style="border-top-width: 1px;" class="relative bg-white text-xs p-3 text-center border-gray-200">
-  &copy; <%= Time.now.year %> Zachary Collazo
+  <p>&copy; <%= Time.now.year %> Zachary Collazo</p>
+  <div class="grid grid-cols-2 gap-4 m-auto w-max">
+    <p><%= link_to 'Home', root_path, class: 'hover:underline' %></p>
+    <p><%= link_to 'About', about_path, class: 'hover:underline' %></p>
+  </div>
 </footer>

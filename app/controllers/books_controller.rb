@@ -3,7 +3,7 @@
 # The controller for the books
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show update destroy]
-  before_action :authenticate_user!, only: %i[new create destroy index]
+  before_action :authenticate_user!, only: %i[new create destroy index recommended]
 
   # GET /books
   # we need this rescue so that disco does not throw "comparison of float with 0 failed"
