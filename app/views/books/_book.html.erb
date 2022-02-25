@@ -6,11 +6,11 @@
         <a href="<%= book_path book.isbn_13 %>">
       <% end %>
           <div class="flex flex-col w-full">
-            <div class="flex justify-between flex-wrap-reverse">
+            <div class="flex justify-between gap-3 flex-wrap-reverse">
               <h1 style="flex: 1 0 56%" class="text-3xl w-full"><%= book.title %></h1>
               <% @rating = 0 %>
               <% @rating = book.reviews.average(:rating) unless book.reviews.empty? %>
-              <div style="flex: 0 1 232px;" data-controller="dropdown" data-dropdown-hidden-class="hidden" data-dropdown-target="button" aria-haspopup="true" aria-expanded="false" data-action="mouseover->dropdown#toggle mouseout->dropdown#close" class="flex w-min self-stretch justify-start gap-2">
+              <div style="flex: 0 1 192px;" data-controller="dropdown" data-dropdown-hidden-class="hidden" data-dropdown-target="button" aria-haspopup="true" aria-expanded="false" data-action="mouseover->dropdown#toggle mouseout->dropdown#close" class="flex w-min self-stretch justify-start gap-2">
                 <% if @rating > 0 %>
                   <span class="flex" style="width: 2rem; height: 2rem; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">
                     <span class="max-w-1/2 w-full" style="background-color: <%= @rating >= 0.5 ? 'gold' : 'lightgray' %>;"></span>
@@ -39,7 +39,7 @@
                 <% end %>
               </div>
             </div>
-            <%= tag.h3 book.subtitle, class: 'text-2xl font-extralight align-bottom mt-1 text-gray-400 tracking-tight' unless book.subtitle.blank? %>
+            <%= tag.h3 book.subtitle, class: 'text-2xl align-bottom mt-1 text-gray-400 tracking-tight' unless book.subtitle.blank? %>
           </div>
       <% if local_assigns[:link] && link %>
         </a>

@@ -1,6 +1,6 @@
 <%= render @book, link: true %>
 
-<div class="flex md:justify-between w-full justify-center md:items-end items-center md:flex-nowrap flex-wrap-reverse">
+<div class="flex md:justify-between w-full justify-center mt-4 md:items-end items-center md:flex-nowrap flex-wrap-reverse">
   <h1 class="text-4xl md:text-left text-center w-full m-4">Reviews for <a href="<%= book_path @book %>" class="text-primary hover-underline"><%= @book.title %></a></h1>
   <% if @rating %>
     <div style="flex: 1 1 25%" data-controller="dropdown" data-dropdown-target="button" aria-haspopup="true" aria-expanded="false" data-dropdown-hidden-class="hidden" data-action="mouseover->dropdown#toggle mouseout->dropdown#close" class="flex w-max mb-6 lg:justify-end justify-center md:justify-start gap-2">

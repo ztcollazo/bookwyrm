@@ -39,8 +39,8 @@
       </p>
     </div>
   </div>
-  <div class="-mx-4 mt-8">
-    <h2 class="md:text-left text-center flex flex-col items-center text-3xl">Popular books</h2>
+  <div class="-mx-4 mt-8 p-2">
+    <h2 class="md:text-left text-center flex flex-col mb-4 items-center text-3xl">Popular books</h2>
     <% @author.books.each do |book| %>
       <%= render 'books/book', book: book, author: false, link: true %>
     <% end %>

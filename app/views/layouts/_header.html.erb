@@ -9,7 +9,7 @@
         </button>
         <a href="<%= root_path %>" class="flex gap-3 items-center w-max">
           <img src="<%= asset_path 'logo.png' %>" width="32" alt="" class="lg:block hidden" />
-          <h1 style="font-family: bubbblegum, Roboto, sans-serif" class="text-2xl font-bubbblegum inline-block lowercase">bookwyrm</h1>
+          <h1 class="text-2xl font-montserrat font-light inline-block lowercase">bookwyrm</h1>
         </a>
       </div>
       <div class="flex gap-5">
@@ -42,16 +42,18 @@
       </div>
     </div>
     <div style="transition: max-height 0.5s ease-in 0.2s;" data-dropdown-target="dropdownMenu" class="flex hidden max-h-0 w-full flex-col gap-2 sm:gap-4 justify-between items-center">
-      <nav class="p-1 flex sm:gap-5 gap-1 justify-around w-full">
-        <a href="<%= books_path %>" class="p-2 text-primary sm:text-md text-sm hover-underline flex gap-6 self-start">
-          <svg class="w-6 h-6 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-          <p class="z-0">Top Books</p>
-        </a>
-        <a href="<%= books_recommended_path %>" class="p-2 text-primary sm:text-md text-sm hover-underline flex gap-6 self-start">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" /></svg>
-          <p class="z-0">For You</p>
-        </a>
-      </nav>
+      <% if signed_in? %>
+        <nav class="p-1 flex sm:gap-5 gap-1 justify-around w-full">
+          <a href="<%= books_path %>" class="p-2 text-primary sm:text-md text-sm hover-underline flex gap-6 self-start">
+            <svg class="w-6 h-6 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            <p class="z-0">Top Books</p>
+          </a>
+          <a href="<%= books_recommended_path %>" class="p-2 text-primary sm:text-md text-sm hover-underline flex gap-6 self-start">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" /></svg>
+            <p class="z-0">For You</p>
+          </a>
+        </nav>
+      <% end %>
       <form action="<%= search_path %>" method="get" class="w-full">
         <div class="border-primary rounded-md pl-1 flex items-center justify-between focus:ring-2 ring-primary pr-1 border-2">
           <input class="w-full" required type="search" name="q" style="appearance: none; outline: none; box-shadow: none; border: none;" placeholder="Search..." />

@@ -3,7 +3,7 @@
     <h1 class="md:text-5xl text-3xl text-center md:text-left font-light w-full">Hello, &nbsp;<%= current_user.first_name %></h1>
     <div class="flex flex-col justify-between gap-7">
       <div class="flex flex-col gap-4">
-        <div class="flex sm:justify-between justify-center flex-wrap sm:flex-nowrap items-center">
+        <div class="flex sm:justify-between justify-center gap-4 flex-wrap sm:flex-nowrap items-center">
           <h2 class="md:text-3xl text-2xl font-bold text-center md:text-left w-max">Popular on Bookwyrm</h2>
           <a href="<%= books_path %>" class="text-primary hover-underline">View all</a>
         </div>
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="flex flex-col gap-4">
-        <div class="flex sm:justify-between justify-center flex-wrap sm:flex-nowrap items-center">
+        <div class="flex sm:justify-between justify-center gap-4 flex-wrap sm:flex-nowrap items-center">
           <h2 class="md:text-3xl text-2xl font-bold text-center md:text-left w-max">For you</h2>
           <a class="hover-underline text-primary" href="<%= books_recommended_path %>">View all</a>
         </div>
@@ -47,11 +47,11 @@
     </div>
   </div>
 <% else %>
-  <div class="flex flex-col justify-between gap-5 h-full w-full">
+  <div class="flex flex-col mt-5 justify-between gap-5 h-full w-full">
     <div class="flex justify-between gap-4 items-center h-full w-full md:flex-nowrap flex-wrap">
       <div class="flex flex-col justify-center gap-4 w-full mb-10 h-full md:pr-20">
-        <h1 class="md:text-7xl sm:text-5xl text-4xl font-bold font-bubbblegum">Bookwyrm</h1>
-        <h2 class="md:text-5xl sm:text-3xl text-2xl font-extralight font-bubbblegum">The place for all books</h2>
+        <h1 class="md:text-7xl sm:text-5xl text-4xl font-montserrat">Bookwyrm</h1>
+        <h2 class="md:text-5xl sm:text-3xl text-2xl font-inika">The place for all books</h2>
         <%= link_to 'Sign up', signup_path, class: 'btn mt-10 text-center btn-primary w-full' %>
       </div>
       <div class="w-full h-full">
@@ -61,7 +61,7 @@
         </form>
       </div>
     </div>
-    <div class="md:w-3/4 m-auto">
+    <div class="lg:w-3/4 m-auto">
       <h2 class="md:text-3xl sm:text-2xl xs:text-xl font-bold mb-4">Popular on Bookwyrm</h2>
       <ul class="flex flex-col justify-start items-center gap-5">
         <%= render @books, link: true %>
