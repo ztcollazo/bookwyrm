@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+@font-face {
+    font-family: Inika;
+    src: url("Inika/Inika-Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Inika;
+    src: url("Inika/Inika-Bold.ttf");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Montserrat Alternates;
+    src: url("Montserrat_Alternates/MontserratAlternates-Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Montserrat Alternates;
+    src: url("Montserrat_Alternates/MontserratAlternates-Italic.ttf");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Montserrat Alternates;
+    src: url("Montserrat_Alternates/MontserratAlternates-Bold.ttf");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Montserrat Alternates;
+    src: url("Montserrat_Alternates/MontserratAlternates-BoldItalic.ttf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Montserrat Alternates;
+    src: url("Montserrat_Alternates/MontserratAlternates-Light.ttf");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Montserrat Alternates;
+    src: url("Montserrat_Alternates/MontserratAlternates-LightItalic.ttf");
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Nobile;
+    src: url("Nobile/Nobile-Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Nobile;
+    src: url("Nobile/Nobile-Italic.ttf");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Nobile;
+    src: url("Nobile/Nobile-Bold.ttf");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Nobile;
+    src: url("Nobile/Nobile-BoldItalic.ttf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@layer base {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: Nobile, Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    }
+
+    input[type='text'],
+    input[type='email'],
+    input[type='password'],
+    input[type='number'],
+    textarea,
+    .input {
+        @apply rounded-md focus:ring focus:ring-primary focus:border-transparent;
+    }
+
+    input[type='checkbox'] {
+        @apply rounded-sm focus:ring-2 focus:ring-primary w-4 mb-1 mr-1 text-primary;
+    }
+}
+
+@layer components {
+    .hover-underline {
+        position: relative;
+    }
+
+    .hover-underline::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: theme('colors.primary.DEFAULT');
+        transform-origin: bottom right;
+        transform: scaleX(0);
+        transition: transform 0.5s ease;
+    }
+
+    .hover-underline:hover::before {
+        transform-origin: bottom left;
+        transform: scaleX(1);
+    }
+
+    .btn {
+        @apply rounded-lg px-4 py-3 focus:ring-4 focus:ring-opacity-50 shadow-md cursor-pointer;
+        border: 2px solid var(--btn-color);
+        background-color: var(--btn-color);
+        color: white;
+    }
+
+    .btn-primary {
+        @apply shadow-primary/50;
+        --btn-color: theme('colors.primary.DEFAULT');
+        --tw-ring-color: theme('colors.primary.light');
+    }
+
+    .btn-danger {
+        @apply shadow-danger/50;
+        --btn-color: theme('colors.danger.DEFAULT') !important;
+        --tw-ring-color: theme('colors.danger.light') !important;
+    }
+
+    .btn-outline {
+        background-color: white !important;
+        color: var(--btn-color);
+    }
+
+    .alert {
+        @apply rounded-md mt-2 m-5 text-white flex flex-row justify-start;
+        background-color: var(--alert-bg-color);
+        --alert-bg-color: theme('colors.info.DEFAULT');
+    }
+
+    .alert.alert-info {
+        --alert-bg-color: theme('colors.info.DEFAULT');
+    }
+
+    .alert.alert-success {
+        --alert-bg-color: theme('colors.success.DEFAULT');
+    }
+
+    .alert.alert-warning {
+        --alert-bg-color: theme('colors.warning.DEFAULT');
+    }
+
+    .alert.alert-danger {
+        --alert-bg-color: theme('colors.danger.DEFAULT');
+    }
+}
