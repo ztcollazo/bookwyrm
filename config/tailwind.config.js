@@ -1,16 +1,18 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
+
 module.exports = {
-  // purge: [
-  //     "./app/**/*.html.erb",
-  // ],
-  // mode: 'jit',
-  darkMode: 'media', // or 'media' or 'class'
+  content: [
+    './app/helpers/**/*.rb',
+    './app/javascript/**/*.js',
+    './app/views/**/*'
+  ],
   theme: {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-        bubbblegum: ['bubbblegum'],
+        inika: ['Inika', 'Inter var', ...defaultTheme.fontFamily.sans],
+        montserrat: ['Montserrat\\ Alternates', 'Montserrat', ...defaultTheme.fontFamily.serif]
       },
     },
     colors: {
@@ -219,10 +221,7 @@ module.exports = {
       }
     }
   },
-  variants: {
-    extend: {},
-  },
   plugins: [
-      require('@tailwindcss/forms')()
+    require('@tailwindcss/forms')
   ]
 }
