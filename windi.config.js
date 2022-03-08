@@ -1,12 +1,11 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
-const colors = require('tailwindcss/colors')
+// @ts-check
+import { defineConfig } from 'vite-plugin-windicss'
+const defaultTheme = require('windicss/defaultTheme')
+const colors = require('windicss/colors')
+const formPlugin = require('windicss/plugin/forms')
+const lineClampPlugin = require('windicss/plugin/line-clamp')
 
-module.exports = {
-  content: [
-    './app/helpers/**/*.rb',
-    './app/javascript/**/*.js',
-    './app/views/**/*'
-  ],
+export default defineConfig({
   theme: {
     extend: {
       fontFamily: {
@@ -221,7 +220,5 @@ module.exports = {
       }
     }
   },
-  plugins: [
-    require('@tailwindcss/forms')
-  ]
-}
+  plugins: [formPlugin, lineClampPlugin]
+})

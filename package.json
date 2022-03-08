@@ -3,16 +3,18 @@
   "private": true,
   "dependencies": {
     "@hotwired/stimulus": "^3.0.1",
-    "@rails/actioncable": "^7.0.2-2",
-    "@tailwindcss/forms": "^0.3.4",
-    "esbuild": "^0.14.23",
-    "tailwindcss": "^3.0.23"
+    "stimulus-vite-helpers": "^3.0.0"
   },
   "version": "0.1.0",
   "browserslist": [
     "defaults"
   ],
-  "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds"
+  "devDependencies": {
+    "vite": "^2.7.7",
+    "vite-plugin-full-reload": "^1.0.0",
+    "vite-plugin-ruby": "^3.0.5",
+    "vite-plugin-stimulus-hmr": "^3.0.0",
+    "vite-plugin-windicss": "^1.8.2",
+    "windicss": "^3.5.1"
   }
 }

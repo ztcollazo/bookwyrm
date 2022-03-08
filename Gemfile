@@ -18,11 +18,11 @@ gem 'puma'
 gem 'devise'
 gem 'disco'
 gem 'dotenv-rails'
-gem 'jsbundling-rails'
 gem 'pg_search'
 gem 'redcarpet'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
+gem 'vite_rails'
 gem 'will_paginate'
 gem 'wilson_score'
 
@@ -58,5 +58,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-gem "tailwindcss-rails", "~> 2.0"
