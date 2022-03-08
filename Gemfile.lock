@@ -211,6 +211,9 @@ GEM
     strscan (3.0.1)
     thor (1.2.1)
     timeout (0.2.0)
+    turbo-rails (1.0.1)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     vite_rails (3.0.6)
@@ -262,6 +265,7 @@ DEPENDENCIES
   spring
   sprockets-rails
   stimulus-rails
+  turbo-rails
   tzinfo-data
   vite_rails
   web-console (>= 4.1.0)
