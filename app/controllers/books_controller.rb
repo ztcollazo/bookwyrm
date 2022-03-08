@@ -70,13 +70,16 @@ class BooksController < ApplicationController
   end
 
   def create_author(author)
-    a = Author.find_by_olid(author[:olid]) || Author.create(author)
-    if a.save
-      @book.authors << a
-      a
+    if Author.exists?(olid: author['olid'])
+      @book.authors << Author.find_by_olid(author['olid'])
     else
-      @book.errors.add(:base, 'Could not create authors')
-      render :new
+      a = Author.create(author)
+      if a.save
+        @book.authors << a
+        a
+      else
+        @book.errors.add(:base, 'Could not create authors')
+      end
     end
   end
 

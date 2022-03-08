@@ -376,6 +376,13 @@ CREATE INDEX index_authors_books_on_book_id ON public.authors_books USING btree 
 
 
 --
+-- Name: index_authors_on_olid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_authors_on_olid ON public.authors USING btree (olid);
+
+
+--
 -- Name: index_authors_on_searchable; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -394,6 +401,13 @@ CREATE UNIQUE INDEX index_books_on_isbn_10 ON public.books USING btree (isbn_10)
 --
 
 CREATE UNIQUE INDEX index_books_on_isbn_13 ON public.books USING btree (isbn_13);
+
+
+--
+-- Name: index_books_on_olid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_books_on_olid ON public.books USING btree (olid);
 
 
 --
@@ -503,6 +517,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220128201234'),
 ('20220129232432'),
 ('20220223165028'),
-('20220224182619');
+('20220224182619'),
+('20220308225145');
 
 
