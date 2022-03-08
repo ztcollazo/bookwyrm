@@ -1,9 +1,7 @@
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <%= render 'devise/shared/error_messages', resource: resource %>
-
-  <h1 class="text-4xl text-center m-4">Log in</h1>
-
-  <div class="md:w-3/4 m-auto">
+<h1 class="text-4xl text-center m-4">Log in</h1>
+<div class="md:w-3/4 m-auto">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= render 'devise/shared/error_messages', resource: resource %>
     <div class="field mb-4 p-2 w-full">
       <%= f.label :login, 'Username or Email', class: 'font-bold inline-block mb-2' %><br />
       <%= f.text_field :login, autofocus: true, class: 'w-full' %>
@@ -24,7 +22,6 @@
     <div class="actions">
       <%= f.submit "Log in", class: 'btn btn-primary w-full' %>
     </div>
-  </div>
-
+  <% end %>
   <%= render "devise/shared/links" %>
-<% end %>
+</div>
