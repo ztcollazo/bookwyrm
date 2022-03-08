@@ -1,5 +1,5 @@
 <header class="w-full z-50">
-  <div style="z-index: 1; border-bottom-width: 1px;" data-dropdown-hidden-class="hidden max-h-0" data-controller="dropdown" class="bg-white w-full fixed border-gray-200 left-0 right-0 top-0 p-4 flex flex-col gap-5 justify-between items-start w-full">
+  <div data-dropdown-hidden-class="hidden max-h-0" data-controller="dropdown" class="z-1 border-b-1 bg-white w-full fixed border-gray-200 left-0 right-0 top-0 p-4 flex flex-col gap-5 justify-between items-start w-full">
     <div class="flex justify-between w-full">
       <div class="inline-block flex justify-between items-center">
         <button data-dropdown-target="button" data-action="click->dropdown#toggle" aria-haspopup="true" aria-expanded="false" class="lg:hidden block mr-5">
@@ -12,11 +12,11 @@
           <h1 class="text-2xl font-montserrat font-light inline-block lowercase">bookwyrm</h1>
         </a>
       </div>
-      <div class="flex gap-5">
+      <div class="flex items-center gap-5">
         <form action="<%= search_path %>" method="get" class="lg:block hidden">
-          <div class="border-primary rounded-md pl-1 flex items-center focus:ring-2 ring-primary pr-1 border-2">
-            <input type="search" name="q" style="appearance: none; outline: none; box-shadow: none; border: none;" placeholder="Search..." />
-            <button type="submit" class="bg-primary shadow-sm text-white flex justify-center items-center rounded-md p-2">
+          <div class="border-gray-200 rounded-md pl-1 flex items-center focus-within:ring-3 focus-within:ring-primary focus-within:border-transparent border-1">
+            <input class="outline-none border-none" type="search" name="q" style="appearance: none; box-shadow:none;" placeholder="Search..." />
+            <button type="submit" class="border-primary border-1 shadow-sm text-primary flex justify-center m-[2px] items-center rounded-md p-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
@@ -25,14 +25,14 @@
         </form>
         <div class="flex justify-between items-center" data-controller="dropdown" data-dropdown-hidden-class="hidden">
           <% if signed_in? %>
-            <button aria-haspopup="true" data-dropdown-target="button" aria-expanded="false" class="cursor-pointer flex items-center gap-1 text-gray-500 text-thin" data-click-outside="true" data-action="click->dropdown#toggle click@document->dropdown#close">
+            <button aria-haspopup="true" data-dropdown-target="button" aria-expanded="false" class="cursor-pointer flex items-center gap-1 text-gray-500 text-thin" data-click-outside data-action="click->dropdown#toggle click@window->dropdown#close">
               <%= gravatar_for current_user %>&#9660;
             </button>
-            <div data-dropdown-target="dropdownMenu" style="z-index: 10000;" class="shadow-lg border-1 border-primary fixed right-0 mr-4 flex flex-col bg-white hidden top-16 rounded-md">
+            <div data-dropdown-target="dropdownMenu" class="shadow-lg z-[10000] border-1 border-gray-100 fixed right-0 mr-4 flex flex-col bg-white hidden top-16 rounded-md">
               <%= link_to "Profile", user_path(current_user), class: "bg-white focus:ring-2 px-4 focus:ring-primary rounded-md p-2", method: "get", 'data-action': 'dropdown#toggle' %>
               <%= link_to "Edit Account", edit_user_registration_path, class: "bg-white mt-2 focus:ring-2 px-4 focus:ring-primary rounded-md p-2", method: "get", 'data-action': 'dropdown#toggle' %>
-              <hr class="my-2"/>
-              <%= link_to "Logout", logout_path, class: "bg-white focus:ring-2 px-4 focus:ring-primary rounded-md p-2", 'data-action': 'dropdown#toggle' %>
+              <hr class="my-1 bg-gray-100"/>
+              <%= link_to "Logout", logout_path, data: { 'turbo-method': :delete, action: 'dropdown#toggle' }, class: "bg-white focus:ring-2 px-4 focus:ring-primary rounded-md p-2" %>
             </div>
           <% else %>
             <%= link_to "Log in", login_path, class: 'btn btn-primary hidden md:block btn-outline mx-2 p-2 px-3' %>
@@ -55,9 +55,9 @@
         </nav>
       <% end %>
       <form action="<%= search_path %>" method="get" class="w-full">
-        <div class="border-primary rounded-md pl-1 flex items-center justify-between focus:ring-2 ring-primary pr-1 border-2">
-          <input class="w-full" required type="search" name="q" style="appearance: none; outline: none; box-shadow: none; border: none;" placeholder="Search..." />
-          <button type="submit" class="bg-primary shadow-sm text-white rounded-md flex justify-center items-center p-2">
+        <div class="border-gray-200 rounded-md pl-1 flex items-center justify-between focus-within:ring-3 focus-within:ring-primary focus-within:border-transparent border-1">
+          <input class="w-full outline-none border-none" required type="search" name="q" style="appearance: none; box-shadow: none;" placeholder="Search..." />
+          <button type="submit" class="border-primary border-1 shadow-sm text-primary flex justify-center m-[2px] items-center rounded-md p-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -71,12 +71,12 @@
     </div>
   </div>
   <% if signed_in? %>
-    <nav style="border-right-width: 1px;" class="fixed hidden border-gray-100 bg-white left-0 top-0 bottom-0 pt-24 p-3 md:flex gap-5 flex-col">
+    <nav class="fixed border-r-1 hidden border-gray-100 bg-white left-0 top-0 bottom-0 pt-24 p-3 md:flex gap-5 flex-col">
       <div data-controller="dropdown" class="flex" data-dropdown-hidden-class="hidden" data-action="mouseout->dropdown#close">
         <a data-action="mouseover->dropdown#toggle" style="transition: background-color .1s linear;" href="<%= books_path %>" class="p-2 text-primary-dark rounded-md hover:bg-primary-light <%= current_page?(controller: '/books', action: 'index') ? 'bg-primary-light' : 'bg-transparent' %>">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
         </a>
-        <div data-dropdown-target="dropdownMenu" style="transition: display .4s ease-out .3s" class="hidden px-3 py-1 mt-1 fixed z-50 left-16 bg-white rounded-md shadow-md">Top Books</div>
+        <div data-dropdown-target="dropdownMenu" style="transition: display .4s ease-out .3s" class="hidden px-3 py-1 mt-1 fixed z-[10000] left-16 bg-white rounded-md shadow-md">Top Books</div>
       </div>
       <div data-controller="dropdown" class="flex" data-dropdown-hidden-class="hidden" data-action="mouseout->dropdown#close">
         <a data-action="mouseover->dropdown#toggle" style="transition: background-color .1s linear;" href="<%= books_recommended_path %>" class="p-2 text-primary-dark rounded-md hover:bg-primary-light <%= current_page?(controller: '/books', action: 'recommended') ? 'bg-primary-light' : 'bg-transparent' %>">
@@ -84,7 +84,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
           </svg>
         </a>
-        <div data-dropdown-target="dropdownMenu" style="transition: display .4s ease-out .3s" class="hidden px-3 py-1 mt-1 fixed z-50 left-16 bg-white rounded-md shadow-md">For You</div>
+        <div data-dropdown-target="dropdownMenu" style="transition: display .4s ease-out .3s" class="hidden px-3 py-1 mt-1 fixed z-[10000] left-16 bg-white rounded-md shadow-md">For You</div>
       </div>
     </nav>
   <% end %>

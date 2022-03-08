@@ -1,22 +1,24 @@
-<% if resource.errors.any? %>
-  <div id="error_explanation" class="alert alert-danger">
-    <div style="border-right: 1px solid white;" class="p-4 flex flex-col justify-center">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-6 h-6" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
+<%= turbo_frame_tag 'devise_error_messages' do %>
+  <% if resource.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <div class="p-4 border-white border-r-1 flex flex-col justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-6 h-6" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div class="p-4">
+        <h2>
+          <%= I18n.t("errors.messages.not_saved",
+                     count: resource.errors.count,
+                     resource: resource.class.model_name.human.downcase)
+           %>
+        </h2>
+        <ul class="list-disc px-6 py-2">
+          <% resource.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
-    <div class="p-4">
-      <h2>
-        <%= I18n.t("errors.messages.not_saved",
-                   count: resource.errors.count,
-                   resource: resource.class.model_name.human.downcase)
-         %>
-      </h2>
-      <ul class="list-disc px-6 py-2">
-        <% resource.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
+  <% end %>
 <% end %>
