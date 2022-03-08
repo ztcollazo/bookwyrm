@@ -8,18 +8,13 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   has_recommended :books
-  has_many :reviews, dependent: :nullify
+  has_many :reviews, dependent: :destroy
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   validates :last_name, presence: true
   validates :first_name, presence: true
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates_format_of :username, with: /^[a-zA-Z0-9_.]*$/, multiline: true
-  validate :validate_username
   attr_writer :login
-
-  def validate_username
-    errors.add(:username, :invalid) if User.where(email: username).exists?
-  end
 
   def login
     @login || username || email
