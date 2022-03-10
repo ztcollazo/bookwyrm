@@ -6,10 +6,7 @@ class UpdateRecommendationsJob < ApplicationJob
 
   def perform(*_args)
     recommender = Disco::Recommender.new(top_items: true)
-    recommender.fit(Review.all.map do |review|
-      { item_id: review.book_id,
-        rating: review.rating, user_id: review.user_id }
-    end)
+    recommender.fit(format_reviews)
 
     users = User.confirmed.joins(:reviews).where.not(id: nil)
     users.each do |user|
@@ -17,5 +14,14 @@ class UpdateRecommendationsJob < ApplicationJob
     end
     bin = Marshal.dump(recommender)
     File.binwrite('tmp/recommender.bin', bin)
+  end
+
+  private
+
+  def format_reviews
+    Review.all.map do |review|
+      { item_id: review.book_id,
+        rating: review.rating, user_id: review.user_id }
+    end
   end
 end
