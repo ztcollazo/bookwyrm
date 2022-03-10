@@ -37,6 +37,12 @@ class Book < ApplicationRecord
   pg_search_scope :search_books, against: { title: 'A', isbn_13: 'B', subtitle: 'C', description: 'D' },
                                  using: { tsearch: { dictionary: 'english', tsvector_column: 'searchable' } }
 
+  def wilson_score
+    WilsonScore.rating_lower_bound(reviews.average(:rating).to_f, reviews.count, (1..5))
+  rescue StandardError
+    0
+  end
+
   private
 
   # rubocop:disable Naming/PredicateName
