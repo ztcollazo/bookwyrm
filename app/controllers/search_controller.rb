@@ -10,11 +10,11 @@ class SearchController < ApplicationController
 
   def books
     redirect_to request.referrer || root_url, flash: { warning: 'Search can\'t be blank.' } if params[:q].blank?
-    @results = Book.search_books(params[:q])
+    @results = Book.search_books(params[:q]).paginate(page: params[:page], per_page: 10)
   end
 
   def authors
     redirect_to request.referrer || root_url, flash: { warning: 'Search can\'t be blank.' } if params[:q].blank?
-    @results = Author.search_authors(params[:q])
+    @results = Author.search_authors(params[:q]).paginate(page: params[:page], per_page: 10)
   end
 end

@@ -10,18 +10,19 @@
   </div>
   <div class="md:text-4xl sm:text-3xl text-2xl text-center md:text-left font-bold flex gap-2 sm:flex-nowrap flex-wrap items-center justify-center">
     <h1 style="flex: 1 0 320px;" class="w-full">Book results for:&nbsp;</h1>
-    <form style="flex: 1 1 50%;" action="<%= search_path %>" method="get" class="w-full">
-      <input type="search" class="input w-full rounded focus:ring-2 ring-primary p-1 px-2" name="q" value="<%= params[:q] %>" placeholder="Search..." />
+    <form style="flex: 1 1 50%;" action="<%= search_books_path %>" method="get" class="w-full flex flex-col items-center justify-stretch">
+      <input type="search" class="input w-full rounded focus:ring-2 ring-primary py-2 px-3" name="q" value="<%= params[:q] %>" placeholder="Search..." />
     </form>
   </div>
-  <div id="results" class="flex flex-col items-center gap-5">
-    <% if @results.empty? %>
-      <p class="text-lg self-start ml-1">No books found.</p>
-    <% else %>
-      <% @results.each do |res| %>
-        <%= render res, link: true %>
+  <%= turbo_frame_tag "search_#{params[:q]}_books" do %>
+    <div id="results" class="flex flex-col items-center gap-5">
+      <% if @results.empty? %>
+        <p class="text-lg self-start ml-1">No books found.</p>
+      <% else %>
+        <%= render @results %>
+        <%= will_paginate @results %>
       <% end %>
-    <% end %>
-    <a class="text-primary self-center text-center hover-underline text-md" href="<%= new_book_path %>">Add a book to Bookwyrm</a>
-  </div>
+      <a class="text-primary self-center text-center hover-underline text-md" href="<%= new_book_path %>">Add a book to Bookwyrm</a>
+    </div>
+  <% end %>
 </div>

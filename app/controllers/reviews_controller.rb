@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
 
   # GET /books/isbn/reviews
   def index
-    @reviews = @book.reviews.paginate(page: params[:page], per_page: 35)
+    @reviews = @book.reviews.paginate(page: params[:page], per_page: 10)
     @rating = @book.reviews.average(:rating)
     @reviews_count = @book.reviews.count
   end

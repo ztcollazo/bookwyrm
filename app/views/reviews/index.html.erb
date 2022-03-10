@@ -38,15 +38,14 @@
   <div class="flex justify-stretch p-2 mb-4">
     <%= link_to 'New Review', new_book_review_path, class: 'btn btn-primary w-full text-center' %>
   </div>
-  <div class="flex flex-col gap-5 p-2">
-    <% if @reviews.empty? %>
-      <p class="text-lg text-center my-5">No reviews available.</p>
-    <% else %>
-      <% @reviews.each do |review| %>
-        <%= render review %>
+  <%= turbo_frame_tag "#{dom_id(@book)}_reviews" do %>
+    <div class="flex flex-col gap-5 p-2 items-center">
+      <% if @reviews.empty? %>
+        <p class="text-lg text-center my-5">No reviews available.</p>
+      <% else %>
+        <%= render @reviews %>
+        <%= will_paginate @reviews %>
       <% end %>
-    <% end %>
-  </div>
-
-  <%= will_paginate @reviews %>
+    </div>
+  <% end %>
 </div>

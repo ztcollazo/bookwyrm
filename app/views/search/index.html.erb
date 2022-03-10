@@ -1,8 +1,8 @@
 <div class="lg:w-3/4 w-full flex flex-col justify-between m-auto gap-5">
   <div class="md:text-4xl sm:text-3xl text-2xl text-center md:text-left font-bold flex gap-2 sm:flex-nowrap flex-wrap items-center justify-center">
     <h1 style="flex: 1 0 320px;" class="w-full">Search results for:&nbsp;</h1>
-    <form style="flex: 1 1 50%;" action="<%= search_path %>" method="get" class="w-full">
-      <input type="search" class="input w-full rounded focus:ring-2 ring-primary p-1 px-2" name="q" value="<%= params[:q] %>" placeholder="Search..." />
+    <form style="flex: 1 1 50%;" action="<%= search_path %>" method="get" class="w-full flex flex-col items-center justify-stretch">
+      <input type="search" class="input w-full rounded focus:ring-2 ring-primary px-3 py-2" name="q" value="<%= params[:q] %>" placeholder="Search..." />
     </form>
   </div>
   <div class="flex flex-col gap-5 justify-between">

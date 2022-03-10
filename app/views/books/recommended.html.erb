@@ -5,9 +5,15 @@
   <% if @books.empty? %>
     <p class="text-lg text-center mt-10">No books yet! When you start reviewing books, it tells us what kind of books you like.</p>
   <% else %>
-    <ul class="flex flex-col justify-start items-center gap-5">
-      <%= render @books, link: true %>
-      <li class="text-lg text-center mt-10">That's all we found for now.</li>
-    </ul>
+    <%= turbo_frame_tag 'recommended_books' do %>
+        <ul class="flex flex-col justify-start items-center gap-5">
+          <%= render @books, link: true %>
+          <% if @books.length < 10 %>
+            <li class="text-lg text-center mt-10">That's all we found for now.</li>
+          <% else %>
+            <%= will_paginate @books %>
+          <% end %>
+        </ul>
+    <% end %>
   <% end %>
 </div>

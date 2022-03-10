@@ -19,7 +19,7 @@ class BooksController < ApplicationController
 
   # GET /books/recommended
   def recommended
-    @books = current_user.recommended_books
+    @books = current_user.recommended_books.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /books/1
@@ -76,7 +76,6 @@ class BooksController < ApplicationController
       a = Author.create(author)
       if a.save
         @book.authors << a
-        a
       else
         @book.errors.add(:base, 'Could not create authors')
       end
