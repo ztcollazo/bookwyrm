@@ -1,6 +1,25 @@
 # frozen_string_literal: true
 
-# The model for authors
+# == Schema Information
+#
+# Table name: authors
+#
+#  id         :bigint           not null, primary key
+#  bio        :text
+#  birth_date :string
+#  links      :json             is an Array
+#  name       :string
+#  olid       :string
+#  photos     :bigint           default([]), is an Array
+#  searchable :tsvector
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_authors_on_olid        (olid) UNIQUE
+#  index_authors_on_searchable  (searchable) USING gin
+#
 class Author < ApplicationRecord
   include PgSearch::Model
   has_and_belongs_to_many :books

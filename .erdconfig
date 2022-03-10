@@ -1,0 +1,10 @@
+exclude:
+  - ActiveRecord::SchemaMigration
+  - AfterParty::TaskRecord
+  - ActiveRecord::InternalMetadata
+attributes:
+  - foreign_keys
+  - primary_keys
+  - content
+title: false
+notation: bachman
