@@ -6,6 +6,7 @@ const formPlugin = require('windicss/plugin/forms')
 const lineClampPlugin = require('windicss/plugin/line-clamp')
 
 export default defineConfig({
+  safelist: 'underline hover:no-underline',
   theme: {
     extend: {
       fontFamily: {

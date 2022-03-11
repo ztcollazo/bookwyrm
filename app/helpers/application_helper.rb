@@ -25,6 +25,6 @@ module ApplicationHelper
   def markdown(text)
     md = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, no_intra_emphasis: true, hard_wrap: true,
                                                           fenced_code_blocks: true, space_after_headers: true)
-    md.render(text).gsub(/\n+/, '<br>')
+    md.render(text).gsub(/\n+/, '<br>').gsub('<a', '<a class="text-primary underline hover:no-underline"')
   end
 end
