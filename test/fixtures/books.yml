@@ -35,3 +35,19 @@ one:
   publish_date: <%= Time.zone.now %>
   olid: OL123456M
   description: Some book description
+  authors:
+    - one
+
+two:
+  publishers: ["world"]
+  isbn_10: 9789780970
+  isbn_13: 9780997809780
+  title: Other Book
+  identifiers:
+    goodreads:
+      ["985092847"]
+  publish_date: <%= 2.years.ago %>
+  olid: OL456123M
+  description: Yet another description
+  authors:
+    - two

@@ -41,6 +41,7 @@ end
 group :development do
   gem 'annotate'
   gem 'brakeman'
+  gem 'bundler-audit'
   gem 'rails-erd'
   gem 'rubocop'
   gem 'rubocop-rails'

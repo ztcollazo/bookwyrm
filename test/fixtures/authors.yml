@@ -30,3 +30,15 @@ one:
       url: https://example.com
   photos:
     - 1234567
+
+two:
+  name: Other Body
+  olid: OL456123M
+  bio: Yet another extremely descriptive bio
+  birth_date: <%= 28.years.ago %>
+  links:
+    -
+      name: Wikipedia
+      url: https://wikipedia.org/Other_Body
+  photos:
+    - 5671234

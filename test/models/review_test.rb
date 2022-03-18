@@ -29,27 +29,31 @@ class ReviewTest < ActiveSupport::TestCase
     @review = reviews(:one)
   end
 
-  test "Review requires title" do
+  test "review should be valid" do
+    assert @review.valid?
+  end
+
+  test "review requires title" do
     @review.title = ''
     assert_not @review.valid?
   end
 
-  test "Review requires content" do
+  test "review requires content" do
     @review.content = ''
     assert_not @review.valid?
   end
 
-  test "Review requires rating" do
+  test "review requires rating" do
     @review.rating = nil
     assert_not @review.valid?
   end
 
-  test "Review requires book" do
+  test "review requires book" do
     @review.book_id = nil
     assert_not @review.valid?
   end
 
-  test "Review requires user" do
+  test "review requires user" do
     @review.user_id = nil
     assert_not @review.valid?
   end
