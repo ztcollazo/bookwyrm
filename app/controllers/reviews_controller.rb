@@ -66,20 +66,14 @@ class ReviewsController < ApplicationController
   end
 
   def visible_page?
-    bools = []
-
-    %w[create update destroy].each do |s|
-      bools.push(true) if action_name == s
-    end
-
-    !bools.include?(true)
+    !%w[create update destroy].map { |s| true if action_name == s }.include? true
   end
 
   def redirect_book(book)
     if book
       @book = book
     else
-      redirect_to request.path.gsub(params[:book_id], Book.find(params[:book_id]).isbn_13.to_s)
+      redirect_to request.path.gsub(params[:book_id], Book.find(params[:book_id]).isbn_13.to_s), method: request.method
     end
   end
 
