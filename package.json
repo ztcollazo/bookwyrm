@@ -9,7 +9,7 @@
     "vite-plugin-full-reload": "^1.0.0",
     "vite-plugin-ruby": "^3.0.5",
     "vite-plugin-stimulus-hmr": "^3.0.0",
-    "vite-plugin-windicss": "^1.8.2",
+    "vite-plugin-windicss": "^1.8.3",
     "windicss": "^3.5.1"
   },
   "version": "0.1.0",
