@@ -101,7 +101,7 @@ GEM
       responders
       warden (~> 1.2.3)
     digest (3.1.0)
-    disco (0.2.7)
+    disco (0.3.0)
       libmf (>= 0.2.0)
       numo-narray
     dotenv (2.7.6)
@@ -110,7 +110,7 @@ GEM
       railties (>= 3.2)
     dry-cli (0.7.0)
     erubi (1.10.0)
-    ffi (1.15.4)
+    ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.10.0)
@@ -276,7 +276,6 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     will_paginate (3.3.0)
-    wilson_score (0.1.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.5.4)
@@ -315,7 +314,6 @@ DEPENDENCIES
   web-console (>= 4.1.0)
   webdrivers
   will_paginate
-  wilson_score
 
 RUBY VERSION
    ruby 2.7.3p183
