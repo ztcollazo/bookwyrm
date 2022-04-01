@@ -24,7 +24,6 @@ gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'vite_rails'
 gem 'will_paginate'
-gem 'wilson_score'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
