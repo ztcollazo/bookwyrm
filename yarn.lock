@@ -213,7 +213,7 @@ esbuild@^0.14.14:
     esbuild-windows-64 "0.14.25"
     esbuild-windows-arm64 "0.14.25"
 
-fast-glob@^3.2, fast-glob@^3.2.11:
+fast-glob@^3.2.11:
   version "3.2.11"
   resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.11.tgz#a1172ad95ceb8a16e20caa5c5e56480e5129c1d9"
   integrity sha512-xrO3+1bxSo3ZVHAnqzyuewYT6aMFHRAd4Kcs92MAonjwQZLsK9d0SF1IyQ3k5PoirxTW0Oe/RqFgMQ6TcNE5Ew==
@@ -423,13 +423,13 @@ vite-plugin-full-reload@^1.0.0:
     picocolors "^1.0.0"
     picomatch "^2.3.1"
 
-vite-plugin-ruby@^3.0.5:
-  version "3.0.8"
-  resolved "https://registry.yarnpkg.com/vite-plugin-ruby/-/vite-plugin-ruby-3.0.8.tgz#07132f29b747b51d5437a7833ba909390977dbbb"
-  integrity sha512-FIuLpiLd234CYXl2601YG/MYUWPjcJxzQCMXIBEGuP+yZkn4ZSuKRt5Zmt844fh9XIDyxJaxirMQT6P5eTmqSw==
+vite-plugin-ruby@^3.0.10:
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/vite-plugin-ruby/-/vite-plugin-ruby-3.0.10.tgz#d9075bd8a1c5bc98fb2e442938d84803eaa96ee3"
+  integrity sha512-6xOZT1F1VWl98I+TydOfqxyi6LH7MS01V+vnEl2WQm4OoK4Ugs8yAlp+do26BQBEvrr1E6ndlOtFaYOYuobsrA==
   dependencies:
-    debug "^4.3"
-    fast-glob "^3.2"
+    debug "^4.3.3"
+    fast-glob "^3.2.11"
 
 vite-plugin-stimulus-hmr@^3.0.0:
   version "3.0.0"
