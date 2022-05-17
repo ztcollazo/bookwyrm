@@ -173,7 +173,7 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
-    rack-mini-profiler (2.3.4)
+    rack-mini-profiler (3.0.0)
       rack (>= 1.2.0)
     rack-proxy (0.7.2)
       rack
@@ -333,7 +333,7 @@ DEPENDENCIES
   pg
   pg_search
   puma
-  rack-mini-profiler (~> 2.0)
+  rack-mini-profiler (~> 3.0)
   rails (~> 7.0.2.4)
   rails-controller-testing
   rails-erd
