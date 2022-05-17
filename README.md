@@ -10,10 +10,20 @@ search books and authors, and view other users.
 
 This application uses ruby version 2.7.3, with rbenv for management.
 
-To run locally:
+### Contributing
+
+Please read the [contribution guidelines](./CONTRIBUTING.md) before opening an issue
+or pull request.
+
+### To run locally:
 
 0. Make sure that you have postgres installed. On a mac, the easiest way to get started is [Postgres.app](https://postgresapp.com).
 1. Run `git clone https://github.com/ztcollazo/bookwyrm.git`
 2. Start the postgres server.
 3. Run `rails db:migrate`
-4. Run `rails server`
+4. Run `bin/dev`. Bookwyrm uses `vite_ruby` to bundle javascript along with the rails app, so `bin/dev` runs a foreman
+process alongside the server.
+
+### Testing
+
+Bookwyrm uses RSpec for tests. `bin/rspec` will run the tests.
