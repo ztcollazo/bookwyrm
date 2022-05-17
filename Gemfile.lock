@@ -126,7 +126,7 @@ GEM
     io-wait (0.2.1)
     libmf (0.2.6)
       ffi
-    listen (3.7.0)
+    listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.15.0)
@@ -216,7 +216,7 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
-    rb-fsevent (0.11.0)
+    rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redcarpet (3.5.1)
@@ -328,7 +328,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
-  listen (~> 3.3)
+  listen (~> 3.7)
   pg
   pg_search
   puma
