@@ -1,0 +1,18 @@
+# Action to lint javascript
+# Pretty simple
+name: "Lint Javascript"
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install JavaScript packages
+        run: bin/yarn install
+      - name: Run ESLint
+        run: bin/yarn run lint

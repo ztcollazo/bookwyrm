@@ -15,5 +15,12 @@
   "version": "0.1.0",
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0"
+  },
+  "scripts": {
+    "lint": "eslint -c .eslintrc.js app/javascript/**/*.js"
+  }
 }

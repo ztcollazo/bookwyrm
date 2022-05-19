@@ -59,7 +59,7 @@
           </div>
         </div>
         <div class="mt-4 md:text-left text-center">
-          <%= raw markdown @book.description.gsub(/((\(From ((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9%_+.~#?&\/\/=]*))|Goodreads)\):?\s*)|- \[source\](.|\s)*)/, '') %>
+          <%= raw markdown @book.description.gsub(/((\(From ((https?:\/\/(www\.)?[-a-zA-Z\d@:%._+~#=]{1,256}\.[a-zA-Z\d()]{1,6}\b([-a-zA-Z\d%_+.~#?&\/\/=]*))|Goodreads)\):?\s*)|- \[source\](.|\s)*)/, '') %>
         </div>
       </div>
       <div class="flex justify-between flex-wrap mt-4">
