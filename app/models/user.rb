@@ -39,7 +39,7 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :first_name, presence: true
   validates :username, presence: true, uniqueness: { case_sensitive: false }
-  validates_format_of :username, with: /\A^[a-zA-Z0-9_.]*$\z/, multiline: true
+  validates_format_of :username, with: /\A^[a-zA-Z\d_.]*$\z/, multiline: true
   attr_writer :login
 
   def login
