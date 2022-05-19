@@ -1,9 +1,8 @@
-// @ts-check
-import { defineConfig } from 'vite-plugin-windicss'
-const defaultTheme = require('windicss/defaultTheme')
-const colors = require('windicss/colors')
-const formPlugin = require('windicss/plugin/forms')
-const lineClampPlugin = require('windicss/plugin/line-clamp')
+import {defineConfig} from 'vite-plugin-windicss';
+import defaultTheme from 'windicss/defaultTheme';
+import lineClampPlugin from 'windicss/plugin/line-clamp';
+import formPlugin from 'windicss/plugin/forms';
+import colors from 'windicss/colors';
 
 export default defineConfig({
   safelist: 'underline hover:no-underline',
@@ -12,45 +11,49 @@ export default defineConfig({
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
         inika: ['Inika', 'Inter var', ...defaultTheme.fontFamily.sans],
-        montserrat: ['Montserrat\\ Alternates', 'Montserrat', ...defaultTheme.fontFamily.serif]
+        montserrat: [
+          'Montserrat\\ Alternates',
+          'Montserrat',
+          ...defaultTheme.fontFamily.serif,
+        ],
       },
     },
     colors: {
-      white: colors.white,
-      black: colors.black,
-      transparent: 'transparent',
-      current: 'currentColor',
-      primary: {
+      'white': colors.white,
+      'black': colors.black,
+      'transparent': 'transparent',
+      'current': 'currentColor',
+      'primary': {
         DEFAULT: '#387aff',
         light: '#d9dcff',
         dark: '#293c77',
       },
-      cta: {
+      'cta': {
         DEFAULT: '#ff5a38',
         light: '#ffd8cb',
         dark: '#793120',
       },
-      info: {
+      'info': {
         DEFAULT: '#3ec9ff',
         light: '#daf1ff',
         dark: '#2b5f77',
       },
-      warning: {
+      'warning': {
         DEFAULT: '#ecc75e',
         light: '#fef1d7',
         dark: '#6f5e31',
       },
-      success: {
+      'success': {
         DEFAULT: '#5ad775',
         light: '#daf6dc',
         dark: '#32663b',
       },
-      danger: {
+      'danger': {
         DEFAULT: '#ed4869',
         light: '#ffd5d7',
         dark: '#712a35',
       },
-      gray: {
+      'gray': {
         DEFAULT: '#7B7E84',
         50: '#DADBDD',
         100: '#CFD1D3',
@@ -61,9 +64,9 @@ export default defineConfig({
         600: '#606267',
         700: '#45474A',
         800: '#2A2B2D',
-        900: '#0F0F10'
+        900: '#0F0F10',
       },
-      blue: {
+      'blue': {
         DEFAULT: '#0F5FFF',
         50: '#C7DAFF',
         100: '#B3CCFF',
@@ -74,9 +77,9 @@ export default defineConfig({
         600: '#004BE0',
         700: '#003BB3',
         800: '#002C85',
-        900: '#001D57'
+        900: '#001D57',
       },
-      indigo: {
+      'indigo': {
         DEFAULT: '#2a00ff',
         50: '#eae5ff',
         100: '#d4ccff',
@@ -87,9 +90,9 @@ export default defineConfig({
         600: '#2200cc',
         700: '#190099',
         800: '#110066',
-        900: '#080033'
+        900: '#080033',
       },
-      violet: {
+      'violet': {
         DEFAULT: '#aa00ff',
         50: '#f7e5ff',
         100: '#eeccff',
@@ -100,9 +103,9 @@ export default defineConfig({
         600: '#8800cc',
         700: '#660099',
         800: '#440066',
-        900: '#220033'
+        900: '#220033',
       },
-      purple: {
+      'purple': {
         DEFAULT: '#ff00d5',
         50: '#ffe5fb',
         100: '#ffccf7',
@@ -113,9 +116,9 @@ export default defineConfig({
         600: '#cc00aa',
         700: '#990080',
         800: '#660055',
-        900: '#33002b'
+        900: '#33002b',
       },
-      pink: {
+      'pink': {
         DEFAULT: '#ff0055',
         50: '#ffe5ee',
         100: '#ffccdd',
@@ -126,9 +129,9 @@ export default defineConfig({
         600: '#cc0044',
         700: '#990033',
         800: '#660022',
-        900: '#330011'
+        900: '#330011',
       },
-      red: {
+      'red': {
         DEFAULT: '#FF2A00',
         50: '#FFC3B8',
         100: '#FFB2A3',
@@ -139,9 +142,9 @@ export default defineConfig({
         600: '#C72100',
         700: '#8F1800',
         800: '#570E00',
-        900: '#1F0500'
+        900: '#1F0500',
       },
-      orange: {
+      'orange': {
         DEFAULT: '#ffaa00',
         50: '#fff7e5',
         100: '#ffeecc',
@@ -152,9 +155,9 @@ export default defineConfig({
         600: '#cc8800',
         700: '#996600',
         800: '#664400',
-        900: '#332200'
+        900: '#332200',
       },
-      yellow: {
+      'yellow': {
         DEFAULT: '#d5ff00',
         50: '#fbffe5',
         100: '#f7ffcc',
@@ -165,9 +168,9 @@ export default defineConfig({
         600: '#aacc00',
         700: '#809900',
         800: '#556600',
-        900: '#2b3300'
+        900: '#2b3300',
       },
-      lime: {
+      'lime': {
         DEFAULT: '#55ff00',
         50: '#eeffe5',
         100: '#ddffcc',
@@ -178,7 +181,7 @@ export default defineConfig({
         600: '#44cc00',
         700: '#339900',
         800: '#226600',
-        900: '#113300'
+        900: '#113300',
       },
       'green': {
         DEFAULT: '#00FF2A',
@@ -191,9 +194,9 @@ export default defineConfig({
         600: '#00C721',
         700: '#008F18',
         800: '#00570E',
-        900: '#001F05'
+        900: '#001F05',
       },
-      teal: {
+      'teal': {
         DEFAULT: '#00ffaa',
         50: '#e5fff7',
         100: '#ccffee',
@@ -204,9 +207,9 @@ export default defineConfig({
         600: '#00cc88',
         700: '#009966',
         800: '#006644',
-        900: '#003322'
+        900: '#003322',
       },
-      cyan: {
+      'cyan': {
         DEFAULT: '#00d5ff',
         50: '#e5fbff',
         100: '#ccf7ff',
@@ -217,9 +220,9 @@ export default defineConfig({
         600: '#00aacc',
         700: '#008099',
         800: '#005566',
-        900: '#002b33'
-      }
-    }
+        900: '#002b33',
+      },
+    },
   },
-  plugins: [formPlugin, lineClampPlugin]
-})
+  plugins: [formPlugin, lineClampPlugin],
+});
