@@ -10,7 +10,7 @@
     "vite-plugin-ruby": "^3.0.9",
     "vite-plugin-stimulus-hmr": "^3.0.0",
     "vite-plugin-windicss": "^1.8.4",
-    "windicss": "^3.5.3"
+    "windicss": "^3.5.5"
   },
   "version": "0.1.0",
   "browserslist": [
