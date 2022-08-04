@@ -5,6 +5,9 @@ import {Controller} from '@hotwired/stimulus';
  * @class
  */
 export default class DropdownController extends Controller {
+  hiddenClass = 'hidden';
+  hiddenClasses = ['hidden'];
+  declare readonly dropdownMenuTarget: HTMLElement;
   static targets = ['dropdownMenu'];
   static classes = ['hidden'];
 
@@ -26,7 +29,7 @@ export default class DropdownController extends Controller {
    * @function
    * @param {MouseEvent} event
    */
-  toggle(event) {
+  toggle(event: MouseEvent) {
     event.stopPropagation();
     if (Array.isArray(this.hiddenClasses)) {
       for (const cls of this.hiddenClasses) {

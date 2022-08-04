@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2021",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "baseUrl": "./app/javascript",
+    "isolatedModules": true,
+    "useDefineForClassFields": true,
+    "strictPropertyInitialization": false
+  }
+}
