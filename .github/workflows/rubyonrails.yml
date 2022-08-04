@@ -34,7 +34,7 @@ jobs:
         with:
           bundler-cache: true
       - name: Install JavaScript packages
-        run: bin/yarn install --production
+        run: bin/yarn install
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
