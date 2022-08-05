@@ -3,7 +3,7 @@
 # The controller for reviews
 class ReviewsController < ApplicationController
   before_action :set_book
-  before_action :set_review, only: %i[show edit update destroy]
+  before_action :set_review, only: %i[edit update destroy]
   before_action :authenticate_user!, only: %i[new create destroy edit update]
   before_action :correct_user, only: %i[edit update destroy]
 
@@ -66,7 +66,7 @@ class ReviewsController < ApplicationController
   end
 
   def visible_page?
-    !%w[create update destroy].map { |s| true if action_name == s }.include? true
+    %w[create update destroy].map { |s| true if action_name == s }.exclude?(true)
   end
 
   def redirect_book(book)

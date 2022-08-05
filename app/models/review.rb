@@ -28,8 +28,7 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :book
 
-  validates :user, presence: true, uniqueness: { scope: :book }
-  validates :book, presence: true
+  validates :user, uniqueness: { scope: :book }
   validates :title, presence: true
   validates :rating, presence: true
   validates :content, presence: true

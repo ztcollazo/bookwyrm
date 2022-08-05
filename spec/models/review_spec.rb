@@ -29,15 +29,15 @@ require 'rails_helper'
 RSpec.describe Review, type: :model do
   subject { create(:review) }
 
-  context 'validations' do
-    it { should be_valid }
-    it { should validate_presence_of :title }
-    it { should validate_presence_of :rating }
-    it { should validate_presence_of :content }
+  describe 'validations' do
+    it { is_expected.to be_valid }
+    it { is_expected.to validate_presence_of :title }
+    it { is_expected.to validate_presence_of :rating }
+    it { is_expected.to validate_presence_of :content }
   end
 
-  context 'relationships' do
-    it { should belong_to :book }
-    it { should belong_to :user }
+  describe 'relationships' do
+    it { is_expected.to belong_to :book }
+    it { is_expected.to belong_to :user }
   end
 end

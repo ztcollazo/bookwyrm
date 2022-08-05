@@ -4,24 +4,22 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
   describe 'GET #show' do
-    setup do
-      @user = create(:user)
-      @user.confirm
+    let :user do
+      user = create(:user)
+      user.confirm
+      user
     end
 
-    context 'id given' do
-      before { get :show, params: { id: @user.id } }
+    context 'when ID given' do
+      before { get :show, params: { id: user.id } }
 
-      it { should redirect_to user_path(@user.username) }
+      it { is_expected.to redirect_to user_path(user.username) }
     end
 
-    context 'username given' do
-      before { get :show, params: { id: @user.username } }
+    context 'when username given' do
+      before { get :show, params: { id: user.username } }
 
-      it 'renders successfully' do
-        should respond_with :success
-        should render_template :show
-      end
+      it { is_expected.to respond_with :success }
     end
   end
 end

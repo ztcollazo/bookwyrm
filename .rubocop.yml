@@ -1,5 +1,7 @@
 require:
   - rubocop
+  - rubocop-rspec
+  - rubocop-rails
 
 Naming/VariableNumber:
   Enabled: false

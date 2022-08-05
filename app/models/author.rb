@@ -22,7 +22,8 @@
 #
 class Author < ApplicationRecord
   include PgSearch::Model
-  has_and_belongs_to_many :books
+  has_many :authors_books, dependent: :destroy
+  has_many :books, through: :authors_books
   validates :name, presence: true
   validates :olid, presence: true
   pg_search_scope :search_authors, against: { name: 'A', bio: 'B', birth_date: 'C' },

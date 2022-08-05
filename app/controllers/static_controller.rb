@@ -7,7 +7,7 @@ class StaticController < ApplicationController
     # rubocop:disable Security/MarshalLoad
     recommender = Marshal.load(bin)
     # rubocop:enable Security/MarshalLoad
-    @books = Book.find(recommender.top_items(count: 2).map { |i| i[:item_id] })
+    @books = Book.find(recommender.top_items(count: 2).pluck(:item_id))
   rescue StandardError
     @books = Book.includes(:reviews).order('reviews.rating ASC').limit(2)
   end

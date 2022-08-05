@@ -2,53 +2,44 @@
 
 RSpec.describe SearchController, type: :controller do
   describe 'GET #index' do
-    context 'empty search' do
+    context 'when empty search' do
       before { get :index }
 
-      it { should redirect_to request.referrer || root_path }
+      it { is_expected.to redirect_to request.referer || root_path }
     end
 
-    context 'valid search' do
+    context 'when valid search' do
       before { get :index, params: { q: 'search' } }
 
-      it 'should render successfully' do
-        should respond_with :success
-        should render_template :index
-      end
+      it { is_expected.to respond_with :success }
     end
   end
 
   describe 'GET #authors' do
-    context 'empty search' do
+    context 'when empty search' do
       before { get :authors }
 
-      it { should redirect_to request.referrer || root_path }
+      it { is_expected.to redirect_to request.referer || root_path }
     end
 
-    context 'valid search' do
+    context 'when valid search' do
       before { get :authors, params: { q: 'search' } }
 
-      it 'should render successfully' do
-        should respond_with :success
-        should render_template :authors
-      end
+      it { is_expected.to respond_with :success }
     end
   end
 
   describe 'GET #books' do
-    context 'empty search' do
+    context 'when empty search' do
       before { get :books }
 
-      it { should redirect_to request.referrer || root_path }
+      it { is_expected.to redirect_to request.referer || root_path }
     end
 
-    context 'valid search' do
+    context 'when valid search' do
       before { get :books, params: { q: 'search' } }
 
-      it 'should render successfully' do
-        should respond_with :success
-        should render_template :books
-      end
+      it { is_expected.to respond_with :success }
     end
   end
 end

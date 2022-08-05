@@ -2,7 +2,7 @@
 
 # The controller for the books
 class BooksController < ApplicationController
-  before_action :set_book, only: %i[show update destroy]
+  before_action :set_book, only: %i[show destroy]
   before_action :authenticate_user!, only: %i[new create destroy index recommended]
 
   # GET /books
@@ -12,7 +12,7 @@ class BooksController < ApplicationController
     # rubocop:disable Security/MarshalLoad
     recommender = Marshal.load(bin)
     # rubocop:enable Security/MarshalLoad
-    @books = Book.find(recommender.top_items(count: 10).map { |i| i[:item_id] })
+    @books = Book.find(recommender.top_items(count: 10).pluck(:item_id))
   rescue StandardError
     @books = Book.includes(:reviews).order('reviews.rating ASC').limit(10)
   end
@@ -71,7 +71,7 @@ class BooksController < ApplicationController
 
   def create_author(author)
     if Author.exists?(olid: author['olid'])
-      @book.authors << Author.find_by_olid(author['olid'])
+      @book.authors << Author.find_by(olid: author['olid'])
     else
       a = Author.create(author)
       if a.save

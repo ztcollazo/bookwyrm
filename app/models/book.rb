@@ -27,7 +27,8 @@
 #
 class Book < ApplicationRecord
   include PgSearch::Model
-  has_and_belongs_to_many :authors
+  has_many :authors_books, dependent: :destroy
+  has_many :authors, through: :authors_books
   has_many :reviews, dependent: :destroy
   validates :title, presence: true
   validates :olid, presence: true
