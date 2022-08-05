@@ -53,7 +53,7 @@
       <% end %>
     </div>
     <div style="word-wrap: break-word;" class="line-clamp-4">
-      <%= raw markdown book.description.gsub(/((\(From ((https?:\/\/(www\.)?[-a-zA-Z\d@:%._+~#=]{1,256}\.[a-zA-Z\d()]{1,6}\b([-a-zA-Z\d%_+.~#?&\/\/=]*))|Goodreads)\):?\s*)|- \[source\](.|\s)*)/, '') %>
+      <%= raw markdown book.description %>
     </div>
   </div>
 </div>

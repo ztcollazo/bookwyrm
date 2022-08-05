@@ -14,10 +14,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400;700&family=Montserrat+Alternates:wght@200;300;700&family=Nobile:wght@400;700&display=swap" rel="stylesheet">
   </head>
 
-  <body>
+  <body class="flex flex-col">
     <%= render 'layouts/header' %>
     <%= render 'layouts/message' %>
-    <main style="min-height: 80vh;" class="md:px-16 px-4 mb-16 <%= 'md:ml-16' if signed_in? %>">
+    <main class="md:px-16 px-4 mb-16 min-h-[80vh] <%= 'md:ml-16' if signed_in? %>">
       <%= yield %>
     </main>
     <%= render 'layouts/footer' %>

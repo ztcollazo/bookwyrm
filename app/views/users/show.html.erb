@@ -13,14 +13,17 @@
   </div>
   <div class="sm:p-5 w-max lg:mt-0 mt-10">
     <h1 class="md:text-4xl sm:text-3xl text-2xl text-center sm:text-left font-bold mb-4 <%= 'text-center' if @user.reviews.empty? %>">Books Reviewed</h1>
-    <div class="flex flex-col gap-5 justify-around items-center">
-      <% if @user.reviews.empty? %>
-        <p class="text-lg text-center mt-10"><%= @user === current_user ? 'You haven\'t' : "#{@user.username} hasn't" %> reviewed any books yet.</p>
-      <% else %>
-        <% @user.reviews.each do |review| %>
-          <%= render review.book, link: true %>
+    <%= turbo_frame_tag "#{@user}-reviews" do %>
+      <div class="flex flex-col gap-5 justify-around items-center">
+        <% if @reviews.empty? %>
+          <p class="text-lg text-center mt-10"><%= @user === current_user ? 'You haven\'t' : "#{@user.username} hasn't" %> reviewed any books yet.</p>
+        <% else %>
+            <% @reviews.each do |review| %>
+              <%= render review.book, link: true %>
+            <% end %>
+          <%= will_paginate @reviews %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>

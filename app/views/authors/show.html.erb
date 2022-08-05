@@ -25,7 +25,7 @@
           </div>
         </div>
         <div style="overflow-wrap: break-word;" class="mt-4 text-center md:text-left w-full">
-          <%= raw markdown h @author.bio.gsub(/((\(From ((https?:\/\/(www\.)?[-a-zA-Z\d@:%._+~#=]{1,256}\.[a-zA-Z\d()]{1,6}\b([-a-zA-Z\d%_+.~#?&\/\/=]*))|Goodreads)\):?\s*)|- \[source\](.|\s)*)/, '') %>
+          <%= raw markdown h @author.bio %>
         </div>
       </div>
       <p class="text-sm text-gray-300">
@@ -33,15 +33,17 @@
       </p>
     </div>
   </div>
-  <div class="-mx-4 mt-8 p-2 flex flex-col justify-between items-center gap-5">
-    <div class="flex items-center w-full justify-center px-4 sm:justify-between gap-6 flex-wrap sm:flex-nowrap">
-      <h2 class="text-3xl">Popular books</h2>
-      <a href="#" class="text-primary hover-underline">View all</a>
-    </div>
-    <% if @author.books.empty? %>
-      <p class="text-md text-center">No books available.</p>
-    <% else %>
-      <%= render @author.books.sort_by(&:wilson_score).reverse[0..2], author: false, link: true %>
+  <div class="flex flex-col gap-3 items-center justify-between mt-4">
+    <h2 class="text-3xl">Popular books</h2>
+    <%= turbo_frame_tag "#{@author}-books" do %>
+      <div class="-mx-4 mt-8 p-2 flex flex-col justify-between items-center gap-5">
+        <% if @books.empty? %>
+          <p class="text-md text-center">No books available.</p>
+        <% else %>
+          <%= render @books, author: false, link: true %>
+          <%= will_paginate @books %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>

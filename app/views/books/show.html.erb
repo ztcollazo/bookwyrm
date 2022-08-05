@@ -1,4 +1,4 @@
-<%= provide :title, @book.title %>
+<% provide :title, raw(@book.title) %>
 
 <div class="flex flex-col justify-between gap-10">
   <div class="flex flex-wrap md:flex-nowrap items-center md:items-start mt-4">
@@ -59,7 +59,7 @@
           </div>
         </div>
         <div class="mt-4 md:text-left text-center">
-          <%= raw markdown @book.description.gsub(/((\(From ((https?:\/\/(www\.)?[-a-zA-Z\d@:%._+~#=]{1,256}\.[a-zA-Z\d()]{1,6}\b([-a-zA-Z\d%_+.~#?&\/\/=]*))|Goodreads)\):?\s*)|- \[source\](.|\s)*)/, '') %>
+          <%= raw markdown @book.description %>
         </div>
       </div>
       <div class="flex justify-between flex-wrap mt-4">
