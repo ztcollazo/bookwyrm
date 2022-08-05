@@ -1,3 +1,9 @@
+![Ruby](https://github.com/ztcollazo/bookwyrm/actions/workflows/rubyonrails.yml/badge.svg)
+![JS](https://github.com/ztcollazo/bookwyrm/actions/workflows/javascript.yml/badge.svg)
+![Ruby](https://github.com/ztcollazo/bookwyrm/actions/workflows/codeql-analysis.yml/badge.svg)
+![Heroku](https://pyheroku-badge.herokuapp.com/?app=bookwyrm-app)
+
+
 # Welcome to BookWyrm!
 
 ## About
