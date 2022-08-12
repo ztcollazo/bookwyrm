@@ -1,5 +1,5 @@
 <header class="w-full z-50">
-  <div data-dropdown-hidden-class="hidden max-h-0" data-controller="dropdown" class="z-1 border-b-1 bg-white w-full fixed border-gray-200 left-0 right-0 top-0 p-4 flex flex-col gap-5 justify-between items-start w-full">
+  <div data-dropdown-hidden-class="hidden" data-controller="dropdown" class="z-1 border-b-1 bg-white fixed border-gray-200 left-0 right-0 top-0 p-4 flex flex-col gap-5 justify-between items-start w-full">
     <div class="flex justify-between w-full">
       <div class="inline-block flex justify-between items-center">
         <button data-dropdown-target="button" data-action="click->dropdown#toggle" aria-haspopup="true" aria-expanded="false" class="lg:hidden block mr-5">
@@ -13,16 +13,23 @@
         </a>
       </div>
       <div class="flex items-center gap-5">
-        <form action="<%= search_path %>" method="get" class="lg:block hidden">
-          <div class="border-gray-200 rounded-md pl-1 flex items-center focus-within:ring-3 focus-within:ring-primary focus-within:border-transparent border-1">
-            <input class="outline-none border-none" type="search" name="q" style="appearance: none; box-shadow:none;" placeholder="Search..." />
-            <button type="submit" class="border-primary border-1 shadow-sm text-primary flex justify-center m-[2px] items-center rounded-md p-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </button>
-          </div>
-        </form>
+        <div class="flex flex-col items-center" data-controller="autocomplete">
+          <form autocomplete="off" action="<%= search_path %>" method="get" class="lg:block hidden">
+            <div class="border-gray-200 rounded-md pl-1 flex items-center focus-within:ring-3 focus-within:ring-primary focus-within:border-transparent border-1">
+              <input data-autocomplete-target="input" data-action="input->autocomplete#update" class="outline-none border-none" type="search" name="q" style="appearance: none; box-shadow:none;" placeholder="Search..." />
+              <button type="submit" class="border-primary border-1 shadow-sm text-primary flex justify-center m-[2px] items-center rounded-md p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </div>
+          </form>
+          <div id="lg-header-autocomplete" class="w-full"></div>
+          <form class="hidden" method="post" data-autocomplete-target="form" action="<%= search_autocomplete_path %>">
+            <input type="hidden" name="id" value="lg-header-autocomplete" />
+            <input type="hidden" name="q" data-autocomplete-target="hidden" />
+          </form>
+        </div>
         <div class="flex justify-between items-center" data-controller="dropdown" data-dropdown-hidden-class="hidden">
           <% if signed_in? %>
             <button aria-haspopup="true" data-dropdown-target="button" aria-expanded="false" class="cursor-pointer flex items-center gap-1 text-gray-500 text-thin" data-click-outside data-action="click->dropdown#toggle click@window->dropdown#close">
@@ -41,7 +48,7 @@
         </div>
       </div>
     </div>
-    <div style="transition: max-height 0.5s ease-in 0.2s;" data-dropdown-target="dropdownMenu" class="flex hidden max-h-0 w-full flex-col gap-2 sm:gap-4 justify-between items-center">
+    <div data-dropdown-target="dropdownMenu" class="flex hidden w-full h-full flex-col gap-2 sm:gap-4 justify-between items-center">
       <% if signed_in? %>
         <nav class="p-1 flex sm:gap-5 gap-1 justify-around w-full">
           <a href="<%= books_path %>" class="p-2 text-primary sm:text-md text-sm hover-underline flex gap-6 self-start">
@@ -54,16 +61,23 @@
           </a>
         </nav>
       <% end %>
-      <form action="<%= search_path %>" method="get" class="w-full">
-        <div class="border-gray-200 rounded-md pl-1 flex items-center justify-between focus-within:ring-3 focus-within:ring-primary focus-within:border-transparent border-1">
-          <input class="w-full outline-none border-none" required type="search" name="q" style="appearance: none; box-shadow: none;" placeholder="Search..." />
-          <button type="submit" class="border-primary border-1 shadow-sm text-primary flex justify-center m-[2px] items-center rounded-md p-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </button>
-        </div>
-      </form>
+      <div class="flex flex-col items-center w-full" data-controller="autocomplete">
+        <form action="<%= search_path %>" autocomplete="off" method="get" class="w-full">
+          <div class="border-gray-200 rounded-md pl-1 flex items-center justify-between focus-within:ring-3 focus-within:ring-primary focus-within:border-transparent border-1">
+            <input data-autocomplete-target="input" data-action="input->autocomplete#update" class="w-full outline-none border-none" required type="search" name="q" style="appearance: none; box-shadow: none;" placeholder="Search..." />
+            <button type="submit" class="border-primary border-1 shadow-sm text-primary flex justify-center m-[2px] items-center rounded-md p-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
+          </div>
+        </form>
+        <div id="sm-header-autocomplete" class="w-full"></div>
+        <form class="hidden" method="post" data-autocomplete-target="form" action="<%= search_autocomplete_path %>">
+          <input type="hidden" name="id" value="sm-header-autocomplete" />
+          <input type="hidden" name="q" data-autocomplete-target="hidden" />
+        </form>
+      </div>
       <% unless signed_in? %>
         <%= link_to "Log in", login_path, class: 'btn btn-primary w-full text-center btn-outline mx-2 p-2 px-3' %>
         <%= link_to "Sign up", signup_path, class: 'btn btn-primary w-full text-center p-2 px-3 mx-2' %>

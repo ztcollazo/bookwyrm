@@ -8,11 +8,18 @@
     </a>
     <a href="<%= search_authors_path q: params[:q] %>" class="text-primary hover-underline w-max">View author results</a>
   </div>
-  <div class="md:text-4xl sm:text-3xl text-2xl text-center md:text-left font-bold flex gap-2 sm:flex-nowrap flex-wrap items-center justify-center">
-    <h1 style="flex: 1 0 320px;" class="w-full">Book results for:&nbsp;</h1>
-    <form style="flex: 1 1 50%;" action="<%= search_books_path %>" method="get" class="w-full flex flex-col items-center justify-stretch">
-      <input type="search" class="input w-full rounded focus:ring-2 ring-primary py-2 px-3" name="q" value="<%= params[:q] %>" placeholder="Search..." />
-    </form>
+  <div class="flex gap-2 sm:flex-nowrap flex-wrap items-center justify-stretch">
+    <h1 style="flex: 1 0 320px;" class="w-full text-center md:text-left font-bold sm:text-3xl text-2xl">Book results for:&nbsp;</h1>
+    <div class="w-full flex flex-col items-center" data-controller="autocomplete">
+      <form autocomplete="off" style="flex: 1 1 50%;" action="<%= search_books_path %>" method="get" class="w-full flex flex-col items-center justify-stretch">
+        <input data-action="input->autocomplete#update" data-autocomplete-target="input" type="search" class="input w-full rounded focus:ring-2 ring-primary px-3 py-2" name="q" value="<%= params[:q] %>" placeholder="Search..." />
+      </form>
+      <div id="search-autocomplete" class="w-full"></div>
+      <form class="hidden" method="post" data-autocomplete-target="form" action="<%= search_autocomplete_path %>">
+        <input type="hidden" name="id" value="search-autocomplete" />
+        <input type="hidden" name="q" data-autocomplete-target="hidden" />
+      </form>
+    </div>
   </div>
   <%= turbo_frame_tag "search_#{params[:q]}_books" do %>
     <div id="results" class="flex flex-col items-center gap-5">

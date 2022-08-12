@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/search', to: 'search#index'
   get 'search/books'
   get 'search/authors'
+  post 'search/autocomplete'
   # Have to put this first so that it doesn't get confused with books/show
   get '/books/recommended'
   resources :users, only: %i[show]

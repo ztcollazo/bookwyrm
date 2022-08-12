@@ -1,0 +1,10 @@
+<% unless @books.count == 0 and @authors.count == 0 %>
+  <div class="absolute w-auto overflow-hidden rounded-lg shadow-lg mt-5 mr-5 bg-white flex flex-col gap-2 justify-between items-center">
+    <% @books.each do |book| %>
+      <%= render 'entry', book: book %>
+    <% end %>
+    <% @authors.each do |author| %>
+      <%= render 'entry', author: author %>
+    <% end %>
+  </div>
+<% end %>
