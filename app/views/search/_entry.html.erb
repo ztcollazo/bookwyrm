@@ -1,0 +1,25 @@
+<% if local_assigns[:book] %>
+  <div class="hover:bg-gray-400/40 w-full">
+    <a href="<%= book_path book.isbn_13 %>" class="w-full flex flex-row gap-2 items-center justify-between">
+      <div class="h-20">
+        <img class="m-0 h-full w-full" src="<%= book.cover %>" alt="<%= book.title %>" />
+      </div>
+      <div class="flex flex-col gap-2 p-1 w-full">
+        <p class="text-primary text-md w-full">BOOK</p>
+        <h2 class="text-lg w-full"><%= book.title %></h2>
+      </div>
+    </a>
+  </div>
+<% elsif local_assigns[:author] %>
+  <div class="hover:bg-gray-400/40 w-full">
+    <a href="<%= author_path author %>" class="w-full flex flex-row gap-2 items-center justify-between">
+      <div class="h-20">
+        <img src="https://covers.openlibrary.org/a/id/<%= author.photos[0] %>.jpg" alt="<%= author.name %> image" class="m-0 h-full w-full" />
+      </div>
+      <div class="flex flex-col gap-2 p-1 w-full">
+        <p class="text-primary text-md w-full">AUTHOR</p>
+        <h2 class="text-lg w-full"><%= author.name %></h2>
+      </div>
+    </a>
+  </div>
+<% end %>

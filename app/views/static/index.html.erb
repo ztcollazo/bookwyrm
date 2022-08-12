@@ -54,10 +54,15 @@
         <h2 class="md:text-5xl sm:text-3xl text-2xl font-inika">The place for all books</h2>
         <%= link_to 'Sign up', signup_path, class: 'btn mt-10 text-center btn-primary w-full' %>
       </div>
-      <div class="w-full h-full">
-        <form class="w-full flex flex-col h-full justify-center gap-6" action="<%= search_path %>" method="get">
-          <input type="text" name="q" placeholder="Search BookWyrm"/>
+      <div data-controller="autocomplete" class="w-full h-full">
+        <form autocomplete="off" class="w-full flex flex-col h-full justify-center gap-6" action="<%= search_path %>" method="get">
+          <input data-action="input->autocomplete#update" data-autocomplete-target="input" type="text" name="q" placeholder="Search BookWyrm"/>
+          <div id="home-autocomplete" class="w-full"></div>
           <input type="submit" value="Search" class="btn btn-primary btn-outline px-3 p-2"/>
+        </form>
+        <form class="hidden" method="post" data-autocomplete-target="form" action="<%= search_autocomplete_path %>">
+          <input type="hidden" name="id" value="home-autocomplete" />
+          <input type="hidden" name="q" data-autocomplete-target="hidden" />
         </form>
       </div>
     </div>
