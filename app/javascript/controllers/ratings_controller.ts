@@ -2,7 +2,7 @@ import {Controller} from '@hotwired/stimulus';
 
 /**
  * The controller for Ratings (radio buttons)
- * @class
+ * @class RatingsController
  */
 export default class RatingsController extends Controller {
   declare readonly valueTarget: HTMLInputElement;
@@ -12,7 +12,7 @@ export default class RatingsController extends Controller {
 
   /**
    * Callback for connecting on DOM init
-   * @function
+   * @method connect
    */
   connect() {
     super.connect();
@@ -23,7 +23,7 @@ export default class RatingsController extends Controller {
 
   /**
    * Set the color of the stars and the value of the input
-   * @function
+   * @method fix
    * @param {MouseEvent} event
    */
   fix(event: MouseEvent) {

@@ -2,7 +2,7 @@ import {Controller} from '@hotwired/stimulus';
 
 /**
  * The dropdown/disclosure controller
- * @class
+ * @class DropdownController
  */
 export default class DropdownController extends Controller {
   hiddenClass = 'hidden';
@@ -13,7 +13,7 @@ export default class DropdownController extends Controller {
 
   /**
    * Initialize the connection on DOM load
-   * @function
+   * @method connect
    */
   connect() {
     super.connect();
@@ -26,7 +26,7 @@ export default class DropdownController extends Controller {
 
   /**
    * Toggle the disclosure
-   * @function
+   * @method toggle
    * @param {MouseEvent} event
    */
   toggle(event: MouseEvent) {
@@ -42,7 +42,7 @@ export default class DropdownController extends Controller {
 
   /**
    * Flat out close the disclosure
-   * @function
+   * @method close
    */
   close() {
     if (Array.isArray(this.hiddenClasses)) {

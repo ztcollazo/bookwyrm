@@ -76,7 +76,7 @@ const bookPreview = (bookData: BookData) => {
 
 /**
  * Stimulus controller for creating books
- * @class
+ * @class BooksController
  */
 export default class BooksController extends Controller {
   declare bookValue: BookData;
@@ -120,7 +120,7 @@ export default class BooksController extends Controller {
 
   /**
    * This is the actual logic for creating the book
-   * @function
+   * @method getData
    * @param {KeyboardEvent} event
    */
   async getData(event: KeyboardEvent) {
