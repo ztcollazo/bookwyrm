@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post 'search/autocomplete'
   # Have to put this first so that it doesn't get confused with books/show
   get '/books/recommended'
+  get '/books/random'
   resources :users, only: %i[show]
   # For books and authors, we can limit the necessary routes because
   # All of the data comes from OpenLibrary.

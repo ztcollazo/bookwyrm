@@ -4,8 +4,8 @@
   <h2 class="sm:text-3xl text-lg">This is just your typical 404 page.</h2>
   <h2 class="sm:text-3xl text-lg">What would you like to do?</h2>
   <div class="flex gap-6 justify-center items-center mt-5 flex-wrap">
-    <h3 class="sm:text-xl text-md text-primary hover-underline"><%= link_to 'Return to Betelgeuse 5', root_url %></h3>
-    <h3 class="sm:text-xl text-md text-primary hover-underline"><%= link_to 'Hitch a lift with the Vogons', book_path(Book.pluck(:isbn_13).sample) %></h3>
+    <h3 class="sm:text-xl text-md text-primary hover-underline"><%= link_to 'Return Home', root_url %></h3>
+    <h3 class="sm:text-xl text-md text-primary hover-underline"><%= link_to 'Hitch a lift with the Vogons', books_random_path %></h3>
     <h3 class="sm:text-xl text-md text-primary hover-underline"><%= link_to '42', book_path(9780671746063) %></h3>
   </div>
   <img class="m-auto sm:w-1/3 w-3/4" alt="Green bug-eyed monster" src="<%= asset_path 'monster.svg' %>" />

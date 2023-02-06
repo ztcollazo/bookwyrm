@@ -85,7 +85,7 @@
     </div>
   </div>
   <% if signed_in? %>
-    <nav class="fixed border-r-1 hidden border-gray-100 bg-white left-0 top-0 bottom-0 pt-24 p-3 md:flex gap-5 flex-col">
+    <nav class="fixed border-r-1 hidden border-gray-100 bg-white left-0 top-0 bottom-0 pt-24 p-2 md:flex gap-4 flex-col">
       <div data-controller="dropdown" class="flex" data-dropdown-hidden-class="hidden" data-action="mouseout->dropdown#close">
         <a data-action="mouseover->dropdown#toggle" style="transition: background-color .1s linear;" href="<%= books_path %>" class="p-2 text-primary-dark rounded-md hover:bg-primary-light <%= current_page?(controller: '/books', action: 'index') ? 'bg-primary-light' : 'bg-transparent' %>">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
