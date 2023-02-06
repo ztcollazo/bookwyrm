@@ -12,8 +12,8 @@ class UpdateRecommendationsJob < ApplicationJob
     users.each do |user|
       user.update_recommended_books(recommender.user_recs(user.id))
     end
-    bin = Marshal.dump(recommender)
-    File.binwrite('tmp/recommender.bin', bin)
+    json = recommender.to_json
+    File.write('tmp/recommender.json', json)
   end
 
   private

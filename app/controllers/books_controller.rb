@@ -8,18 +8,21 @@ class BooksController < ApplicationController
   # GET /books
   # we need this rescue so that disco does not throw "comparison of float with 0 failed"
   def index
-    bin = File.binread('tmp/recommender.bin')
-    # rubocop:disable Security/MarshalLoad
-    recommender = Marshal.load(bin)
-    # rubocop:enable Security/MarshalLoad
+    json = File.read('tmp/recommender.json')
+    recommender = Disco::Recommender.load_json(json)
     @books = Book.find(recommender.top_items(count: 10).pluck(:item_id))
   rescue StandardError
-    @books = Book.includes(:reviews).order('reviews.rating ASC').limit(10)
+    @books = Book.includes(:reviews).order('reviews.rating')
   end
 
   # GET /books/recommended
   def recommended
     @books = current_user.recommended_books.paginate(page: params[:page], per_page: 10)
+  end
+
+  # GET /books/random
+  def random
+    redirect_to book_path(Book.pluck(:isbn_13).sample)
   end
 
   # GET /books/1
