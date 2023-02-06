@@ -29,7 +29,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User do
   subject { create(:user) }
 
   describe 'validations' do

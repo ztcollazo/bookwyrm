@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe SearchController, type: :controller do
+RSpec.describe SearchController do
   describe 'GET #index' do
     context 'when empty search' do
       before { get :index }

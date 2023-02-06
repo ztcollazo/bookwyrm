@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe StaticController, type: :controller do
+RSpec.describe StaticController do
   describe 'GET #index' do
     before { get :index }
 

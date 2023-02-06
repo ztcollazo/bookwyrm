@@ -26,7 +26,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe Review, type: :model do
+RSpec.describe Review do
   subject { create(:review) }
 
   describe 'validations' do

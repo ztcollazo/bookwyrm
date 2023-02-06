@@ -22,7 +22,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe Author, type: :model do
+RSpec.describe Author do
   subject { create(:author) }
 
   describe 'validations' do

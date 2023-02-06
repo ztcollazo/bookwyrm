@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe BooksController, type: :controller do
+RSpec.describe BooksController do
   let :user do
     user = build(:user)
     user.confirm

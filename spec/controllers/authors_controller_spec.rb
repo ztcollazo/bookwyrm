@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe AuthorsController, type: :controller do
+RSpec.describe AuthorsController do
   describe 'GET #show' do
     before { get :show, params: { id: create(:author).id } }
 

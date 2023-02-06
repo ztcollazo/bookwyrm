@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ReviewsController, type: :controller do
+RSpec.describe ReviewsController do
   let! :user do
     user = build(:user)
     user.confirm
