@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@hotwired/stimulus": "^3.0.1",
-    "@hotwired/turbo-rails": "^7.1.1",
+    "@hotwired/turbo-rails": "^7.3.0",
     "stimulus-vite-helpers": "^3.0.0",
     "vite": "^4.0.0",
     "vite-plugin-full-reload": "^1.0.0",
